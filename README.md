@@ -9,7 +9,7 @@ At this stage, it's to early to even think about installing anything. The intern
 
 Authors
 -----------
-Hieracles original code is writen by @mose.
+Hieracles original code is writen by [@mose](https://github.com/mose).
 
 License
 -----------
