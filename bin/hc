@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path("../../lib", __FILE__)
+
+require 'hieracles'
+
+options = {}
+payload = []
+while x = ARGV.shift
+  if x[0] == '-'
+    options[x[/[a-z][-_a-z]*$/]] = ARGV.shift
+  else
+    payload << x
+  end
+end
+
+fqdn = payload[0]
+command = payload[1]
+args = payload[2..-1]
+
+unless fqdn && command
+  Hieracles.usage
+  exit(1)
+end
+
+if Hieracles::Dispatch.method_defined? command
+  node = Hieracles::Node.new fqdn, options
+  begin
+    formatter = Object.const_get("Hieracles::Formats::#{Hieracles::Config.format}")
+  rescue
+    puts "  Unknown format #{Hieracles::Config.format}"
+    exit(1)
+  end
+  dispatch = formatter.new node
+  dispatch.send command.to_sym, args
+else
+  puts "  Unknown command: #{command}"
+  Hieracles.usage
+  exit(1)
+end
