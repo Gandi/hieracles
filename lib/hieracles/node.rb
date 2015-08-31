@@ -115,24 +115,28 @@ module Hieracles
 				modules = {}
 				f = File.open(classfile, "r")
 				f.each_line do |line|
-				  if /^\s*include\s*([-_:a-zA-Z0-9]*)\s*/.match line
-				  	mod = $1
-				  	if modules[mod] && Config.format != 'raw'
-				  		modules[mod] += " (duplicate)"
-				  	else
-				  		if Dir.exists? modulepath(mod)
-					  		modules[mod] = "modules/#{mod}"
-					  	elsif Config.format != 'raw'
-					  		modules[mod] = "not found."
-					  	end
-				  	end
-				  end
+					modules = add_module(line, modules)
 				end
 				f.close
 				modules
 			else
 				puts "Class file #{classfile} not found."
 			end
+		end
+
+		def add_modules(line, modules)
+		  if /^\s*include\s*([-_:a-zA-Z0-9]*)\s*/.match line
+		  	mod = $1
+		  	if modules[mod] && Config.format != 'raw'
+		  		modules[mod] += " (duplicate)"
+		  	else
+		  		if Dir.exists? modulepath(mod)
+			  		modules[mod] = "modules/#{mod}"
+			  	elsif Config.format != 'raw'
+			  		modules[mod] = "not found."
+			  	end
+		  	end
+		  end
 		end
 
 	end
