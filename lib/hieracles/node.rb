@@ -39,26 +39,34 @@ module Hieracles
 		def populate_info(fqdn)
 			# temporary solution
 			if Dir.exist?(File.join(Config.localpath, 'enc'))
-				if File.exist?(File.join(Config.localpath, 'enc', "#{fqdn}.yaml"))
-					load = YAML.load_file(File.join(Config.localpath, 'enc', "#{fqdn}.yaml"))
-					@farm = load['parameters']['farm']
-					@datacenter = load['parameters']['datacenter']
-					@country = load['parameters']['country']
-				else
-					puts "Node not found"
-				end
+				populate_from_encdir(fqdn)
 			else
-				uri = URI.parse("http://#{Config.server}/cgi-bin/nodeinfo?q=#{fqdn}")
-				res = Net::HTTP.get_response(uri)
-				if res.body == 'KO'
-					puts "Bad arguments."
+				populate_from_cgi(fqdn)
+			end
+		end
+
+		def populate_from_encdir(fqdn)
+			if File.exist?(File.join(Config.localpath, 'enc', "#{fqdn}.yaml"))
+				load = YAML.load_file(File.join(Config.localpath, 'enc', "#{fqdn}.yaml"))
+				@farm = load['parameters']['farm']
+				@datacenter = load['parameters']['datacenter']
+				@country = load['parameters']['country']
+			else
+				puts "Node not found"
+			end
+		end
+
+		def populate_from_cgi(fqdn)
+			uri = URI.parse("http://#{Config.server}/cgi-bin/nodeinfo?q=#{fqdn}")
+			res = Net::HTTP.get_response(uri)
+			if res.body == 'KO'
+				puts "Bad arguments."
+			else
+				if res.body == ''
+					puts "Node not found"
 				else
-					if res.body == ''
-						puts "Node not found"
-					else
-						@farm, @datacenter, @country = res.body.strip.split(",")
-						#puts "%s - %s - %s" % [@farm, @datacenter, @country]
-					end
+					@farm, @datacenter, @country = res.body.strip.split(",")
+					#puts "%s - %s - %s" % [@farm, @datacenter, @country]
 				end
 			end
 		end
