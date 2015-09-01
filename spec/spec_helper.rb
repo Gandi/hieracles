@@ -1,11 +1,12 @@
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 require 'rubygems'
 require 'bundler'
-require 'hieracles'
 
 if ENV['COV']
   require 'simplecov'
   SimpleCov.profiles.define :app do
+    add_group 'bin', '/bin'
+    add_group 'lib', '/lib'
     add_filter '/vendor/'
     add_filter '/spec/'
   end
@@ -14,6 +15,8 @@ else
   require 'coveralls'
   Coveralls.wear!
 end
+
+require 'hieracles'
 
 RSpec.configure do |config|
   config.mock_with :rspec
