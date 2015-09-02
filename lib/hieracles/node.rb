@@ -38,7 +38,7 @@ module Hieracles
 
 		def populate_info(fqdn)
 			# temporary solution
-			if Dir.exist?(File.join(Config.localpath, 'enc'))
+			if Dir.exist?('enc')
 				populate_from_encdir(fqdn)
 			else
 				populate_from_cgi(fqdn)
@@ -46,8 +46,8 @@ module Hieracles
 		end
 
 		def populate_from_encdir(fqdn)
-			if File.exist?(File.join(Config.localpath, 'enc', "#{fqdn}.yaml"))
-				load = YAML.load_file(File.join(Config.localpath, 'enc', "#{fqdn}.yaml"))
+			if File.exist?(File.join('enc', "#{fqdn}.yaml"))
+				load = YAML.load_file(File.join('enc', "#{fqdn}.yaml"))
 				@farm = load['parameters']['farm']
 				@datacenter = load['parameters']['datacenter']
 				@country = load['parameters']['country']
@@ -80,11 +80,7 @@ module Hieracles
 		end
 
 		def addfile(path)
-			@files << path if File.exist?(yamlpath(path))
-		end
-
-		def yamlpath(path)
-			File.join(Config.localpath, path)
+			@files << path if File.exist?(path)
 		end
 
 		def classpath(path)
@@ -98,7 +94,7 @@ module Hieracles
 		def populate_params
 			params = {}
 			@files.each do |f|
-				data = YAML.load_file(yamlpath(f))
+				data = YAML.load_file(f)
 				s = to_shallow_hash(data)
 				s.each do |k,v|
 					params[k] ||= []

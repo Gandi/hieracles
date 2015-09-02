@@ -15,7 +15,7 @@ module Hieracles
       @colors = values['colors']
       @server = values['server']
       @localpath = values['localpath']
-      @classespath = File.join(@localpath, 'manifests', 'classes')
+      @classespath = File.join('manifests', 'classes')
     end
 
     def initconfig(file)
