@@ -1,15 +1,14 @@
 require 'fileutils'
 
 module Hieracles
-
   module Config
-    extend self
+    module_function
 
     attr_reader :server, :classpath, :format, :colors
 
     def load(options)
-      @optionfile = options['c'] || File.join(ENV['HOME'], '.config', 'hieracles', 'config.yml')
-      self.initconfig(@optionfile) unless File.exist? @optionfile
+      @optionfile = options['c'] || defaultconfig
+      initconfig(@optionfile) unless File.exist? @optionfile
       values = YAML.load_file(@optionfile)
       @colors = values['colors']
       @server = values['server']
@@ -19,7 +18,7 @@ module Hieracles
 
     def initconfig(file)
       FileUtils.mkdir_p(File.dirname(file))
-      File.open(file,'w') do |f|
+      File.open(file, 'w') do |f|
         f.puts '---'
         f.puts '# uncomment if you use the CGI method for discovery'
         f.puts '# server: puppetserver.example.com'
@@ -28,6 +27,8 @@ module Hieracles
       end
     end
 
+    def defaultconfig
+      File.join(ENV['HOME'], '.config', 'hieracles', 'config.yml')
+    end
   end
-
 end

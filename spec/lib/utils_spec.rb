@@ -4,8 +4,18 @@ describe Hieracles::Utils do
   include Hieracles::Utils
 
   it 'can deep sort hashes' do
-    hash = { b: '', a: { aa: 'aa' }, d: 'd', c: [cb: ['b', 'a', 'c'], ca: { caa: 'caa' }] }
-    expected = { a: { aa: 'aa' }, b: '', c: [ca: { caa: 'caa' }, cb: ['a', 'b', 'c']], d: 'd' }
+    hash = {
+      b: '',
+      a: { aa: 'aa' },
+      d: 'd',
+      c: [cb: %w(b a c), ca: { caa: 'caa' }]
+    }
+    expected = {
+      a: { aa: 'aa' },
+      b: '',
+      c: [ca: { caa: 'caa' }, cb: %w(a b c)],
+      d: 'd'
+    }
     expect(deep_sort hash).to eq expected
   end
 
@@ -19,7 +29,7 @@ describe Hieracles::Utils do
       }
       @deep_hash = {
         pressrelease: {
-          label: { 
+          label: {
             one: 'Pressmeddelande',
             other: 'Pressmeddelanden'
           }
@@ -36,9 +46,5 @@ describe Hieracles::Utils do
     it 'converts a deep hash to a shallow one' do
       expect(to_shallow_hash @deep_hash).to eq @shallow_hash
     end
-
   end
-
-
 end
-
