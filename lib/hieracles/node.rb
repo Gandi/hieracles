@@ -84,7 +84,7 @@ module Hieracles
 		end
 
 		def classpath(path)
-			File.join(Config.classespath, "#{path}.pp")
+			Config.classpath % path
 		end
 
 		def modulepath(path)
@@ -107,32 +107,33 @@ module Hieracles
 		def populate_modules
 			classfile = classpath(@farm)
 			if File.exist?(classfile)
-				@classfile = "manifests/classes/#{farm}.pp"
 				modules = {}
 				f = File.open(classfile, "r")
 				f.each_line do |line|
-					modules = add_module(line, modules)
+					modules = add_modules(line, modules)
 				end
 				f.close
 				modules
 			else
-				puts "Class file #{classfile} not found."
+				raise "Class file #{classfile} not found."
 			end
 		end
 
 		def add_modules(line, modules)
-		  if /^\s*include\s*([-_:a-zA-Z0-9]*)\s*/.match line
+		  if /^\s*include\s*([-_:a-zA-Z0-9]*)\s*/.match(line)
 		  	mod = $1
-		  	if modules[mod] && Config.format != 'raw'
+		  	mainmod = mod[/^[^:]*/]
+		  	if modules[mod]
 		  		modules[mod] += " (duplicate)"
 		  	else
-		  		if Dir.exists? modulepath(mod)
-			  		modules[mod] = "modules/#{mod}"
-			  	elsif Config.format != 'raw'
+		  		if Dir.exists? modulepath(mainmod)
+			  		modules[mod] = "modules/#{mainmod}"
+			  	else
 			  		modules[mod] = "not found."
 			  	end
 		  	end
 		  end
+		  modules
 		end
 
 	end

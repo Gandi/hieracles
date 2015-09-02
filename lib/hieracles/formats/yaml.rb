@@ -20,8 +20,6 @@ module Hieracles
       def paths(*args)
         puts @node.paths.to_yaml
       end
-      alias path paths
-
 
       def params(args)
         filter = args[0]
@@ -48,14 +46,11 @@ module Hieracles
           end
         end
       end
-      alias param params
-
 
       def allparams(args)
         @node.add_common
         params(args)
       end
-      alias all allparams
 
       def modules(args)
         if Config.format == 'raw'
@@ -74,7 +69,6 @@ module Hieracles
           end
         end
       end
-      alias classes modules
 
     end
 

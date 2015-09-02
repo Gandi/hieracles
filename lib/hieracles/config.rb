@@ -5,7 +5,7 @@ module Hieracles
   module Config
     extend self
 
-    attr_reader :server, :classespath, :format, :colors
+    attr_reader :server, :classpath, :format, :colors
 
     def load(options)
       @optionfile = options['c'] || File.join(ENV['HOME'], '.config', 'hieracles', 'config.yml')
@@ -14,7 +14,7 @@ module Hieracles
       values = YAML.load_file(@optionfile)
       @colors = values['colors']
       @server = values['server']
-      @classespath = File.join('manifests', 'classes')
+      @classpath = values['classpath']
     end
 
     def initconfig(file)
@@ -24,6 +24,7 @@ module Hieracles
         f.puts '# uncomment if you use the CGI method for discovery'
         f.puts '# server: puppetserver.exmaple.com'
         f.puts 'colors: true'
+        f.puts 'classpath: manifests/classes/%s.pp'
       end
     end
 

@@ -17,7 +17,6 @@ module Hieracles
       def paths(*args)
         puts @node.paths
       end
-      alias path paths
 
       def params(args)
         filter = args[0]
@@ -72,6 +71,15 @@ module Hieracles
         end
       end
       alias classes modules
+
+      def show_head(colors)
+        @node.files.each_with_index do |f,i|
+          puts color(i) % "[#{i}] #{f}"
+          colors[f] = i
+        end
+        puts
+      end
+
 
     end
 

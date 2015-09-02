@@ -34,10 +34,12 @@ module Hieracles
     def params(args)
       filter = args[0]
       colors = {}
-      show_head
+      output = ""
+      output << show_head(colors)
       @node.params.each do |k, v|
-        show_params(k, v, filter)
+        output <<show_params(k, v, filter, colors)
       end
+      puts output
     end
     alias param params
 
@@ -68,7 +70,7 @@ module Hieracles
 
   protected
 
-    def show_head
+    def show_head(colors)
       @node.files.each_with_index do |f,i|
         puts color(i) % "[#{i}] #{f}"
         colors[f] = i
@@ -76,18 +78,18 @@ module Hieracles
       puts
     end
 
-    def show_params(key, value, filter)
+    def show_params(key, value, filter, colors)
       if !filter || Regexp.new(filter).match(k)
-        first = v.shift
+        first = value.shift
         begin
-          puts "#{color(colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}" % ["[#{colors[first[:file]]}]", k]
+          puts "#{color(colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}" % ["[#{colors[first[:file]]}]", key]
         rescue
           puts "--debug----"
           puts "#{color(colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}"
           puts "--/debug----"
         end
-        while v.count > 0
-          overriden = v.shift
+        while value.count > 0
+          overriden = value.shift
           puts "    #{color(8)}" % ["[#{colors[overriden[:file]]}] #{k} #{overriden[:value]}"]
         end
       end
