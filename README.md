@@ -1,6 +1,8 @@
 Hieracles
 ================
 
+[![Build Status](https://img.shields.io/travis/Gandi/hieracles.svg)](https://travis-ci.org/Gandi/hieracles)
+[![Coverage Status](https://img.shields.io/coveralls/Gandi/hieracles.svg)](https://coveralls.io/r/Gandi/hieracles?branch=master)
 [![Dependency Status](https://img.shields.io/gemnasium/Gandi/hieracles.svg)](https://gemnasium.com/Gandi/hieracles)
 [![Code Climate](https://img.shields.io/codeclimate/github/Gandi/hieracles.svg)](https://codeclimate.com/github/Gandi/hieracles)
 

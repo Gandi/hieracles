@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'hieracles/utils'
 
 describe Hieracles::Utils do
   include Hieracles::Utils
