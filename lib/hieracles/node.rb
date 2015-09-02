@@ -23,11 +23,11 @@ module Hieracles
 		end
 
 		def params
-			@_populated_params ||= populate_params
+			@_populated_params ||= populate_params(@files)
 		end
 
 		def modules
-			@_populated_modules ||= populate_modules
+			@_populated_modules ||= populate_modules(@farm)
 		end
 
 		def add_common
@@ -91,9 +91,9 @@ module Hieracles
 			File.join("modules", path)
 		end
 
-		def populate_params
+		def populate_params(files)
 			params = {}
-			@files.each do |f|
+			files.each do |f|
 				data = YAML.load_file(f)
 				s = to_shallow_hash(data)
 				s.each do |k,v|
@@ -104,8 +104,8 @@ module Hieracles
 			params.sort
 		end
 
-		def populate_modules
-			classfile = classpath(@farm)
+		def populate_modules(farm)
+			classfile = classpath(farm)
 			if File.exist?(classfile)
 				modules = {}
 				f = File.open(classfile, "r")

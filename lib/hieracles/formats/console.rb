@@ -43,15 +43,11 @@ module Hieracles
           end
         end
       end
-      alias param params
-
 
       def allparams(args)
         @node.add_common
         params(args)
       end
-      alias all allparams
-
 
       def modules(args)
         if Config.format == 'raw'
@@ -70,7 +66,6 @@ module Hieracles
           end
         end
       end
-      alias classes modules
 
       def show_head(colors)
         @node.files.each_with_index do |f,i|
@@ -79,7 +74,6 @@ module Hieracles
         end
         puts
       end
-
 
     end
 
