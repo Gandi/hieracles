@@ -18,7 +18,7 @@ describe Hieracles::Config do
       end
     end
 
-    context "without an existing config file" do
+    context 'without an existing config file' do
      let(:options) { 
         {
           'c' => File.expand_path('../../files/config_no.yml', __FILE__)
@@ -30,11 +30,11 @@ describe Hieracles::Config do
       }
       after { FileUtils.rm(options['c']) if File.exist? options['c'] }
 
-      it "creates a default config file" do
+      it 'creates a default config file' do
         expect(File.exist? options['c']).to be_truthy
       end
 
-      it "initialize config values" do
+      it 'initialize config values' do
         expect(Hieracles::Config.classpath).to eq "manifests/classes/%s.pp"
         expect(Hieracles::Config.colors).to be_truthy
       end

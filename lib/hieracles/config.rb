@@ -9,12 +9,12 @@ module Hieracles
 
     def load(options)
       @optionfile = options['c'] || File.join(ENV['HOME'], '.config', 'hieracles', 'config.yml')
-      @format = (options['f'] || 'console').capitalize
       self.initconfig(@optionfile) unless File.exist? @optionfile
       values = YAML.load_file(@optionfile)
       @colors = values['colors']
       @server = values['server']
       @classpath = values['classpath']
+      @format = (options['f'] || values['format'] || 'console').capitalize
     end
 
     def initconfig(file)
@@ -22,7 +22,7 @@ module Hieracles
       File.open(file,'w') do |f|
         f.puts '---'
         f.puts '# uncomment if you use the CGI method for discovery'
-        f.puts '# server: puppetserver.exmaple.com'
+        f.puts '# server: puppetserver.example.com'
         f.puts 'colors: true'
         f.puts 'classpath: manifests/classes/%s.pp'
       end
