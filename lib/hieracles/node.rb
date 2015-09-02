@@ -19,7 +19,7 @@ module Hieracles
 		end
 
 		def paths
-			@files.map { |p| File.expand_path(File.join(Config.localpath, p)) }
+			@files.map { |p| File.expand_path(p) }
 		end
 
 		def params
@@ -88,7 +88,7 @@ module Hieracles
 		end
 
 		def modulepath(path)
-			File.join(Config.localpath, "modules", path)
+			File.join("modules", path)
 		end
 
 		def populate_params
