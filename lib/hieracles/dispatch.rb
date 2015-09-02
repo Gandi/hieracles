@@ -2,41 +2,30 @@ module Hieracles
 
   class Dispatch
 
-    COLORS = [
-      "\e[31m%s\e[0m",
-      "\e[32m%s\e[0m",
-      "\e[33m%s\e[0m",
-      "\e[34m%s\e[0m",
-      "\e[35m%s\e[0m",
-      "\e[36m%s\e[0m",
-      "\e[37m%s\e[0m",
-      "\e[38m%s\e[0m",
-      "\e[97m%s\e[0m"
-    ]
 
     def initialize(node)
       @node = node
     end
 
     def info(*args)
-      puts [ @node.fqdn, @node.farm, @node.datacenter, @node.country ].join(',')
+      puts "not implemented, please inherit from the Hieracles::Dispatch class to implement a format."
     end
 
     def files(*args)
-      puts @node.files.join(',')
+      puts "not implemented, please inherit from the Hieracles::Dispatch class to implement a format."
     end
 
     def paths(*args)
-      puts @node.paths.join(',')
+      puts "not implemented, please inherit from the Hieracles::Dispatch class to implement a format."
     end
 
     def params(args)
       filter = args[0]
-      colors = {}
+      @colors = {}
       output = ""
-      output << show_head(colors)
+      output << show_head
       @node.params.each do |k, v|
-        output << show_params(k, v, filter, colors)
+        output << show_params(k, v, filter)
       end
       puts output
     end
@@ -66,7 +55,7 @@ module Hieracles
 
   protected
 
-    def show_head(colors)
+    def show_head
       output = ""
       @node.files.each_with_index do |f,i|
         output << color(i) % "[#{i}] #{f}"
@@ -75,31 +64,23 @@ module Hieracles
       "#{output}\n"
     end
 
-    def show_params(key, value, filter, colors)
+    def show_params(key, value, filter)
       output = ""
       if !filter || Regexp.new(filter).match(k)
         first = value.shift
         begin
-          output << "#{color(colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}" % ["[#{colors[first[:file]]}]", key]
+          output << "#{color(@colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}" % ["[#{@colors[first[:file]]}]", key]
         rescue
           output << "--debug----"
-          output << "#{color(colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}"
+          output << "#{color(@colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}"
           output << "--/debug----"
         end
         while value.count > 0
           overriden = value.shift
-          output << "    #{color(8)}" % ["[#{colors[overriden[:file]]}] #{k} #{overriden[:value]}"]
+          output << "    #{color(8)}" % ["[#{@colors[overriden[:file]]}] #{k} #{overriden[:value]}"]
         end
       end
       output
-    end
-
-    def color(c)
-      if Config.colors
-        COLORS[c]
-      else
-        "%s"
-      end
     end
 
   end

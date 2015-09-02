@@ -2,7 +2,19 @@ module Hieracles
   module Formats
 
     class Console < Hieracles::Dispatch
-      
+
+      COLORS = [
+        "\e[31m%s\e[0m",
+        "\e[32m%s\e[0m",
+        "\e[33m%s\e[0m",
+        "\e[34m%s\e[0m",
+        "\e[35m%s\e[0m",
+        "\e[36m%s\e[0m",
+        "\e[37m%s\e[0m",
+        "\e[38m%s\e[0m",
+        "\e[97m%s\e[0m"
+      ]
+
       def info(*args)
         puts "Node:       %s" % @node.fqdn
         puts "farm:       %s" % @node.farm
@@ -67,12 +79,40 @@ module Hieracles
         end
       end
 
-      def show_head(colors)
+      def show_head
+        output = ""
         @node.files.each_with_index do |f,i|
-          puts color(i) % "[#{i}] #{f}"
-          colors[f] = i
+          output << color(i) % "[#{i}] #{f}"
+          @colors[f] = i
         end
-        puts
+        "#{output}\n"
+      end
+
+      def show_params(key, value, filter)
+        output = ""
+        if !filter || Regexp.new(filter).match(k)
+          first = value.shift
+          begin
+            output << "#{color(@colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}" % ["[#{@colors[first[:file]]}]", key]
+          rescue
+            output << "--debug----"
+            output << "#{color(@colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}"
+            output << "--/debug----"
+          end
+          while value.count > 0
+            overriden = value.shift
+            output << "    #{color(8)}" % ["[#{@colors[overriden[:file]]}] #{k} #{overriden[:value]}"]
+          end
+        end
+        output
+      end
+
+      def color(c)
+        if Config.colors
+          COLORS[c]
+        else
+          "%s"
+        end
       end
 
     end
