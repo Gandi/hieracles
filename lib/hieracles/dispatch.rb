@@ -34,26 +34,9 @@ module Hieracles
     def params(args)
       filter = args[0]
       colors = {}
-      @node.files.each_with_index do |f,i|
-        puts color(i) % "[#{i}] #{f}"
-        colors[f] = i
-      end
-      puts
+      show_head
       @node.params.each do |k, v|
-        if !filter || Regexp.new(filter).match(k)
-          first = v.shift
-          begin
-            puts "#{color(colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}" % ["[#{colors[first[:file]]}]", k]
-          rescue
-            puts "--debug----"
-            puts "#{color(colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}"
-            puts "--/debug----"
-          end
-          while v.count > 0
-            overriden = v.shift
-            puts "    #{color(8)}" % ["[#{colors[overriden[:file]]}] #{k} #{overriden[:value]}"]
-          end
-        end
+        show_params(k, v, filter)
       end
     end
     alias param params
@@ -84,6 +67,31 @@ module Hieracles
     alias classes modules
 
   protected
+
+    def show_head
+      @node.files.each_with_index do |f,i|
+        puts color(i) % "[#{i}] #{f}"
+        colors[f] = i
+      end
+      puts
+    end
+
+    def show_params(key, value, filter)
+      if !filter || Regexp.new(filter).match(k)
+        first = v.shift
+        begin
+          puts "#{color(colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}" % ["[#{colors[first[:file]]}]", k]
+        rescue
+          puts "--debug----"
+          puts "#{color(colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}"
+          puts "--/debug----"
+        end
+        while v.count > 0
+          overriden = v.shift
+          puts "    #{color(8)}" % ["[#{colors[overriden[:file]]}] #{k} #{overriden[:value]}"]
+        end
+      end
+    end
 
     def color(c)
       if Config.colors

@@ -4,8 +4,6 @@ Hieracles
 [![Dependency Status](https://img.shields.io/gemnasium/Gandi/hieracles.svg)](https://gemnasium.com/Gandi/hieracles)
 [![Code Climate](https://img.shields.io/codeclimate/github/Gandi/hieracles.svg)](https://codeclimate.com/github/Gandi/hieracles)
 
-----
-
 Hieracles is a command-line tool for analysis and deep examination of [Hiera][hiera] paramaters in a [Puppet][puppet] setup. It's used internally at [Gandi][gandi] and its first incarnation is strongly tied to Gandi puppet architecture. But Hieracles tends to become, in time, a generic Hiera overlay visualisation tool.
 
 Install
