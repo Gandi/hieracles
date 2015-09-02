@@ -36,7 +36,7 @@ module Hieracles
       output = ""
       output << show_head(colors)
       @node.params.each do |k, v|
-        output <<show_params(k, v, filter, colors)
+        output << show_params(k, v, filter, colors)
       end
       puts output
     end
@@ -67,28 +67,31 @@ module Hieracles
   protected
 
     def show_head(colors)
+      output = ""
       @node.files.each_with_index do |f,i|
-        puts color(i) % "[#{i}] #{f}"
-        colors[f] = i
+        output << color(i) % "[#{i}] #{f}"
+        @colors[f] = i
       end
-      puts
+      "#{output}\n"
     end
 
     def show_params(key, value, filter, colors)
+      output = ""
       if !filter || Regexp.new(filter).match(k)
         first = value.shift
         begin
-          puts "#{color(colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}" % ["[#{colors[first[:file]]}]", key]
+          output << "#{color(colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}" % ["[#{colors[first[:file]]}]", key]
         rescue
-          puts "--debug----"
-          puts "#{color(colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}"
-          puts "--/debug----"
+          output << "--debug----"
+          output << "#{color(colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}"
+          output << "--/debug----"
         end
         while value.count > 0
           overriden = value.shift
-          puts "    #{color(8)}" % ["[#{colors[overriden[:file]]}] #{k} #{overriden[:value]}"]
+          output << "    #{color(8)}" % ["[#{colors[overriden[:file]]}] #{k} #{overriden[:value]}"]
         end
       end
+      output
     end
 
     def color(c)
