@@ -7,11 +7,11 @@ module Hieracles
     OPTIONS = {
       config: {
         has_arg: true,
-        aliases: ['c','conf']
+        aliases: ['c', 'conf', 'config']
       },
       format: {
         has_arg: true,
-        aliases: ['f','format']
+        aliases: ['f', 'format']
       }
     }
 
