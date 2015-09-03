@@ -24,7 +24,7 @@ if Hieracles::Dispatch.method_defined? command
     exit(1)
   end
   dispatch = formatter.new node
-  dispatch.send command.to_sym, args
+  puts dispatch.send(command.to_sym, args)
 else
   puts "  Unknown command: #{command}"
   Hieracles.usage

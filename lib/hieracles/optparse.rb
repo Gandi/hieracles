@@ -18,7 +18,6 @@ module Hieracles
     def initialize(array)
       @options = {}
       @payload = []
-      puts optionkeys
       ok = optionkeys
       while x = array.shift
         if x[0] == '-'

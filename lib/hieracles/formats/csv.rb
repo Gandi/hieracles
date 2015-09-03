@@ -6,15 +6,15 @@ module Hieracles
       CVS_DELIM = ";"
 
       def info(*args)
-        puts [ @node.fqdn, @node.farm, @node.datacenter, @node.country ].join(',')
+        [ @node.fqdn, @node.farm, @node.datacenter, @node.country ].join(',')
       end
 
       def files(*args)
-        puts @node.files.join(',')
+        @node.files.join(',')
       end
 
       def paths(*args)
-        puts @node.paths.join(',')
+        @node.paths.join(',')
       end
 
       def build_head

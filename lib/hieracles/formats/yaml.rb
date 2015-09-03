@@ -1,6 +1,6 @@
 module Hieracles
   module Formats
-
+    # format mostly useful for re-integration in param files
     class Yaml < Hieracles::Dispatch
 
       def info(*args)
@@ -10,20 +10,17 @@ module Hieracles
           "datacenter" => @node.datacenter,
           "country" => @node.country
         }
-        puts payload.to_yaml
+        payload.to_yaml
       end
 
       def files(*args)
-        puts @node.files.to_yaml
+        @node.files.to_yaml
       end
 
       def paths(*args)
-        puts @node.paths.to_yaml
+        @node.paths.to_yaml
       end
 
-
-
     end
-
   end
 end
