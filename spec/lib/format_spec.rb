@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe Hieracles::Dispatch do
+describe Hieracles::Format do
 
   let(:node) { double("node") }
-  let(:dispatch) { Hieracles::Dispatch.new node }
-  let(:not_implemented) { "%s not implemented, please inherit from the Hieracles::Dispatch class to implement a format.\n"}
+  let(:dispatch) { Hieracles::Format.new node }
+  let(:not_implemented) { "%s not implemented, please inherit from the Hieracles::Format class to implement a format.\n"}
 
   describe '.new' do
     it "defines a node object" do

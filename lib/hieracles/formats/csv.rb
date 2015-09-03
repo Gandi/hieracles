@@ -1,7 +1,7 @@
 module Hieracles
   module Formats
     # for db compatibility
-    class Csv < Hieracles::Dispatch
+    class Csv < Hieracles::Format
       CVS_DELIM = ';'
 
       def info(_)

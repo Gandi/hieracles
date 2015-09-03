@@ -2,7 +2,7 @@ module Hieracles
   module Formats
     # format accepting colors
     # for display in the terminal
-    class Console < Hieracles::Dispatch
+    class Console < Hieracles::Format
       COLORS = [
         "\e[31m%s\e[0m",
         "\e[32m%s\e[0m",

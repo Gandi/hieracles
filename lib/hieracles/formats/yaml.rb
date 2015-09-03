@@ -1,7 +1,7 @@
 module Hieracles
   module Formats
     # format mostly useful for re-integration in param files
-    class Yaml < Hieracles::Dispatch
+    class Yaml < Hieracles::Format
 
       def info(*args)
         payload = {
