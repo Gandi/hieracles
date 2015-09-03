@@ -79,7 +79,7 @@ module Hieracles
         end
       end
 
-      def show_head
+      def build_head
         output = ""
         @node.files.each_with_index do |f,i|
           output << color(i) % "[#{i}] #{f}"
@@ -88,7 +88,7 @@ module Hieracles
         "#{output}\n"
       end
 
-      def show_params(key, value, filter)
+      def build_params_line(key, value, filter)
         output = ""
         if !filter || Regexp.new(filter).match(k)
           first = value.shift

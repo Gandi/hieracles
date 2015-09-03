@@ -17,33 +17,27 @@ module Hieracles
         puts @node.paths.join(',')
       end
 
-      def show_head
+      def build_head
         output = []
         @node.files.each do |f|
           output << f
         end
-        output << "var"
-        output << "value"
-        output << "overriden"
+        output += %w(var value overriden)
         output.join(CVS_DELIM) + "\n"
       end
 
-      def show_params(key, value, filter)
+      def build_params_line(key, value, filter)
         output = []
         if !filter || Regexp.new(filter).match(k)
           first = value.shift
           begin
             output = in_what_file(first[:file])
-            output << key
-            output << first[:value].to_s
-            output << "0"
+            output += [ key, first[:value].to_s, "0" ]
           end
           while value.count > 0
             overriden = value.shift
             output = in_what_file(overriden[:file])
-            output << key
-            output << first[:value].to_s
-            output << "1"
+            output += [ key, first[:value].to_s, "1" ]
           end
         end
         output.join(CVS_DELIM) + "\n"

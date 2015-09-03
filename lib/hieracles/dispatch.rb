@@ -1,7 +1,5 @@
 module Hieracles
-
   class Dispatch
-
 
     def initialize(node)
       @node = node
@@ -23,9 +21,9 @@ module Hieracles
       filter = args[0]
       @colors = {}
       output = ""
-      output << show_head
+      output << build_head
       @node.params.each do |k, v|
-        output << show_params(k, v, filter)
+        output << build_params_line(k, v, filter)
       end
       puts output
     end
@@ -36,6 +34,11 @@ module Hieracles
     end
 
     def modules(args)
+      output = ""
+      @node.modules.each do |k, v|
+        output << build_modules_list(k, v)
+      end
+      output
       if Config.format == 'raw'
         @node.modules.each do |k, v|
           puts v
@@ -55,34 +58,17 @@ module Hieracles
 
   protected
 
-    def show_head
-      output = ""
-      @node.files.each_with_index do |f,i|
-        output << color(i) % "[#{i}] #{f}"
-        @colors[f] = i
-      end
-      "#{output}\n"
+    def build_head
+      puts "not implemented, please inherit from the Hieracles::Dispatch class to implement a format."
     end
 
-    def show_params(key, value, filter)
-      output = ""
-      if !filter || Regexp.new(filter).match(k)
-        first = value.shift
-        begin
-          output << "#{color(@colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}" % ["[#{@colors[first[:file]]}]", key]
-        rescue
-          output << "--debug----"
-          output << "#{color(@colors[first[:file]])} #{color(5)} #{first[:value].to_s.gsub('%', '%%')}"
-          output << "--/debug----"
-        end
-        while value.count > 0
-          overriden = value.shift
-          output << "    #{color(8)}" % ["[#{@colors[overriden[:file]]}] #{k} #{overriden[:value]}"]
-        end
-      end
-      output
+    def build_params_line(key, value, filter)
+      puts "not implemented, please inherit from the Hieracles::Dispatch class to implement a format."
+    end
+
+    def build_modules_list(key, value)
+      puts "not implemented, please inherit from the Hieracles::Dispatch class to implement a format."
     end
 
   end
-
 end

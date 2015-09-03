@@ -1,8 +1,9 @@
 require 'fileutils'
 
 module Hieracles
+  # configuration singleton
   module Config
-    module_function
+    extend self
 
     attr_reader :server, :classpath, :format, :colors
 
