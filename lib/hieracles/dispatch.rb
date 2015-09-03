@@ -38,22 +38,7 @@ module Hieracles
       @node.modules.each do |k, v|
         output << build_modules_list(k, v)
       end
-      output
-      if Config.format == 'raw'
-        @node.modules.each do |k, v|
-          puts v
-        end
-      else
-        length = @node.modules.keys.reduce(0) { |a, x| (x.length > a) ? x.length : a } + 3
-        puts color(3) % [@node.classfile]
-        puts
-        @node.modules.each do |k, v|
-          val = "%s"
-          val = color(0) if /not found/i.match v 
-          val = color(2) if /\(duplicate\)/i.match v 
-          puts "%-#{length}s #{val}" % [k, v]
-        end
-      end
+      puts output
     end
 
   protected
