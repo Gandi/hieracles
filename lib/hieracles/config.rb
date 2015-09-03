@@ -8,13 +8,13 @@ module Hieracles
     attr_reader :server, :classpath, :format, :colors
 
     def load(options)
-      @optionfile = options['c'] || defaultconfig
+      @optionfile = options[:config] || defaultconfig
       initconfig(@optionfile) unless File.exist? @optionfile
       values = YAML.load_file(@optionfile)
       @colors = values['colors']
       @server = values['server']
       @classpath = values['classpath']
-      @format = (options['f'] || values['format'] || 'console').capitalize
+      @format = (options[:format] || values['format'] || 'console').capitalize
     end
 
     def initconfig(file)

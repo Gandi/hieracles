@@ -10,7 +10,7 @@ require 'hieracles/formats/yaml'
 # https://github.com/Gandi/hieracles
 module Hieracles
   def self.usage
-    puts <<-END
+    return <<-END
 
     Usage: hc <fqdn> <command> [extra_args]
 

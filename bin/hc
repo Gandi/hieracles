@@ -4,27 +4,19 @@ $LOAD_PATH << File.expand_path("../../lib", __FILE__)
 
 require 'hieracles'
 
-options = {}
-payload = []
-while x = ARGV.shift
-  if x[0] == '-'
-    options[x[/[a-z][-_a-z]*$/]] = ARGV.shift
-  else
-    payload << x
-  end
-end
+opt = Hieracles::Optparse.new(ARGV)
 
-fqdn = payload[0]
-command = payload[1]
-args = payload[2..-1]
+fqdn = opt.payload[0]
+command = opt.payload[1]
+args = opt.payload[2..-1]
 
 unless fqdn && command
-  Hieracles.usage
+  puts Hieracles.usage
   exit(1)
 end
 
 if Hieracles::Dispatch.method_defined? command
-  node = Hieracles::Node.new fqdn, options
+  node = Hieracles::Node.new fqdn, opt.options
   begin
     formatter = Object.const_get("Hieracles::Formats::#{Hieracles::Config.format}")
   rescue

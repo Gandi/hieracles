@@ -4,7 +4,7 @@ describe Hieracles::Config do
   describe '.load' do
     context 'with an existing file' do
       let(:options) do
-        { 'c' => File.expand_path('../../files/config.yml', __FILE__) }
+        { config: File.expand_path('../../files/config.yml', __FILE__) }
       end
       before { Hieracles::Config.load options }
 
@@ -17,16 +17,16 @@ describe Hieracles::Config do
 
     context 'without an existing config file' do
       let(:options) do
-        { 'c' => File.expand_path('../../files/config_no.yml', __FILE__) }
+        { config: File.expand_path('../../files/config_no.yml', __FILE__) }
       end
       before do
-        FileUtils.rm(options['c']) if File.exist? options['c']
+        FileUtils.rm(options[:config]) if File.exist? options[:config]
         Hieracles::Config.load options
       end
-      after { FileUtils.rm(options['c']) if File.exist? options['c'] }
+      after { FileUtils.rm(options[:config]) if File.exist? options[:config] }
 
       it 'creates a default config file' do
-        expect(File.exist? options['c']).to be_truthy
+        expect(File.exist? options[:config]).to be_truthy
       end
 
       it 'initialize config values' do

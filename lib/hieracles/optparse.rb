@@ -8,16 +8,24 @@ module Hieracles
       config: {
         has_arg: true,
         aliases: ['c','conf']
+      },
+      format: {
+        has_arg: true,
+        aliases: ['f','format']
       }
     }
 
     def initialize(array)
       @options = {}
       @payload = []
+      puts optionkeys
+      ok = optionkeys
       while x = array.shift
         if x[0] == '-'
-          if optionkeys.include? x[/[a-z][-_a-z]*$/]
-            @options[x[/[a-z][-_a-z]*$/]] = array.shift
+          if ok[x[/[a-z][-_a-z]*$/]]
+            @options[ok[x[/[a-z][-_a-z]*$/]]] = array.shift
+          else
+            array.shift
           end
         else
           @payload << x
@@ -26,9 +34,13 @@ module Hieracles
     end
 
     def optionkeys
-      @__optionkeys ||= OPTIONS.map do |k,v|
-        [k, k[:aliases]]
-      end.flatten
+      back = {}
+      OPTIONS.each do |k, v|
+        v[:aliases].each do |a|
+          back[a] = k
+        end
+      end
+      back
     end
 
   end
