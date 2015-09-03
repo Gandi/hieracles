@@ -51,9 +51,11 @@ module Hieracles
           first = value.shift
           filecolor_index = @colors[first[:file]]
           filecolor = color(filecolor_index)
-          output << format("#{filecolor} #{color(5)} ",
-                           ["[#{filecolor_index}]", key])
-          output << "#{first[:value].to_s.gsub('%', '%%')}\n"
+          output << format("#{filecolor} #{color(5)} %s\n",
+                           ["[#{filecolor_index}]",
+                            key,
+                            first[:value].to_s.gsub('%', '%%')
+                           ])
           while value.count > 0
             overriden = value.shift
             filecolor_index = @colors[overriden[:file]]
