@@ -66,7 +66,7 @@ module Hieracles
         output
       end
 
-      def build_modules_list(key, value)
+      def build_modules_line(key, value)
         length = @node.modules.keys.reduce(0) do |a, x|
           (x.length > a) ? x.length : a
         end + 3

@@ -5,15 +5,15 @@ module Hieracles
     end
 
     def info(_)
-      "not implemented, please inherit from the Hieracles::Dispatch class to implement a format.\n"
+      "#{__callee__} not implemented, please inherit from the Hieracles::Dispatch class to implement a format.\n"
     end
 
     def files(_)
-      "not implemented, please inherit from the Hieracles::Dispatch class to implement a format.\n"
+      "#{__callee__} not implemented, please inherit from the Hieracles::Dispatch class to implement a format.\n"
     end
 
     def paths(_)
-      "not implemented, please inherit from the Hieracles::Dispatch class to implement a format.\n"
+      "#{__callee__} not implemented, please inherit from the Hieracles::Dispatch class to implement a format.\n"
     end
 
     def params(args)
@@ -35,7 +35,7 @@ module Hieracles
     def modules(args)
       output = ''
       @node.modules.each do |k, v|
-        output << build_modules_list(k, v)
+        output << build_modules_line(k, v)
       end
       output
     end
@@ -43,15 +43,15 @@ module Hieracles
   protected
 
     def build_head
-      "not implemented, please inherit from the Hieracles::Dispatch class to implement a format.\n"
+      "#{__callee__} not implemented, please inherit from the Hieracles::Dispatch class to implement a format.\n"
     end
 
     def build_params_line(key, value, filter)
-      "not implemented, please inherit from the Hieracles::Dispatch class to implement a format.\n"
+      "#{__callee__} not implemented, please inherit from the Hieracles::Dispatch class to implement a format.\n"
     end
 
-    def build_modules_list(key, value)
-      "not implemented, please inherit from the Hieracles::Dispatch class to implement a format.\n"
+    def build_modules_line(key, value)
+      "#{__callee__} not implemented, please inherit from the Hieracles::Dispatch class to implement a format.\n"
     end
   end
 end

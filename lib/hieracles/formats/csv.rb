@@ -40,10 +40,12 @@ module Hieracles
         output.join(CVS_DELIM) + "\n"
       end
 
-      def build_modules_list(key, value)
+      def build_modules_line(key, value)
         [key, value].join(CVS_DELIM) + "\n"
       end
 
+    private
+    
       def in_what_file(file)
         output = []
         @node.files.each do |f|
