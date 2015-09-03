@@ -16,10 +16,10 @@ module Hieracles
       ]
 
       def info(_)
-        back = format('Node:       %s', @node.fqdn)
-        back << format('farm:       %s', @node.farm)
-        back << format('datacenter: %s', @node.datacenter)
-        back << format('country:    %s', @node.country)
+        back =  format("Node:       %s\n", @node.fqdn)
+        back << format("Farm:       %s\n", @node.farm)
+        back << format("Datacenter: %s\n", @node.datacenter)
+        back << format("Country:    %s\n", @node.country)
         back
       end
 

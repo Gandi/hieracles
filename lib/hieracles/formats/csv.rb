@@ -5,15 +5,15 @@ module Hieracles
       CVS_DELIM = ';'
 
       def info(_)
-        [@node.fqdn, @node.farm, @node.datacenter, @node.country].join(',')
+        make_csv [@node.fqdn, @node.farm, @node.datacenter, @node.country]
       end
 
       def files(_)
-        @node.files.join(',')
+        make_csv @node.files
       end
 
       def paths(_)
-        @node.paths.join(',')
+        make_csv @node.paths
       end
 
       def build_head
@@ -22,7 +22,7 @@ module Hieracles
           output << f
         end
         output += %w(var value overriden)
-        output.join(CVS_DELIM) + "\n"
+        make_csv output
       end
 
       def build_params_line(key, value, filter)
@@ -37,15 +37,19 @@ module Hieracles
                      [key, first[:value].to_s, '1']
           end
         end
-        output.join(CVS_DELIM) + "\n"
+        make_csv output
       end
 
       def build_modules_line(key, value)
-        [key, value].join(CVS_DELIM) + "\n"
+        make_csv [key, value]
       end
 
     private
-    
+
+      def make_csv(array)
+        array.join(CVS_DELIM) + "\n"
+      end
+
       def in_what_file(file)
         output = []
         @node.files.each do |f|
