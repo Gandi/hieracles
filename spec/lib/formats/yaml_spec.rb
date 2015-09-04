@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Hieracles::Formats::Csv do
+describe Hieracles::Formats::Yaml do
   let(:node) { double("node") }
-  let(:csv_format) { Hieracles::Formats::Csv.new node }
+  let(:yaml_format) { Hieracles::Formats::Yaml.new node }
 
   describe ".info" do
-    let(:expected) {"fqdn;farm;datacenter;country\n"}
+    let(:expected) {"---\nnode: fqdn\nfarm: farm\ndatacenter: datacenter\ncountry: country\n"}
     before {
       allow(node).to receive(:fqdn).and_return("fqdn")
       allow(node).to receive(:farm).and_return("farm")
@@ -13,17 +13,17 @@ describe Hieracles::Formats::Csv do
       allow(node).to receive(:country).and_return("country")
     }
     it "outputs proper text" do
-      expect(csv_format.info nil).to eq expected
+      expect(yaml_format.info nil).to eq expected
     end
   end
 
   describe ".files" do
-    let(:expected) { "path1;path2\n" }
+    let(:expected) { "---\n- path1\n- path2\n" }
     before {
       allow(node).to receive(:files).and_return(['path1', 'path2'])
     }
     it "outputs proper text" do
-      expect(csv_format.files nil).to eq expected
+      expect(yaml_format.files nil).to eq expected
     end
   end
   

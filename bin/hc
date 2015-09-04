@@ -15,7 +15,7 @@ unless fqdn && command
   exit(1)
 end
 
-if Hieracles::Dispatch.method_defined? command
+if Hieracles::Format.method_defined? command
   node = Hieracles::Node.new fqdn, opt.options
   begin
     formatter = Object.const_get("Hieracles::Formats::#{Hieracles::Config.format}")

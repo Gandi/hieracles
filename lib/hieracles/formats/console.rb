@@ -24,11 +24,11 @@ module Hieracles
       end
 
       def files(_)
-        @node.files
+        @node.files.join("\n") + "\n"
       end
 
       def paths(_)
-        @node.paths
+        @node.paths.join("\n") + "\n"
       end
 
       def params(args)

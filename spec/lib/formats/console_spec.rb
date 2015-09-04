@@ -22,4 +22,14 @@ describe Hieracles::Formats::Console do
     end
 
   end
+
+  describe ".files" do
+    let(:expected) { "path1\npath2\n" }
+    before {
+      allow(node).to receive(:files).and_return(['path1', 'path2'])
+    }
+    it "outputs proper text" do
+      expect(console_format.files nil).to eq expected
+    end
+  end
 end
