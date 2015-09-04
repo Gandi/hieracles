@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Hieracles::Utils do
   include Hieracles::Utils
 
-  it 'can deep sort hashes' do
+  it '.deep_sort' do
     hash = {
       b: '',
       a: { aa: 'aa' },
@@ -19,7 +19,7 @@ describe Hieracles::Utils do
     expect(deep_sort hash).to eq expected
   end
 
-  describe 'to_deep_hash' do
+  describe '.to_deep_hash' do
     before :each do
       @shallow_hash = {
         'pressrelease.label.one' => 'Pressmeddelande',
@@ -46,5 +46,10 @@ describe Hieracles::Utils do
     it 'converts a deep hash to a shallow one' do
       expect(to_shallow_hash @deep_hash).to eq @shallow_hash
     end
+  end
+
+  describe '.max_key_length' do
+    let(:hash) { { 'key1' => nil, 'key22' => nil, 'key9chars' => nil }}
+    it { expect(max_key_length hash). to eq 9 }
   end
 end

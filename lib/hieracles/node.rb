@@ -34,6 +34,15 @@ module Hieracles
 			addfile "params/common/common.yaml"
 		end
 
+		def info
+      {
+        'Node' => @fqdn,
+        'Farm' => @farm,
+        'Datacenter' => @datacenter,
+        'Country' => @country
+      }
+ 		end
+
 	private
 
 		def populate_info(fqdn)

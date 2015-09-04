@@ -6,16 +6,16 @@ describe Hieracles::Formats::Plain do
 
   describe ".info" do
     let(:expected) {
-      "Node:       fqdn\n" +
-      "Farm:       farm\n" +
-      "Datacenter: datacenter\n" +
-      "Country:    country\n"
+      "Node   fqdn\n" +
+      "Farm   farm\n"
     }
     before {
-      allow(node).to receive(:fqdn).and_return("fqdn")
-      allow(node).to receive(:farm).and_return("farm")
-      allow(node).to receive(:datacenter).and_return("datacenter")
-      allow(node).to receive(:country).and_return("country")
+      allow(node).to receive(:info).and_return(
+        {
+          'Node' => 'fqdn',
+          'Farm' => 'farm'
+        }
+      )
     }
     it "outputs proper text" do
       expect(plain_format.info nil).to eq expected

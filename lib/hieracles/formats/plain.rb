@@ -3,6 +3,7 @@ module Hieracles
     # format accepting colors
     # for display in the terminal
     class Plain < Hieracles::Format
+      include Hieracles::Utils
 
       def initialize(node)
         @index = {}
@@ -10,10 +11,11 @@ module Hieracles
       end
 
       def info(_)
-        back =  format("Node:       %s\n", @node.fqdn)
-        back << format("Farm:       %s\n", @node.farm)
-        back << format("Datacenter: %s\n", @node.datacenter)
-        back << format("Country:    %s\n", @node.country)
+        back = ''
+        length = max_key_length(@node.info) + 2
+        @node.info.each do |k, v|
+          back << format("%-#{length}s %s\n", k, v)
+        end
         back
       end
 
@@ -50,9 +52,7 @@ module Hieracles
       end
 
       def build_modules_line(key, value)
-        length = @node.modules.keys.reduce(0) do |a, x|
-          (x.length > a) ? x.length : a
-        end + 3
+        length = max_key_length(@node.modules) + 3
         format("%-#{length}s %s\n", key, value)
       end
 

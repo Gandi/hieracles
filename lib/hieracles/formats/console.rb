@@ -3,6 +3,8 @@ module Hieracles
     # format accepting colors
     # for display in the terminal
     class Console < Hieracles::Format
+      include Hieracles::Utils
+
       COLORS = [
         "\e[31m%s\e[0m",
         "\e[32m%s\e[0m",
@@ -21,10 +23,12 @@ module Hieracles
       end
 
       def info(_)
-        back =  format("Node:       %s\n", @node.fqdn)
-        back << format("Farm:       %s\n", @node.farm)
-        back << format("Datacenter: %s\n", @node.datacenter)
-        back << format("Country:    %s\n", @node.country)
+        back = ''
+        length = max_key_length(@node.info) + 2
+        title = format(COLORS[8], "%-#{length}s")
+        @node.info.each do |k, v|
+          back << format("#{title} %s\n", k, v)
+        end
         back
       end
 
@@ -68,9 +72,7 @@ module Hieracles
       end
 
       def build_modules_line(key, value)
-        length = @node.modules.keys.reduce(0) do |a, x|
-          (x.length > a) ? x.length : a
-        end + 3
+        length = max_key_length(@node.modules) + 3
         value_color = '%s'
         value_color = COLORS[0] if /not found/i.match value
         value_color = COLORS[2] if /\(duplicate\)/i.match value

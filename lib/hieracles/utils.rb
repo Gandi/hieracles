@@ -48,6 +48,10 @@ module Hieracles
       end
     end
 
+    def max_key_length(hash)
+      hash.keys.reduce(0) { |a, x| (x.length > a) ? x.length : a }
+    end
+
   end
 
 end
