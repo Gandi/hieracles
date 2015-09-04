@@ -26,18 +26,18 @@ module Hieracles
       end
 
       def build_params_line(key, value, filter)
-        output = []
+        output = ''
         if !filter || Regexp.new(filter).match(key)
           first = value.shift
-          output = in_what_file(first[:file]) +
-                   [key, first[:value].to_s, '0']
+          output << make_csv(in_what_file(first[:file]) +
+                   [key, first[:value].to_s, '0'])
           while value.count > 0
             overriden = value.shift
-            output = in_what_file(overriden[:file]) +
-                     [key, first[:value].to_s, '1']
+            output << make_csv(in_what_file(overriden[:file]) +
+                     [key, overriden[:value].to_s, '1'])
           end
         end
-        make_csv output
+        output
       end
 
       def build_modules_line(key, value)
