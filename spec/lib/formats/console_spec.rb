@@ -20,7 +20,6 @@ describe Hieracles::Formats::Console do
     it "outputs proper text" do
       expect(console_format.info nil).to eq expected
     end
-
   end
 
   describe ".files" do

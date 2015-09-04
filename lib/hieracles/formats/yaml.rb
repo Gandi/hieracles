@@ -21,6 +21,10 @@ module Hieracles
         @node.paths.to_yaml
       end
 
+      def build_head
+        ''
+      end
+
     end
   end
 end

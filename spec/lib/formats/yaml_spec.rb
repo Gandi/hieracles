@@ -37,4 +37,11 @@ describe Hieracles::Formats::Yaml do
     end
   end
 
+  describe ".build_head" do
+    let(:expected) { "" }
+    it "outputs proper text" do
+      expect(yaml_format.send :build_head).to eq expected
+    end
+  end
+
 end

@@ -36,5 +36,15 @@ describe Hieracles::Formats::Csv do
       expect(csv_format.paths nil).to eq expected
     end
   end
-  
-end
+
+  describe ".build_head" do
+    let(:expected) { "path1;path2;var;value;overriden\n" }
+    before {
+      allow(node).to receive(:files).and_return(['path1', 'path2'])
+    }
+    it "outputs proper text" do
+      expect(csv_format.send :build_head).to eq expected
+    end
+  end
+ 
+ end
