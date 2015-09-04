@@ -53,7 +53,7 @@ module Hieracles
         length = @node.modules.keys.reduce(0) do |a, x|
           (x.length > a) ? x.length : a
         end + 3
-        format("%-#{length}s %s\n", [key, val])
+        format("%-#{length}s %s\n", key, value)
       end
 
     end

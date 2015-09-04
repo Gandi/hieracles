@@ -103,8 +103,5 @@ describe Hieracles::Formats::Console do
         expect(console_format.send :build_modules_line, "module1", "(duplicate)").to eq expected
       end
     end
-
   end
-
-
 end

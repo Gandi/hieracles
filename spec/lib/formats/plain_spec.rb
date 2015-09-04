@@ -76,4 +76,20 @@ describe Hieracles::Formats::Plain do
     end
   end
 
+  describe ".build_modules_line" do
+    before {
+      allow(node).to receive(:modules).and_return(
+        { 
+          'module1' => nil, 
+          'longmodule2' => nil
+        }
+      )
+    }
+    let(:expected) { "module1        value\n" }
+    it "outputs proper text" do
+      expect(plain_format.send :build_modules_line, "module1", "value").to eq expected
+    end
+
+
+  end
 end
