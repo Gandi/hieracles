@@ -33,4 +33,8 @@ describe Hieracles::Config do
       end
     end
   end
+
+  describe '.defaultconfig' do
+    it { expect(Hieracles::Config.defaultconfig).to be_truthy }
+  end
 end
