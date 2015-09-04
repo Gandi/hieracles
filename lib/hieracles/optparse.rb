@@ -29,7 +29,7 @@ module Hieracles
         else
           @payload << x
         end
-      end      
+      end
     end
 
     def optionkeys

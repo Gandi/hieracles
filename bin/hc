@@ -14,7 +14,7 @@ unless fqdn && command
   puts Hieracles.usage
   exit(1)
 end
-
+ 
 if Hieracles::Format.method_defined? command
   node = Hieracles::Node.new fqdn, opt.options
   begin

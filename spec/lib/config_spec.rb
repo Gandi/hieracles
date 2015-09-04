@@ -11,7 +11,6 @@ describe Hieracles::Config do
       it 'initialize config values' do
         expect(Hieracles::Config.classpath).to eq '../files/modules/%s.pp'
         expect(Hieracles::Config.format).to eq 'Console'
-        expect(Hieracles::Config.colors).to be_falsey
       end
     end
 
@@ -31,7 +30,6 @@ describe Hieracles::Config do
 
       it 'initialize config values' do
         expect(Hieracles::Config.classpath).to eq 'manifests/classes/%s.pp'
-        expect(Hieracles::Config.colors).to be_truthy
       end
     end
   end

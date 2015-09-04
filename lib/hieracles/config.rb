@@ -5,13 +5,12 @@ module Hieracles
   module Config
     extend self
 
-    attr_reader :server, :classpath, :format, :colors
+    attr_reader :server, :classpath, :format
 
     def load(options)
       @optionfile = options[:config] || defaultconfig
       initconfig(@optionfile) unless File.exist? @optionfile
       values = YAML.load_file(@optionfile)
-      @colors = values['colors']
       @server = values['server']
       @classpath = values['classpath']
       @format = (options[:format] || values['format'] || 'console').capitalize
@@ -23,7 +22,6 @@ module Hieracles
         f.puts '---'
         f.puts '# uncomment if you use the CGI method for discovery'
         f.puts '# server: puppetserver.example.com'
-        f.puts 'colors: true'
         f.puts 'classpath: manifests/classes/%s.pp'
       end
     end

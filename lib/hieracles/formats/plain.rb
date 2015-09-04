@@ -2,21 +2,10 @@ module Hieracles
   module Formats
     # format accepting colors
     # for display in the terminal
-    class Console < Hieracles::Format
-      COLORS = [
-        "\e[31m%s\e[0m",
-        "\e[32m%s\e[0m",
-        "\e[33m%s\e[0m",
-        "\e[34m%s\e[0m",
-        "\e[35m%s\e[0m",
-        "\e[36m%s\e[0m",
-        "\e[37m%s\e[0m",
-        "\e[38m%s\e[0m",
-        "\e[97m%s\e[0m"
-      ]
+    class Plain < Hieracles::Format
 
       def initialize(node)
-        @colors = {}
+        @index = {}
         super(node)
       end
 
@@ -39,8 +28,8 @@ module Hieracles
       def build_head
         output = ''
         @node.files.each_with_index do |f, i|
-          output << format("#{COLORS[i]}\n", "[#{i}] #{f}")
-          @colors[f] = i
+          output << "[#{i}] #{f}"
+          @index[f] = i
         end
         "#{output}\n"
       end
@@ -49,19 +38,14 @@ module Hieracles
         output = ''
         if !filter || Regexp.new(filter).match(k)
           first = value.shift
-          filecolor_index = @colors[first[:file]]
-          filecolor = COLORS[filecolor_index]
-          output << format("#{filecolor} #{COLORS[5]} %s\n",
-                           "[#{filecolor_index}]",
-                            key,
-                            first[:value].to_s.gsub('%', '%%')
-                           )
+          filecolor_index = @index[first[:file]]
+          output << "[#{filecolor_index}]" +
+                     key +
+                     first[:value].to_s.gsub('%', '%%')
           while value.count > 0
             overriden = value.shift
-            filecolor_index = @colors[overriden[:file]]
-            output << format("    #{COLORS[8]}\n",
-                             "[#{filecolor_index}] #{k} #{overriden[:value]}"
-                            )
+            filecolor_index = @index[overriden[:file]]
+            output << "[#{filecolor_index}] #{key} #{overriden[:value]}"
           end
         end
         output
@@ -71,10 +55,7 @@ module Hieracles
         length = @node.modules.keys.reduce(0) do |a, x|
           (x.length > a) ? x.length : a
         end + 3
-        val = '%s'
-        val = COLOR[0] if /not found/i.match value
-        val = COLOR[2] if /\(duplicate\)/i.match value
-        format("%-#{length}s #{val}\n", [key, value])
+        format("%-#{length}s %s\n", [key, val])
       end
 
     end
