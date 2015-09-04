@@ -76,5 +76,35 @@ describe Hieracles::Formats::Console do
     end
   end
 
+  describe ".build_modules_line" do
+    before {
+      allow(node).to receive(:modules).and_return(
+        { 
+          'module1' => nil, 
+          'longmodule2' => nil
+        }
+      )
+    }
+    context "module is found" do
+      let(:expected) { "module1        value\n" }
+      it "outputs proper text" do
+        expect(console_format.send :build_modules_line, "module1", "value").to eq expected
+      end
+    end
+    context "module is not found" do
+      let(:expected) { "module1        \e[31mnot found\e[0m\n" }
+      it "outputs proper text" do
+        expect(console_format.send :build_modules_line, "module1", "not found").to eq expected
+      end
+    end
+    context "module is duplicate" do
+      let(:expected) { "module1        \e[33m(duplicate)\e[0m\n" }
+      it "outputs proper text" do
+        expect(console_format.send :build_modules_line, "module1", "(duplicate)").to eq expected
+      end
+    end
+
+  end
+
 
 end

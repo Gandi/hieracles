@@ -71,10 +71,10 @@ module Hieracles
         length = @node.modules.keys.reduce(0) do |a, x|
           (x.length > a) ? x.length : a
         end + 3
-        val = '%s'
-        val = COLOR[0] if /not found/i.match value
-        val = COLOR[2] if /\(duplicate\)/i.match value
-        format("%-#{length}s #{val}\n", [key, value])
+        value_color = '%s'
+        value_color = COLORS[0] if /not found/i.match value
+        value_color = COLORS[2] if /\(duplicate\)/i.match value
+        format("%-#{length}s #{value_color}\n", key, value)
       end
 
     end
