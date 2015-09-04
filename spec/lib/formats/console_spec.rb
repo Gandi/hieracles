@@ -32,4 +32,15 @@ describe Hieracles::Formats::Console do
       expect(console_format.files nil).to eq expected
     end
   end
+
+  describe ".paths" do
+    let(:expected) { "path1\npath2\n" }
+    before {
+      allow(node).to receive(:paths).and_return(['path1', 'path2'])
+    }
+    it "outputs proper text" do
+      expect(console_format.paths nil).to eq expected
+    end
+  end
+
 end

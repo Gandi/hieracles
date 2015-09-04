@@ -27,4 +27,14 @@ describe Hieracles::Formats::Csv do
     end
   end
   
+  describe ".paths" do
+    let(:expected) { "path1;path2\n" }
+    before {
+      allow(node).to receive(:paths).and_return(['path1', 'path2'])
+    }
+    it "outputs proper text" do
+      expect(csv_format.paths nil).to eq expected
+    end
+  end
+  
 end
