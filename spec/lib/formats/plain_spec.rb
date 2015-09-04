@@ -52,5 +52,28 @@ describe Hieracles::Formats::Plain do
     end
   end
 
+  describe ".build_params_line" do
+    let(:expected) { 
+       "[0] params.this.var value1\n"+
+       "    [1] params.this.var value2\n"
+    }
+    let(:params) {
+      [
+        { file: 'path1', value: 'value1'},
+        { file: 'path2', value: 'value2'},
+      ] 
+    }
+    before {
+      plain_format.instance_variable_set(:@index,
+          {'path1' => 0, 'path2' => 1}
+        )
+    } 
+    it "outputs proper text" do
+      expect(plain_format.send :build_params_line,
+        "params.this.var", 
+        params, 
+        nil).to eq expected
+    end
+  end
 
 end

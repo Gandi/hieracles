@@ -27,7 +27,7 @@ module Hieracles
 
       def build_params_line(key, value, filter)
         output = []
-        if !filter || Regexp.new(filter).match(k)
+        if !filter || Regexp.new(filter).match(key)
           first = value.shift
           output = in_what_file(first[:file]) +
                    [key, first[:value].to_s, '0']

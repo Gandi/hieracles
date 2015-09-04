@@ -36,14 +36,14 @@ module Hieracles
 
       def build_params_line(key, value, filter)
         output = ''
-        if !filter || Regexp.new(filter).match(k)
+        if !filter || Regexp.new(filter).match(key)
           first = value.shift
           filecolor_index = @index[first[:file]]
           output << "[#{filecolor_index}] #{key} #{first[:value]}\n"
           while value.count > 0
             overriden = value.shift
             filecolor_index = @index[overriden[:file]]
-            output << "  [#{filecolor_index}] #{key} #{overriden[:value]}\n"
+            output << "    [#{filecolor_index}] #{key} #{overriden[:value]}\n"
           end
         end
         output

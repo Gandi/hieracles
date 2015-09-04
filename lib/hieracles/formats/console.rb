@@ -47,7 +47,7 @@ module Hieracles
 
       def build_params_line(key, value, filter)
         output = ''
-        if !filter || Regexp.new(filter).match(k)
+        if !filter || Regexp.new(filter).match(key)
           first = value.shift
           filecolor_index = @colors[first[:file]]
           filecolor = COLORS[filecolor_index]
@@ -55,12 +55,12 @@ module Hieracles
                            "[#{filecolor_index}]",
                             key,
                             first[:value].to_s.gsub('%', '%%')
-                           )
+                          )
           while value.count > 0
             overriden = value.shift
             filecolor_index = @colors[overriden[:file]]
             output << format("    #{COLORS[8]}\n",
-                             "[#{filecolor_index}] #{k} #{overriden[:value]}"
+                             "[#{filecolor_index}] #{key} #{overriden[:value]}"
                             )
           end
         end
