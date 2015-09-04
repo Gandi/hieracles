@@ -4,6 +4,7 @@ require 'hieracles/utils'
 require 'hieracles/node'
 require 'hieracles/format'
 require 'hieracles/formats/console'
+require 'hieracles/formats/plain'
 require 'hieracles/formats/csv'
 require 'hieracles/formats/yaml'
 

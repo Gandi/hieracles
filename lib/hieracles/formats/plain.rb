@@ -28,7 +28,7 @@ module Hieracles
       def build_head
         output = ''
         @node.files.each_with_index do |f, i|
-          output << "[#{i}] #{f}"
+          output << "[#{i}] #{f}\n"
           @index[f] = i
         end
         "#{output}\n"
@@ -39,13 +39,11 @@ module Hieracles
         if !filter || Regexp.new(filter).match(k)
           first = value.shift
           filecolor_index = @index[first[:file]]
-          output << "[#{filecolor_index}]" +
-                     key +
-                     first[:value].to_s.gsub('%', '%%')
+          output << "[#{filecolor_index}] #{key} #{first[:value]}\n"
           while value.count > 0
             overriden = value.shift
             filecolor_index = @index[overriden[:file]]
-            output << "[#{filecolor_index}] #{key} #{overriden[:value]}"
+            output << "  [#{filecolor_index}] #{key} #{overriden[:value]}\n"
           end
         end
         output
