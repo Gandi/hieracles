@@ -26,6 +26,10 @@ module Hieracles
 			@_populated_params ||= populate_params(@files)
 		end
 
+		def params_tree
+			@_populated_params_tree ||= populate_params_tree(@files)
+		end
+
 		def modules
 			@_populated_modules ||= populate_modules(@farm)
 		end
@@ -111,6 +115,15 @@ module Hieracles
 				end
 			end
 			params.sort
+		end
+
+		def populate_params_tree(files)
+			params = {}
+			files.each do |f|
+				data = YAML.load_file(f)
+				deep_merge!(params, data)
+			end
+			deep_sort(params)
 		end
 
 		def populate_modules(farm)

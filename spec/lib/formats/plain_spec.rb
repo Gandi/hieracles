@@ -89,7 +89,6 @@ describe Hieracles::Formats::Plain do
     it "outputs proper text" do
       expect(plain_format.send :build_modules_line, "module1", "value").to eq expected
     end
-
-
   end
+  
 end

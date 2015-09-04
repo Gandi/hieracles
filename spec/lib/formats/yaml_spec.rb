@@ -39,11 +39,42 @@ describe Hieracles::Formats::Yaml do
     end
   end
 
-  describe ".build_head" do
-    let(:expected) { "" }
+  describe ".modules" do
+    before {
+      allow(node).to receive(:modules).and_return(
+        { 
+          'module1' => "value", 
+          'longmodule2' => "not found"
+        }
+      )
+    }
+    let(:expected) { "---\nmodule1: value\nlongmodule2: not found\n" }
     it "outputs proper text" do
-      expect(yaml_format.send :build_head).to eq expected
+      expect(yaml_format.modules nil).to eq expected
     end
   end
 
+  describe ".params" do
+    let(:expected) { 
+       "---\n"+
+       "params:\n" +
+       "  this:\n" +
+       "    var: value1\n"
+    }
+    before {
+      allow(node).to receive(:params_tree).and_return(
+        { 
+          'params' => {
+            'this' => {
+              'var' => 'value1'
+            }
+          }
+        }
+      )
+    }
+    it "outputs proper text" do
+      expect(yaml_format.params nil).to eq expected
+    end
+  end
+  
 end
