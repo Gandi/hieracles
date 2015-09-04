@@ -43,4 +43,15 @@ describe Hieracles::Formats::Console do
     end
   end
 
+  describe ".build_head" do
+    let(:expected) { "\e[31m[0] path1\e[0m\n\e[32m[1] path2\e[0m\n\n" }
+    before {
+      allow(node).to receive(:files).and_return(['path1', 'path2'])
+    }
+    it "outputs proper text" do
+      expect(console_format.send :build_head).to eq expected
+    end
+  end
+
+
 end

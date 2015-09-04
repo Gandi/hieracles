@@ -18,7 +18,6 @@ module Hieracles
 
     def params(args)
       filter = args[0]
-      @colors = {}
       output = ''
       output << build_head
       @node.params.each do |k, v|

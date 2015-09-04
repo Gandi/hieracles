@@ -15,6 +15,11 @@ module Hieracles
         "\e[97m%s\e[0m"
       ]
 
+      def initialize(node)
+        @colors = {}
+        super(node)
+      end
+
       def info(_)
         back =  format("Node:       %s\n", @node.fqdn)
         back << format("Farm:       %s\n", @node.farm)
@@ -29,11 +34,6 @@ module Hieracles
 
       def paths(_)
         @node.paths.join("\n") + "\n"
-      end
-
-      def params(args)
-        @colors = {}
-        super
       end
 
       def build_head
@@ -52,15 +52,16 @@ module Hieracles
           filecolor_index = @colors[first[:file]]
           filecolor = color(filecolor_index)
           output << format("#{filecolor} #{color(5)} %s\n",
-                           ["[#{filecolor_index}]",
+                           "[#{filecolor_index}]",
                             key,
                             first[:value].to_s.gsub('%', '%%')
-                           ])
+                           )
           while value.count > 0
             overriden = value.shift
             filecolor_index = @colors[overriden[:file]]
             output << format("    #{color(8)}\n",
-                             ["[#{filecolor_index}] #{k} #{overriden[:value]}"])
+                             "[#{filecolor_index}] #{k} #{overriden[:value]}"
+                            )
           end
         end
         output
