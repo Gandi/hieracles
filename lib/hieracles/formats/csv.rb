@@ -5,7 +5,7 @@ module Hieracles
       CVS_DELIM = ';'
 
       def info(_)
-        make_csv [@node.fqdn, @node.farm, @node.datacenter, @node.country]
+        make_csv @node.info.values
       end
 
       def files(_)

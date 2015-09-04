@@ -4,13 +4,7 @@ module Hieracles
     class Yaml < Hieracles::Format
 
       def info(*args)
-        payload = {
-          "node" => @node.fqdn,
-          "farm" => @node.farm,
-          "datacenter" => @node.datacenter,
-          "country" => @node.country
-        }
-        payload.to_yaml
+        @node.info.to_yaml
       end
 
       def files(*args)

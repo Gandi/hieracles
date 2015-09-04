@@ -5,12 +5,14 @@ describe Hieracles::Formats::Yaml do
   let(:yaml_format) { Hieracles::Formats::Yaml.new node }
 
   describe ".info" do
-    let(:expected) {"---\nnode: fqdn\nfarm: farm\ndatacenter: datacenter\ncountry: country\n"}
+    let(:expected) {"---\nNode: fqdn\nFarm: farm\n"}
     before {
-      allow(node).to receive(:fqdn).and_return("fqdn")
-      allow(node).to receive(:farm).and_return("farm")
-      allow(node).to receive(:datacenter).and_return("datacenter")
-      allow(node).to receive(:country).and_return("country")
+      allow(node).to receive(:info).and_return(
+        {
+          'Node' => 'fqdn',
+          'Farm' => 'farm'
+        }
+      )
     }
     it "outputs proper text" do
       expect(yaml_format.info nil).to eq expected
