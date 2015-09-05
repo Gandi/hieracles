@@ -97,11 +97,11 @@ module Hieracles
     end
 
     def classpath(path)
-      Config.classpath % path
+      format(Config.classpath, path)
     end
 
     def modulepath(path)
-      File.join("modules", path)
+      File.join(Config.modulepath, path)
     end
 
     def populate_params(files)
@@ -149,7 +149,7 @@ module Hieracles
           modules[mod] += " (duplicate)"
         else
           if Dir.exists? modulepath(mainmod)
-            modules[mod] = "modules/#{mainmod}"
+            modules[mod] = File.join(Config.modulepath, mainmod)
           else
             modules[mod] = "not found."
           end
