@@ -11,7 +11,7 @@ command = opt.payload[1]
 args = opt.payload[2..-1]
 
 unless fqdn && command
-  puts Hieracles.usage
+  puts Hieracles::Help.usage
   exit(1)
 end
  
