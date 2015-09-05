@@ -5,7 +5,7 @@ module Hieracles
   module Config
     extend self
 
-    attr_reader :server, :classpath, :format
+    attr_reader :server, :classpath, :modulepath, :format
 
     def load(options)
       @optionfile = options[:config] || defaultconfig
@@ -13,6 +13,7 @@ module Hieracles
       values = YAML.load_file(@optionfile)
       @server = values['server']
       @classpath = values['classpath']
+      @modulepath = values['modulepath']
       @format = (options[:format] || values['format'] || 'console').capitalize
     end
 
@@ -23,6 +24,7 @@ module Hieracles
         f.puts '# uncomment if you use the CGI method for discovery'
         f.puts '# server: puppetserver.example.com'
         f.puts 'classpath: manifests/classes/%s.pp'
+        f.puts 'modulepath: modules'
       end
     end
 

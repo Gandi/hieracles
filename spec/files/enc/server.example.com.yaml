@@ -1,0 +1,7 @@
+---                                                                                                                                              
+classes:
+  - test_class
+parameters:
+  country: fr
+  datacenter: equinix
+  farm: dev

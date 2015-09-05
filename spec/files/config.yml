@@ -1,2 +1,3 @@
 ---
-classpath: ../files/modules/%s.pp
+classpath: ../files/farm_modules/%s.pp
+modulepath: ../files/modules

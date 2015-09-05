@@ -9,7 +9,8 @@ describe Hieracles::Config do
       before { Hieracles::Config.load options }
 
       it 'initialize config values' do
-        expect(Hieracles::Config.classpath).to eq '../files/modules/%s.pp'
+        expect(Hieracles::Config.classpath).to eq '../files/farm_modules/%s.pp'
+        expect(Hieracles::Config.modulepath).to eq '../files/modules'
         expect(Hieracles::Config.format).to eq 'Console'
       end
     end
