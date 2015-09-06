@@ -1,0 +1,16 @@
+---                                                                                                                                              
+:backends:
+  - yaml
+:hierarchy:
+  - "nodes/%{fqdn}"
+  - "farm_datacenter/%{farm}_%{datacenter}"
+  - "farm/%{farm}"
+  - "room/%{room}"
+  - "datacenter/%{datacenter}"
+  - "country/%{country}"
+  - "os/%{operatingsystem}-%{lsbdistcodename}"
+  - "common/common"
+:yaml:
+  :datadir: "params/"
+:puppet:
+  :datasource: data
