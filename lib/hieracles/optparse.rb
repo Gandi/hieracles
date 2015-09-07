@@ -12,6 +12,10 @@ module Hieracles
       format: {
         has_arg: true,
         aliases: ['f', 'format']
+      },
+      params: {
+        has_arg: true,
+        aliases: ['p', 'params']
       }
     }
 

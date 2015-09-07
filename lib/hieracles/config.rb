@@ -9,6 +9,7 @@ module Hieracles
 
     def load(options)
       @optionfile = options[:config] || defaultconfig
+      @extraparams = extract_params(options[:params])
       initconfig(@optionfile) unless File.exist? @optionfile
       values = YAML.load_file(@optionfile)
       @server = values['server']
@@ -33,5 +34,15 @@ module Hieracles
     def defaultconfig
       File.join(ENV['HOME'], '.config', 'hieracles', 'config.yml')
     end
+
+    # str is like: something=xxx;another=yyy  
+    def extract_params(str)
+      return {} unless str
+      str.split(';').reduce({}) do |a, k|
+        a["#{k[/^[^=]*/]}"] = k[/[^=]*$/]
+        a
+      end
+    end
+
   end
 end
