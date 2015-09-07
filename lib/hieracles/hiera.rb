@@ -24,7 +24,7 @@ module Hieracles
     end
 
     def params
-      hierarchy.join(',').scan(/%\{([^\}]*)\}/).flatten.uniq
+      hierarchy.join(',').scan(/%\{(?:::)?([^\}]*)\}/).flatten.uniq
     end
 
   end
