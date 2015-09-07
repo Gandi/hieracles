@@ -16,7 +16,6 @@ module Hieracles
       @hiera = Hieracles::Hiera new Config.hierafile
       @hiera_params = Config.extraparams
       @hiera_params['fqdn'] = fqdn
-      populate_info(fqdn)
       populate_files
     end
 
@@ -41,7 +40,7 @@ module Hieracles
     end
 
     def info
-      @hiera_params
+      @_populated_modules ||= populate_info @hiera_params['fqdn']
     end
 
   private
@@ -58,7 +57,7 @@ module Hieracles
     def populate_from_encdir(fqdn)
       if File.exist?(File.join('enc', "#{fqdn}.yaml"))
         load = YAML.load_file(File.join('enc', "#{fqdn}.yaml"))
-        @hiera_params = load['parameters'] + @hiera_params
+        load['parameters'] + @hiera_params
       else
         puts "Node not found"
       end
