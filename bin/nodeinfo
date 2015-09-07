@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+# This is a cgi script intended to be installed on 
+# puppetmasters v2.6 and v2.7
+
+require 'mysql'
+require 'cgi'
+
+cgi = CGI.new
+
+if cgi['q'].empty?
+        puts "Content-type: text/plain\n\n"
+        puts "KO"
+        exit(0)
+end
+
+DB_HOST = 'localhost'
+DB_USER = ''
+DB_PASS = ''
+DB_FIELDS = %w(farm site country)
+
+fqdn = cgi['q'].gsub(/[^-_0-9a-zA-z\.]/, '')
+QUERY = "select #{DB_FIELDS.join(', ')} from node left join datacenter dc on node.site=dc.datacenter where nodename='#{fqdn}';"
+DB = "puppet"
+
+
+begin
+    puts "Content-type: text/plain\n\n"
+    con = Mysql.new DB_HOST, DB_USER, DB_PASS
+    rs = con.query "use " + DB
+    rs = con.query QUERY
+    rs.each do |r|
+        puts r.join(',')
+    end
+
+rescue Mysql::Error => e
+    puts e.errno
+    puts e.error
+
+ensure
+    con.close if con
+end

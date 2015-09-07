@@ -27,6 +27,11 @@ describe Hieracles::Node do
   end
 
   describe '.info' do
+    let(:node) { Hieracles::Node.new 'server.example.com', options }
+    let(:expected) {
+      'fqdn' => 'server.example.com',
+
+    }
   end
 
   describe '.populate_info' do

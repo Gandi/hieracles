@@ -11,12 +11,13 @@ module Hieracles
     attr_reader :fqdn, :farm, :datacenter, :country, :files, :classfile
 
     def initialize(fqdn, options)
-      @fqdn = fqdn
       @files = []
       Config.load(options)
+      @hiera = Hieracles::Hiera new Config.hierafile
+      @hiera_params = Config.extraparams
+      @hiera_params['fqdn'] = fqdn
       populate_info(fqdn)
       populate_files
-      @hiera = Hieracles::Hiera new Config.hierafile
     end
 
     def paths
@@ -40,12 +41,7 @@ module Hieracles
     end
 
     def info
-      {
-        'Node' => @fqdn,
-        'Farm' => @farm,
-        'Datacenter' => @datacenter,
-        'Country' => @country
-      }
+      @hiera_params
     end
 
   private
@@ -62,9 +58,7 @@ module Hieracles
     def populate_from_encdir(fqdn)
       if File.exist?(File.join('enc', "#{fqdn}.yaml"))
         load = YAML.load_file(File.join('enc', "#{fqdn}.yaml"))
-        @farm = load['parameters']['farm']
-        @datacenter = load['parameters']['datacenter']
-        @country = load['parameters']['country']
+        @hiera_params = load['parameters'] + @hiera_params
       else
         puts "Node not found"
       end

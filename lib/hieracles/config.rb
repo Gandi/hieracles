@@ -5,7 +5,7 @@ module Hieracles
   module Config
     extend self
 
-    attr_reader :server, :classpath, :modulepath, :hierafile, :format
+    attr_reader :extraparams, :server, :classpath, :modulepath, :hierafile, :format
 
     def load(options)
       @optionfile = options[:config] || defaultconfig
