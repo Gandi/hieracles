@@ -15,5 +15,17 @@ module Hieracles
       parampath
     end
 
+    def hierarchy
+      @loaded[:hierarchy]
+    end
+
+    def hierarchy_short
+      hierarchy.select { |x| !x[/common/] }
+    end
+
+    def params
+      hierarchy.join(',').scan(/%\{([^\}]*)\}/).flatten.uniq
+    end
+
   end
 end

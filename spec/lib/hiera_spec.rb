@@ -19,7 +19,6 @@ describe Hieracles::Hiera do
     end
   end
 
-
   describe '.datadir' do
     context 'hiera file do not have a yaml backend' do
       let(:hierafile) { File.expand_path('../../files/hiera_no_yamlbackend.yaml', __FILE__) }
@@ -43,7 +42,58 @@ describe Hieracles::Hiera do
         expect(hiera.datadir).to eq parampath
       end
     end
-  
+  end
+
+  describe '.hierarchy' do
+    let(:hierafile) { File.expand_path('../../files/hiera.yaml', __FILE__) }
+    let(:hiera) { Hieracles::Hiera.new hierafile }
+    let(:expected) { [
+        'nodes/%{fqdn}',
+        'farm_datacenter/%{farm}_%{datacenter}',
+        'farm/%{farm}',
+        'room/%{room}',
+        'datacenter/%{datacenter}',
+        'country/%{country}',
+        'os/%{operatingsystem}-%{lsbdistcodename}',
+        'common/common'
+      ]}
+    it "extracts the hierarchy accoding to the hierfile" do
+      expect(hiera.hierarchy).to eq expected
+    end
+  end
+
+  describe '.hierarchy_short' do
+    let(:hierafile) { File.expand_path('../../files/hiera.yaml', __FILE__) }
+    let(:hiera) { Hieracles::Hiera.new hierafile }
+    let(:expected) { [
+        'nodes/%{fqdn}',
+        'farm_datacenter/%{farm}_%{datacenter}',
+        'farm/%{farm}',
+        'room/%{room}',
+        'datacenter/%{datacenter}',
+        'country/%{country}',
+        'os/%{operatingsystem}-%{lsbdistcodename}'
+      ]}
+    it "extracts the hierarchy accoding to the hierfile" do
+      expect(hiera.hierarchy_short).to eq expected
+    end
+  end
+
+  describe '.params' do
+    let(:hierafile) { File.expand_path('../../files/hiera.yaml', __FILE__) }
+    let(:hiera) { Hieracles::Hiera.new hierafile }
+    let(:expected) { [
+        'fqdn',
+        'farm',
+        'datacenter',
+        'room',
+        'country',
+        'operatingsystem',
+        'lsbdistcodename'
+      ]}
+    it 'extracts hiera parameters from the hierarchy' do
+      expect(hiera.params).to eq expected
+    end
   end
 
 end
