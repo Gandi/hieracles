@@ -5,7 +5,7 @@ module Hieracles
   module Config
     extend self
 
-    attr_reader :server, :classpath, :modulepath, :format
+    attr_reader :server, :classpath, :modulepath, :hierafile, :format
 
     def load(options)
       @optionfile = options[:config] || defaultconfig
@@ -13,7 +13,8 @@ module Hieracles
       values = YAML.load_file(@optionfile)
       @server = values['server']
       @classpath = values['classpath']
-      @modulepath = values['modulepath']
+      @modulepath = values['modulepath'] || 'modules'
+      @hierafile = values['hierafile'] || 'hiera.yaml'
       @format = (options[:format] || values['format'] || 'console').capitalize
     end
 
@@ -25,6 +26,7 @@ module Hieracles
         f.puts '# server: puppetserver.example.com'
         f.puts 'classpath: manifests/classes/%s.pp'
         f.puts 'modulepath: modules'
+        f.puts 'hierafile: hiera.yaml'
       end
     end
 

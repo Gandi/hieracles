@@ -11,6 +11,7 @@ describe Hieracles::Config do
       it 'initialize config values' do
         expect(Hieracles::Config.classpath).to eq '../files/farm_modules/%s.pp'
         expect(Hieracles::Config.modulepath).to eq '../files/modules'
+        expect(Hieracles::Config.hierafile).to eq '../files/hiera.yaml'
         expect(Hieracles::Config.format).to eq 'Console'
       end
     end

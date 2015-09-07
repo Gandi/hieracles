@@ -16,6 +16,7 @@ module Hieracles
       Config.load(options)
       populate_info(fqdn)
       populate_files
+      @hiera = Hieracles::Hiera new Config.hierafile
     end
 
     def paths
