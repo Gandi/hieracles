@@ -8,27 +8,25 @@ module Hieracles
 
     include Hieracles::Utils
 
-    attr_reader :fqdn, :farm, :datacenter, :country, :files, :classfile
+    attr_reader :hiera_params
 
     def initialize(fqdn, options)
-      @files = []
       Config.load(options)
       @hiera = Hieracles::Hiera new Config.hierafile
       @hiera_params = Config.extraparams
       @hiera_params['fqdn'] = fqdn
-      populate_files
     end
 
     def paths
-      @files.map { |p| File.expand_path(p) }
+      files.map { |p| File.expand_path(p) }
     end
 
     def params
-      @_populated_params ||= populate_params(@files)
+      @_populated_params ||= populate_params(files)
     end
 
     def params_tree
-      @_populated_params_tree ||= populate_params_tree(@files)
+      @_populated_params_tree ||= populate_params_tree(files)
     end
 
     def modules
@@ -41,6 +39,20 @@ module Hieracles
 
     def info
       @_populated_modules ||= populate_info @hiera_params['fqdn']
+    end
+
+    def files
+      @_files ||= @hiera.hierarchy.select do |f|
+                    File.exist?(format(f, @hiera_params))
+                  end
+    end
+
+    def classpath(path)
+      format(Config.classpath, path)
+    end
+
+    def modulepath(path)
+      File.join(Config.modulepath, path)
     end
 
   private
@@ -76,26 +88,6 @@ module Hieracles
           #puts "%s - %s - %s" % [@farm, @datacenter, @country]
         end
       end
-    end
-
-    def populate_files
-      addfile "params/nodes/#{@fqdn}.yaml" 
-      addfile "params/farm_datacenter/#{@farm}_#{@datacenter}.yaml"
-      addfile "params/farm/#{@farm}.yaml"
-      addfile "params/datacenter/#{@datacenter}.yaml"
-      addfile "params/country/#{@country}.yaml"
-    end
-
-    def addfile(path)
-      @files << path if File.exist?(path)
-    end
-
-    def classpath(path)
-      format(Config.classpath, path)
-    end
-
-    def modulepath(path)
-      File.join(Config.modulepath, path)
     end
 
     def populate_params(files)
