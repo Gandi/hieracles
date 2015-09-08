@@ -27,6 +27,6 @@ if Hieracles::Format.method_defined? command
   puts dispatch.send(command.to_sym, args)
 else
   puts "  Unknown command: #{command}"
-  Hieracles.usage
+  Hieracles::Help.usage
   exit(1)
 end

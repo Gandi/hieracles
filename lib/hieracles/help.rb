@@ -1,7 +1,7 @@
 module Hieracles
   module Help
 
-    def usage
+    def self.usage
       return <<-END
 
       Usage: hc <fqdn> <command> [extra_args]
