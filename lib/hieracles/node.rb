@@ -38,7 +38,11 @@ module Hieracles
     end
 
     def info
-      @_populated_modules ||= populate_info @hiera_params['fqdn']
+      if Dir.exist?('enc')
+        populate_from_encdir(fqdn)
+      else
+        populate_from_cgi(fqdn)
+      end
     end
 
     def files
@@ -56,15 +60,6 @@ module Hieracles
     end
 
   private
-
-    def populate_info(fqdn)
-      # temporary solution
-      if Dir.exist?('enc')
-        populate_from_encdir(fqdn)
-      else
-        populate_from_cgi(fqdn)
-      end
-    end
 
     def populate_from_encdir(fqdn)
       if File.exist?(File.join('enc', "#{fqdn}.yaml"))
