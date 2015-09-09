@@ -11,7 +11,27 @@ module Hieracles
     def initialize(fqdn, options)
       Config.load(options)
       @hiera = Hieracles::Hiera.new Config.hierafile
-      @hiera_params = { 'fqdn' => fqdn }.merge Config.extraparams
+      @hiera_params = { fqdn: fqdn }.
+        merge(Config.extraparams).
+        merge(get_hiera_params(fqdn))
+    end
+
+    def get_hiera_params(fqdn)
+      if File.exist?(File.join(Config.encpath, "#{fqdn}.yaml"))
+        load = YAML.load_file(File.join(Config.encpath, "#{fqdn}.yaml"))
+        sym_keys(load['parameters'])
+      else
+        puts "Node not found"
+        {}
+      end
+    end
+
+    def files
+      puts @hiera.hierarchy
+      @hiera.hierarchy.select do |f|
+        file = format(f, @hiera_params) rescue nil
+        file && File.exist?(format(f, @hiera_params)+'.yaml')
+      end
     end
 
     def paths
@@ -42,12 +62,6 @@ module Hieracles
       end
     end
 
-    def files
-      @_files ||= @hiera.hierarchy.select do |f|
-                    File.exist?(format(f, @hiera_params))
-                  end
-    end
-
     def classpath(path)
       format(Config.classpath, path)
     end
@@ -64,6 +78,7 @@ module Hieracles
         load['parameters'] + @hiera_params
       else
         puts "Node not found"
+        {}
       end
     end
 

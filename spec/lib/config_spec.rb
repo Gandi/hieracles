@@ -60,7 +60,7 @@ describe Hieracles::Config do
 
   describe '.extract_params' do
     let(:str)  { 'bla=blu;one=two' }
-    let(:expected) { { 'bla' => 'blu', 'one' => 'two' } }
+    let(:expected) { { bla: 'blu', one: 'two' } }
     it { expect(Hieracles::Config.extract_params(str)).to eq expected }
   end
 end
