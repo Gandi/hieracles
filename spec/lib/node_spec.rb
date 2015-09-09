@@ -5,7 +5,8 @@ describe Hieracles::Node do
     { 
       config: File.expand_path('../../files/config.yml', __FILE__),
       hierafile: File.expand_path('../../files/hiera.yaml', __FILE__),
-      encpath: File.expand_path('../../files/enc', __FILE__)
+      encpath: File.expand_path('../../files/enc', __FILE__),
+      paramspath: File.expand_path('../../files/params', __FILE__)
     }
   }
 
@@ -49,9 +50,12 @@ describe Hieracles::Node do
 
     describe '.files' do
       let(:expected) {
-        [ "ba" ]
+        [
+          'nodes/server.example.com.yaml',
+          'farm/dev.yaml'
+        ]
       }
-      #it { expect(node.files).to eq expected }
+      it { expect(node.files).to eq expected }
     end
   end
 
@@ -65,9 +69,6 @@ describe Hieracles::Node do
   end
 
   describe '.modules' do
-  end
-
-  describe '.add_common' do
   end
 
   describe '.info' do

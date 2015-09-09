@@ -2,3 +2,4 @@
 classpath: ../files/farm_modules/%s.pp
 modulepath: ../files/modules
 hierafile: ../files/hiera.yaml
+paramspath: ../files/params
