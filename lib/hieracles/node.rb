@@ -3,18 +3,15 @@ require "uri"
 require "yaml"
 
 module Hieracles
-
   class Node
-
     include Hieracles::Utils
 
     attr_reader :hiera_params
 
     def initialize(fqdn, options)
       Config.load(options)
-      @hiera = Hieracles::Hiera new Config.hierafile
-      @hiera_params = Config.extraparams
-      @hiera_params['fqdn'] = fqdn
+      @hiera = Hieracles::Hiera.new Config.hierafile
+      @hiera_params = { 'fqdn' => fqdn }.merge Config.extraparams
     end
 
     def paths
@@ -140,5 +137,4 @@ module Hieracles
     end
 
   end
-
 end

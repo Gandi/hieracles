@@ -2,10 +2,15 @@ require 'spec_helper'
 
 describe Hieracles::Node do
   let(:options) {
-    { config: File.expand_path('../../files/config.yml', __FILE__) }
+    { 
+      config: File.expand_path('../../files/config.yml', __FILE__),
+      hierafile: File.expand_path('../../files/hiera.yaml', __FILE__)
+    }
   }
 
   describe '.new' do
+    let(:node) { Hieracles::Node.new 'server.example.com', options }
+    it { expect(node).to be_a Hieracles::Node }
   end
 
   describe '.paths' do

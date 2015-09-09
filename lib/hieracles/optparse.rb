@@ -16,6 +16,10 @@ module Hieracles
       params: {
         has_arg: true,
         aliases: ['p', 'params']
+      },
+      hierafile: {
+        has_arg: true,
+        aliases: ['h', 'hierafile']
       }
     }
 

@@ -15,7 +15,7 @@ module Hieracles
       @server = values['server']
       @classpath = values['classpath']
       @modulepath = values['modulepath'] || 'modules'
-      @hierafile = values['hierafile'] || 'hiera.yaml'
+      @hierafile = options[:hierafile] || values['hierafile'] || 'hiera.yaml'
       @format = (options[:format] || values['format'] || 'console').capitalize
     end
 
