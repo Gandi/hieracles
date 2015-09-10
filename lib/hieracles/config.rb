@@ -5,7 +5,8 @@ module Hieracles
   module Config
     extend self
 
-    attr_reader :extraparams, :server, :classpath, :modulepath, :hierafile, :format
+    attr_reader :extraparams, :server, :classpath, 
+      :modulepath, :hierafile, :encpath, :paramspath, :format
 
     def load(options)
       @optionfile = options[:config] || defaultconfig
@@ -15,7 +16,9 @@ module Hieracles
       @server = values['server']
       @classpath = values['classpath']
       @modulepath = values['modulepath'] || 'modules'
-      @hierafile = values['hierafile'] || 'hiera.yaml'
+      @paramspath = options[:paramspath] || values['paramspath'] || 'params'
+      @encpath = options[:encpath] || values['encpath'] || 'enc'
+      @hierafile = options[:hierafile] || values['hierafile'] || 'hiera.yaml'
       @format = (options[:format] || values['format'] || 'console').capitalize
     end
 
@@ -27,6 +30,7 @@ module Hieracles
         f.puts '# server: puppetserver.example.com'
         f.puts 'classpath: manifests/classes/%s.pp'
         f.puts 'modulepath: modules'
+        f.puts 'encpath: enc'
         f.puts 'hierafile: hiera.yaml'
       end
     end
@@ -39,7 +43,7 @@ module Hieracles
     def extract_params(str)
       return {} unless str
       str.split(';').reduce({}) do |a, k|
-        a["#{k[/^[^=]*/]}"] = k[/[^=]*$/]
+        a["#{k[/^[^=]*/]}".to_sym] = k[/[^=]*$/]
         a
       end
     end

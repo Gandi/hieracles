@@ -16,6 +16,24 @@ describe Hieracles::Config do
       end
     end
 
+    context 'with additional parameters' do
+      let(:hierapath) { File.expand_path('../../files/hiera.yaml', __FILE__) }
+      let(:options) do
+        { 
+          config: File.expand_path('../../files/config.yml', __FILE__),
+          hierafile: hierapath
+        }
+      end
+      before { Hieracles::Config.load options }
+
+      it 'initialize config values' do
+        expect(Hieracles::Config.classpath).to eq '../files/farm_modules/%s.pp'
+        expect(Hieracles::Config.modulepath).to eq '../files/modules'
+        expect(Hieracles::Config.hierafile).to eq hierapath
+        expect(Hieracles::Config.format).to eq 'Console'
+      end
+    end
+
     context 'without an existing config file' do
       let(:options) do
         { config: File.expand_path('../../files/config_no.yml', __FILE__) }
@@ -42,7 +60,7 @@ describe Hieracles::Config do
 
   describe '.extract_params' do
     let(:str)  { 'bla=blu;one=two' }
-    let(:expected) { { 'bla' => 'blu', 'one' => 'two' } }
+    let(:expected) { { bla: 'blu', one: 'two' } }
     it { expect(Hieracles::Config.extract_params(str)).to eq expected }
   end
 end

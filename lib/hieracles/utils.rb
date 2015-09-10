@@ -1,5 +1,4 @@
 module Hieracles
-
   module Utils
 
     def to_shallow_hash(hash)
@@ -52,6 +51,9 @@ module Hieracles
       hash.keys.reduce(0) { |a, x| (x.length > a) ? x.length : a }
     end
 
-  end
+    def sym_keys(hash)
+      hash.reduce({}) { |a, (k, v)| a[k.to_sym] = v ; a }
+    end
 
+  end
 end

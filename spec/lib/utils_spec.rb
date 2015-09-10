@@ -49,7 +49,13 @@ describe Hieracles::Utils do
   end
 
   describe '.max_key_length' do
-    let(:hash) { { 'key1' => nil, 'key22' => nil, 'key9chars' => nil }}
-    it { expect(max_key_length hash). to eq 9 }
+    let(:hash) { { 'key1' => nil, 'key22' => nil, 'key9chars' => nil } }
+    it { expect(max_key_length hash).to eq 9 }
+  end
+
+  describe '.sym_keys' do
+    let(:hash) { { 'key1' => '1', 'key22' => '2', 'key9chars' => 3 } }
+    let(:expected) { { key1: '1', key22: '2', key9chars: 3 } }
+    it { expect(sym_keys hash).to eq expected }
   end
 end

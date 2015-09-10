@@ -3,18 +3,37 @@ require "uri"
 require "yaml"
 
 module Hieracles
-
   class Node
-
     include Hieracles::Utils
 
     attr_reader :hiera_params
 
     def initialize(fqdn, options)
       Config.load(options)
-      @hiera = Hieracles::Hiera new Config.hierafile
-      @hiera_params = Config.extraparams
-      @hiera_params['fqdn'] = fqdn
+      @hiera = Hieracles::Hiera.new Config.hierafile
+      @hiera_params = { fqdn: fqdn }.
+        merge(Config.extraparams).
+        merge(get_hiera_params(fqdn))
+    end
+
+    def get_hiera_params(fqdn)
+      if File.exist?(File.join(Config.encpath, "#{fqdn}.yaml"))
+        load = YAML.load_file(File.join(Config.encpath, "#{fqdn}.yaml"))
+        sym_keys(load['parameters'])
+      else
+        puts "Node not found"
+        {}
+      end
+    end
+
+    def files
+      @hiera.hierarchy.reduce([]) do |a, f|
+        file = format("#{f}.yaml", @hiera_params) rescue nil
+        if file && File.exist?(File.join(Config.paramspath, file))
+          a << file
+        end
+        a
+      end
     end
 
     def paths
@@ -45,12 +64,6 @@ module Hieracles
       end
     end
 
-    def files
-      @_files ||= @hiera.hierarchy.select do |f|
-                    File.exist?(format(f, @hiera_params))
-                  end
-    end
-
     def classpath(path)
       format(Config.classpath, path)
     end
@@ -67,6 +80,7 @@ module Hieracles
         load['parameters'] + @hiera_params
       else
         puts "Node not found"
+        {}
       end
     end
 
@@ -140,5 +154,4 @@ module Hieracles
     end
 
   end
-
 end
