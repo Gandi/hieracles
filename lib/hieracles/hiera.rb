@@ -10,7 +10,7 @@ module Hieracles
 
     def datadir
       raise TypeError, "Sorry hieracles only knows yaml backend for now." unless @loaded[:yaml]
-      parampath = File.expand_path(File.join('..', @loaded[:yaml][:datadir]), @hierafile)
+      parampath = File.expand_path(File.join(Config.basepath, @loaded[:yaml][:datadir]))
       raise IOError, "Params dir #{parampath} not found." unless Dir.exist? parampath
       parampath
     end

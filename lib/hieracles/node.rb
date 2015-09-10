@@ -12,8 +12,8 @@ module Hieracles
       Config.load(options)
       @hiera = Hieracles::Hiera.new
       @hiera_params = { fqdn: fqdn }.
-        merge(Config.extraparams).
-        merge(get_hiera_params(fqdn))
+        merge(get_hiera_params(fqdn)).
+        merge(Config.extraparams)
       @fqdn = fqdn
     end
 
@@ -58,11 +58,7 @@ module Hieracles
     end
 
     def info
-      if Dir.exist?('enc')
-        populate_from_encdir(@hiera_params[:fqdn])
-      else
-        populate_from_cgi(@hiera_params[:fqdn])
-      end
+      @hiera_params
     end
 
     def classpath(path)
@@ -76,7 +72,8 @@ module Hieracles
   private
 
     def populate_from_encdir(fqdn)
-      if File.exist?(File.join('enc', "#{fqdn}.yaml"))
+      puts File.join(Config.encpath, "#{fqdn}.yaml")
+      if File.exist?(File.join(Config.encpath, "#{fqdn}.yaml"))
         load = YAML.load_file(File.join('enc', "#{fqdn}.yaml"))
         load['parameters'] + @hiera_params
       else

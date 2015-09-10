@@ -39,7 +39,8 @@ describe Hieracles::Hiera do
       let(:options) {
         {
           config: File.expand_path('../../files/config.yml', __FILE__),
-          hierafile: File.expand_path('../../files/hiera.yaml', __FILE__)
+          hierafile: File.expand_path('../../files/hiera.yaml', __FILE__),
+          basepath: File.expand_path('../../files', __FILE__)
         }
       }
       let(:hiera) { Hieracles::Hiera.new }
