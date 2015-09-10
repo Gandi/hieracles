@@ -17,6 +17,7 @@ module Hieracles
       @classpath = values['classpath']
       @modulepath = values['modulepath'] || 'modules'
       @encpath = options[:encpath] || values['encpath'] || 'enc'
+      @basepath = options[:basepath] || values['basepath'] || '.'
       @hierafile = options[:hierafile] || values['hierafile'] || 'hiera.yaml'
       @format = (options[:format] || values['format'] || 'console').capitalize
     end

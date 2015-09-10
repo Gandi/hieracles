@@ -10,10 +10,11 @@ module Hieracles
 
     def initialize(fqdn, options)
       Config.load(options)
-      @hiera = Hieracles::Hiera.new Config.hierafile
+      @hiera = Hieracles::Hiera.new
       @hiera_params = { fqdn: fqdn }.
         merge(Config.extraparams).
         merge(get_hiera_params(fqdn))
+      @fqdn = fqdn
     end
 
     def get_hiera_params(fqdn)
@@ -58,9 +59,9 @@ module Hieracles
 
     def info
       if Dir.exist?('enc')
-        populate_from_encdir(fqdn)
+        populate_from_encdir(@hiera_params[:fqdn])
       else
-        populate_from_cgi(fqdn)
+        populate_from_cgi(@hiera_params[:fqdn])
       end
     end
 

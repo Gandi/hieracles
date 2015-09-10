@@ -21,6 +21,10 @@ module Hieracles
         has_arg: true,
         aliases: ['h', 'hierafile']
       },
+      basepath: {
+        has_arg: true,
+        aliases: ['b', 'basepath']
+      },
       encpath: {
         has_arg: true,
         aliases: ['e', 'encpath']

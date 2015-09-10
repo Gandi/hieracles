@@ -6,7 +6,7 @@ describe Hieracles::Node do
       config: File.expand_path('../../files/config.yml', __FILE__),
       hierafile: File.expand_path('../../files/hiera.yaml', __FILE__),
       encpath: File.expand_path('../../files/enc', __FILE__),
-      paramspath: File.expand_path('../../files/params', __FILE__)
+      basepath: File.expand_path('../../files', __FILE__)
     }
   }
 
