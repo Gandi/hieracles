@@ -6,7 +6,7 @@ module Hieracles
     extend self
 
     attr_reader :extraparams, :server, :classpath, 
-      :modulepath, :hierafile, :encpath, :paramspath, :format
+      :modulepath, :hierafile, :encpath, :format
 
     def load(options)
       @optionfile = options[:config] || defaultconfig
@@ -16,7 +16,6 @@ module Hieracles
       @server = values['server']
       @classpath = values['classpath']
       @modulepath = values['modulepath'] || 'modules'
-      @paramspath = options[:paramspath] || values['paramspath'] || 'params'
       @encpath = options[:encpath] || values['encpath'] || 'enc'
       @hierafile = options[:hierafile] || values['hierafile'] || 'hiera.yaml'
       @format = (options[:format] || values['format'] || 'console').capitalize

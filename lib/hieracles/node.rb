@@ -29,7 +29,7 @@ module Hieracles
     def files
       @hiera.hierarchy.reduce([]) do |a, f|
         file = format("#{f}.yaml", @hiera_params) rescue nil
-        if file && File.exist?(File.join(Config.paramspath, file))
+        if file && File.exist?(File.join(@hiera.datadir, file))
           a << file
         end
         a
