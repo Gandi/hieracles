@@ -42,8 +42,8 @@ module Hieracles
 
     def params
       params = {}
-      paths.each do |f|
-        data = YAML.load_file(f)
+      files.each do |f|
+        data = YAML.load_file(File.join(@hiera.datadir, f))
         s = to_shallow_hash(data)
         s.each do |k,v|
           params[k] ||= []

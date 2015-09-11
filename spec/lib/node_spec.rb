@@ -78,19 +78,19 @@ describe Hieracles::Node do
           [ "another.sublevel.thing", 
             [{
               value: "always",
-              file: File.join(node.hiera.datadir, 'nodes/server.example.com.yaml')
+              file: 'nodes/server.example.com.yaml'
             }]
           ],
           [ "common_param.subparam",
             [{
               value: "overriden", 
-              file: File.join(node.hiera.datadir, 'nodes/server.example.com.yaml')
+              file: 'nodes/server.example.com.yaml'
             }]
           ], 
           [ "somefarmparam", 
             [{
               value: false,
-              file: File.join(node.hiera.datadir, 'farm/dev.yaml')
+              file: 'farm/dev.yaml'
             }]
           ]
         ]
