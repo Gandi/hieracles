@@ -4,31 +4,28 @@ describe Hieracles::Config do
   describe '.load' do
     context 'with an existing file' do
       let(:options) do
-        { config: File.expand_path('../../files/config.yml', __FILE__) }
+        { config: 'spec/files/config.yml', basepath: 'spec/files' }
       end
       before { Hieracles::Config.load options }
 
       it 'initialize config values' do
-        expect(Hieracles::Config.classpath).to eq '../files/farm_modules/%s.pp'
-        expect(Hieracles::Config.modulepath).to eq '../files/modules'
-        expect(Hieracles::Config.hierafile).to eq '../files/hiera.yaml'
+        expect(Hieracles::Config.classpath).to eq 'spec/files/farm_modules/%s.pp'
+        expect(Hieracles::Config.modulepath).to eq 'spec/files/modules'
+        expect(Hieracles::Config.hierafile).to eq 'spec/files/hiera.yaml'
         expect(Hieracles::Config.format).to eq 'Console'
       end
     end
 
     context 'with additional parameters' do
-      let(:hierapath) { File.expand_path('../../files/hiera.yaml', __FILE__) }
+      let(:hierapath) { 'hiera.yaml' }
       let(:options) do
-        { 
-          config: File.expand_path('../../files/config.yml', __FILE__),
-          hierafile: hierapath
-        }
+        { config: 'spec/files/config.yml', basepath: 'spec/files', hierafile: hierapath }
       end
       before { Hieracles::Config.load options }
 
       it 'initialize config values' do
-        expect(Hieracles::Config.classpath).to eq '../files/farm_modules/%s.pp'
-        expect(Hieracles::Config.modulepath).to eq '../files/modules'
+        expect(Hieracles::Config.classpath).to eq 'spec/files/farm_modules/%s.pp'
+        expect(Hieracles::Config.modulepath).to eq 'spec/files/modules'
         expect(Hieracles::Config.hierafile).to eq hierapath
         expect(Hieracles::Config.format).to eq 'Console'
       end
@@ -36,7 +33,7 @@ describe Hieracles::Config do
 
     context 'without an existing config file' do
       let(:options) do
-        { config: File.expand_path('../../files/config_no.yml', __FILE__) }
+        { config: 'spec/files/config_no.yml' }
       end
       before do
         FileUtils.rm(options[:config]) if File.exist? options[:config]

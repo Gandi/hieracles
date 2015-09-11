@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Hieracles::Node do
   let(:options) {
     { 
-      config: 'config.yml',
+      config: 'spec/files/config.yml',
       hierafile: 'hiera.yaml',
       encpath: 'enc',
       basepath: 'spec/files'

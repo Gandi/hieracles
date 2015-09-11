@@ -56,7 +56,7 @@ describe Hieracles::Hiera do
     context 'hiera file has a yaml backend' do
       let(:options) {
         {
-          config: 'config.yml',
+          config: 'spec/files/config.yml',
           hierafile: 'hiera.yaml',
           basepath: 'spec/files'
         }
