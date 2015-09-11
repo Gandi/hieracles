@@ -93,9 +93,23 @@ describe Hieracles::Node do
       }
       it { expect(node.params).to eq expected }
     end
-  end
 
-  describe '.params_tree' do
+    describe '.params_tree' do
+      let(:expected) {
+        {
+          "another" => { 
+            "sublevel" => {
+              "thing" => "always"
+            }
+          },
+          "common_param" => {
+            "subparam" => "overriden"
+          }, 
+          "somefarmparam" => false
+        }
+      }
+      it { expect(node.params_tree).to eq expected }
+    end
   end
 
   describe '.modules' do

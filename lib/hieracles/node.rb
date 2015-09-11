@@ -55,7 +55,12 @@ module Hieracles
     end
 
     def params_tree
-      @_populated_params_tree ||= populate_params_tree(files)
+      params = {}
+      paths.each do |f|
+        data = YAML.load_file(f)
+        deep_merge!(params, data)
+      end
+      deep_sort(params)
     end
 
     def modules
@@ -79,29 +84,6 @@ module Hieracles
     end
 
   private
-
-
-    def populate_params(files)
-      params = {}
-      files.each do |f|
-        data = YAML.load_file(f)
-        s = to_shallow_hash(data)
-        s.each do |k,v|
-          params[k] ||= []
-          params[k] << { value: v, file: f}
-        end
-      end
-      params.sort
-    end
-
-    def populate_params_tree(files)
-      params = {}
-      files.each do |f|
-        data = YAML.load_file(f)
-        deep_merge!(params, data)
-      end
-      deep_sort(params)
-    end
 
     def populate_modules(farm)
       classfile = classpath(farm)
