@@ -13,7 +13,6 @@ describe Hieracles::Node do
   context "when extra parameters are specified" do
     describe '.new' do
       let(:extraoptions) {
-        #options.merge({ 'key1' => 'value1', 'key2' => 'value2' })
         options.merge({ params: 'key1=value1;key2=value2' })
       }
       let(:node) { Hieracles::Node.new 'server.example.com', extraoptions }
@@ -30,6 +29,11 @@ describe Hieracles::Node do
       it { expect(node).to be_a Hieracles::Node }
       it { expect(node.hiera_params).to eq expected }
     end
+  end
+
+  context "when parameters are not valid" do
+    let(:node) { Hieracles::Node.new 'server_not_there.example.com', options }
+    it { expect{ node }.to raise_error(RuntimeError) }
   end
 
   context "when parameters are valid" do

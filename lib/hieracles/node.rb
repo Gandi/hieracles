@@ -22,8 +22,7 @@ module Hieracles
         load = YAML.load_file(File.join(Config.path('encpath'), "#{fqdn}.yaml"))
         sym_keys(load['parameters'])
       else
-        puts "Node not found"
-        {}
+        raise "Node not found"
       end
     end
 
@@ -77,15 +76,9 @@ module Hieracles
       end
     end
 
-    def add_common
-      addfile "params/common/common.yaml"
-    end
-
     def info
       @hiera_params
     end
-
-  private
 
     def classfile
       format(Config.path('classpath'), @hiera_params[:farm])
