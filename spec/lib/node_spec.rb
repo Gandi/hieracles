@@ -74,19 +74,19 @@ describe Hieracles::Node do
           [ "another.sublevel.thing", 
             [{
               value: "always",
-              file: "/Users/mose/projects/hieracles/spec/files/params/nodes/server.example.com.yaml"
+              file: File.join(node.hiera.datadir, 'nodes/server.example.com.yaml')
             }]
           ],
           [ "common_param.subparam",
             [{
               value: "overriden", 
-              file: "/Users/mose/projects/hieracles/spec/files/params/nodes/server.example.com.yaml"
+              file: File.join(node.hiera.datadir, 'nodes/server.example.com.yaml')
             }]
           ], 
           [ "somefarmparam", 
             [{
               value: false,
-              file: "/Users/mose/projects/hieracles/spec/files/params/farm/dev.yaml"
+              file: File.join(node.hiera.datadir, 'farm/dev.yaml')
             }]
           ]
         ]
