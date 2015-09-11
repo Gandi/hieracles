@@ -6,7 +6,7 @@ module Hieracles
   class Node
     include Hieracles::Utils
 
-    attr_reader :hiera_params
+    attr_reader :hiera_params, :hiera
 
     def initialize(fqdn, options)
       Config.load(options)
@@ -38,7 +38,7 @@ module Hieracles
     end
 
     def paths
-      files.map { |p| File.expand_path(p) }
+      files.map { |p| File.join(@hiera.datadir, p) }
     end
 
     def params
