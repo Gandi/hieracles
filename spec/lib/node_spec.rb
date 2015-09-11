@@ -115,15 +115,29 @@ describe Hieracles::Node do
       it { expect(node.params_tree).to eq expected }
     end
 
+
     describe '.modules' do
-      let(:expected) {
-        {
-          "fake_module" => "/Users/mose/projects/hieracles/spec/files/modules/fake_module",
-          "fake_module2" => "/Users/mose/projects/hieracles/spec/files/modules/fake_module2",
-          "fake_module3" => "/Users/mose/projects/hieracles/spec/files/modules/fake_module3"
+      context "no unfound modules" do
+        let(:expected) {
+          {
+            "fake_module" => "/Users/mose/projects/hieracles/spec/files/modules/fake_module",
+            "fake_module2" => "/Users/mose/projects/hieracles/spec/files/modules/fake_module2",
+            "fake_module3" => "/Users/mose/projects/hieracles/spec/files/modules/fake_module3"
+          }
         }
-      }
-      it { expect(node.modules).to eq expected }
+        it { expect(node.modules).to eq expected }
+      end
+      context "one unfound modules" do
+        let(:node) { Hieracles::Node.new 'server2.example.com', options }
+        let(:expected) {
+          {
+            "fake_module" => "/Users/mose/projects/hieracles/spec/files/modules/fake_module",
+            "fake_module2" => "/Users/mose/projects/hieracles/spec/files/modules/fake_module2",
+            "fake_module4" => nil
+          }
+        }
+        it { expect(node.modules).to eq expected }
+      end
     end
 
     describe '.info' do
@@ -136,19 +150,5 @@ describe Hieracles::Node do
       it { expect(node.info).to eq expected }
     end
   end
-
-  describe '.addfile' do
-  end
-
-  describe '.classpath' do
-  end
-
-  describe '.modulepath' do
-  end
-
-  describe '.add_modules' do
-  end
-
-
 
 end
