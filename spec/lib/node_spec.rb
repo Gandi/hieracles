@@ -110,25 +110,17 @@ describe Hieracles::Node do
       }
       it { expect(node.params_tree).to eq expected }
     end
-  end
 
-  describe '.modules' do
-  end
+    describe '.modules' do
+    end
 
-  describe '.info' do
-    let(:node) { Hieracles::Node.new 'server.example.com', options }
-    let(:expected) { {
-      fqdn: 'server.example.com'
-    } }
-  end
+    describe '.info' do
+      let(:node) { Hieracles::Node.new 'server.example.com', options }
+      let(:expected) { {
+        fqdn: 'server.example.com'
+      } }
 
-  describe '.populate_info' do
-  end
-
-  describe '.populate_from_encdir' do
-  end
-
-  describe '.poopulate_files' do
+    end
   end
 
   describe '.addfile' do
@@ -138,15 +130,6 @@ describe Hieracles::Node do
   end
 
   describe '.modulepath' do
-  end
-
-  describe '.populate_params' do
-  end
-
-  describe '.populate_params_tree' do
-  end
-
-  describe '.populate_modules' do
   end
 
   describe '.add_modules' do
