@@ -1,6 +1,8 @@
 Hieracles Changelog
 =======================
 
+### 0.0.2 - wip
+
 ### 0.0.1 - 2015-09-12
 - first alpha release
 - added extensive testing using rspec
