@@ -113,11 +113,13 @@ describe Hieracles::Node do
 
     describe '.modules' do
       let(:expected) {
-        [
-          'module' => 'path'
-        ]
+        {
+          "fake_module" => "/Users/mose/projects/hieracles/spec/files/modules/fake_module",
+          "fake_module2" => "/Users/mose/projects/hieracles/spec/files/modules/fake_module2",
+          "fake_module3" => "/Users/mose/projects/hieracles/spec/files/modules/fake_module3"
+        }
       }
-      #it { expect(node.modules).to eq expected }
+      it { expect(node.modules).to eq expected }
     end
 
     describe '.info' do

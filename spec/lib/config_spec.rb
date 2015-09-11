@@ -9,9 +9,9 @@ describe Hieracles::Config do
       before { Hieracles::Config.load options }
 
       it 'initialize config values' do
-        expect(Hieracles::Config.classpath).to eq 'spec/files/farm_modules/%s.pp'
-        expect(Hieracles::Config.modulepath).to eq 'spec/files/modules'
-        expect(Hieracles::Config.hierafile).to eq 'spec/files/hiera.yaml'
+        expect(Hieracles::Config.classpath).to eq 'farm_modules/%s.pp'
+        expect(Hieracles::Config.modulepath).to eq 'modules'
+        expect(Hieracles::Config.hierafile).to eq 'hiera.yaml'
         expect(Hieracles::Config.format).to eq 'Console'
       end
     end
@@ -24,8 +24,8 @@ describe Hieracles::Config do
       before { Hieracles::Config.load options }
 
       it 'initialize config values' do
-        expect(Hieracles::Config.classpath).to eq 'spec/files/farm_modules/%s.pp'
-        expect(Hieracles::Config.modulepath).to eq 'spec/files/modules'
+        expect(Hieracles::Config.classpath).to eq 'farm_modules/%s.pp'
+        expect(Hieracles::Config.modulepath).to eq 'modules'
         expect(Hieracles::Config.hierafile).to eq hierapath
         expect(Hieracles::Config.format).to eq 'Console'
       end

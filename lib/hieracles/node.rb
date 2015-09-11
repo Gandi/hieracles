@@ -88,11 +88,11 @@ module Hieracles
   private
 
     def classfile
-      format(Config.classpath, @hiera_params[:farm])
+      format(Config.path('classpath'), @hiera_params[:farm])
     end
 
     def modulepath(path)
-      File.join(Config.modulepath, path)
+      File.join(Config.path('modulepath'), path)
     end
 
     def add_modules(line, modules)
