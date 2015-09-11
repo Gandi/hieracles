@@ -21,6 +21,14 @@ module Hieracles
                     eg. hc <fqdn> params 'version$'
         allparams   same as params but including the common.yaml params (huge)
                     Also accepts a search string
+
+      Extra args:
+        -f <plain|console|csv|yaml> default console
+        -p extraparam=what;anotherparam=this 
+        -c <configfile>
+        -h <hierafile>
+        -b <basepath> default ./
+        -e <encdir>
       END
     end
   end
