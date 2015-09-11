@@ -31,7 +31,7 @@ describe Hieracles::Format do
 
   describe ".build_head" do
     it "returns a message informing that this class should be inherited" do
-      expect(dispatch.send :build_head).to eq format(not_implemented, 'build_head')
+      expect(dispatch.send :build_head, true).to eq format(not_implemented, 'build_head')
     end
   end
   describe ".build_params_line" do

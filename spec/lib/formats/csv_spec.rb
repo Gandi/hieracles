@@ -45,7 +45,7 @@ describe Hieracles::Formats::Csv do
       allow(node).to receive(:files).and_return(['path1', 'path2'])
     }
     it "outputs proper text" do
-      expect(csv_format.send :build_head).to eq expected
+      expect(csv_format.send :build_head, true).to eq expected
     end
   end
 

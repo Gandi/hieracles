@@ -26,23 +26,26 @@ module Hieracles
       end
     end
 
-    def files
+    def files(without_common = true)
       @hiera.hierarchy.reduce([]) do |a, f|
         file = format("#{f}.yaml", @hiera_params) rescue nil
-        if file && File.exist?(File.join(@hiera.datadir, file))
+        if file && 
+           File.exist?(File.join(@hiera.datadir, file)) &&
+           (!without_common ||
+           !file[/common/])
           a << file
         end
         a
       end
     end
 
-    def paths
-      files.map { |p| File.join(@hiera.datadir, p) }
+    def paths(without_common = true)
+      files(without_common).map { |p| File.join(@hiera.datadir, p) }
     end
 
-    def params
+    def params(without_common = true)
       params = {}
-      files.each do |f|
+      files(without_common).each do |f|
         data = YAML.load_file(File.join(@hiera.datadir, f))
         s = to_shallow_hash(data)
         s.each do |k,v|
@@ -53,9 +56,9 @@ module Hieracles
       params.sort
     end
 
-    def params_tree
+    def params_tree(without_common = true)
       params = {}
-      paths.each do |f|
+      paths(without_common).each do |f|
         data = YAML.load_file(f)
         deep_merge!(params, data)
       end

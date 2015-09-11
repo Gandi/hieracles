@@ -48,7 +48,7 @@ describe Hieracles::Formats::Console do
       allow(node).to receive(:files).and_return(['path1', 'path2'])
     }
     it "outputs proper text" do
-      expect(console_format.send :build_head).to eq expected
+      expect(console_format.send :build_head, true).to eq expected
     end
   end
 

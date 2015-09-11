@@ -40,9 +40,9 @@ module Hieracles
         @node.paths.join("\n") + "\n"
       end
 
-      def build_head
+      def build_head(without_common)
         output = ''
-        @node.files.each_with_index do |f, i|
+        @node.files(without_common).each_with_index do |f, i|
           output << format("#{COLORS[i]}\n", "[#{i}] #{f}")
           @colors[f] = i
         end

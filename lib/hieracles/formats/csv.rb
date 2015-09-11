@@ -16,9 +16,9 @@ module Hieracles
         make_csv @node.paths
       end
 
-      def build_head
+      def build_head(without_common)
         output = []
-        @node.files.each do |f|
+        @node.files(without_common).each do |f|
           output << f
         end
         output += %w(var value overriden)

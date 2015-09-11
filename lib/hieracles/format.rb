@@ -17,18 +17,20 @@ module Hieracles
     end
 
     def params(args)
-      filter = args[0]
-      output = ''
-      output << build_head
-      @node.params.each do |k, v|
-        output << build_params_line(k, v, filter)
-      end
-      output
+      show_params(true, args)
     end
 
     def allparams(args)
-      @node.add_common
-      params(args)
+      show_params(false, args)
+    end
+
+    def show_params(without_common, args)
+      filter = args[0]
+      output = build_head(without_common)
+      @node.params(without_common).each do |k, v|
+        output << build_params_line(k, v, filter)
+      end
+      output
     end
 
     def modules(args)
@@ -41,7 +43,7 @@ module Hieracles
 
   protected
 
-    def build_head
+    def build_head(without_common)
       "#{__callee__} not implemented, please inherit from the Hieracles::Format class to implement a format.\n"
     end
 
