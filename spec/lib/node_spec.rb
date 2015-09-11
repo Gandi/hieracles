@@ -67,9 +67,32 @@ describe Hieracles::Node do
       }
       it { expect(node.paths).to eq expected }
     end
-  end
 
-  describe '.params' do
+    describe '.params' do
+      let(:expected) {
+        [
+          [ "another.sublevel.thing", 
+            [{
+              value: "always",
+              file: "/Users/mose/projects/hieracles/spec/files/params/nodes/server.example.com.yaml"
+            }]
+          ],
+          [ "common_param.subparam",
+            [{
+              value: "overriden", 
+              file: "/Users/mose/projects/hieracles/spec/files/params/nodes/server.example.com.yaml"
+            }]
+          ], 
+          [ "somefarmparam", 
+            [{
+              value: false,
+              file: "/Users/mose/projects/hieracles/spec/files/params/farm/dev.yaml"
+            }]
+          ]
+        ]
+      }
+      it { expect(node.params).to eq expected }
+    end
   end
 
   describe '.params_tree' do

@@ -42,7 +42,16 @@ module Hieracles
     end
 
     def params
-      @_populated_params ||= populate_params(files)
+      params = {}
+      paths.each do |f|
+        data = YAML.load_file(f)
+        s = to_shallow_hash(data)
+        s.each do |k,v|
+          params[k] ||= []
+          params[k] << { value: v, file: f}
+        end
+      end
+      params.sort
     end
 
     def params_tree
@@ -71,31 +80,6 @@ module Hieracles
 
   private
 
-    def populate_from_encdir(fqdn)
-      puts File.join(Config.encpath, "#{fqdn}.yaml")
-      if File.exist?(File.join(Config.encpath, "#{fqdn}.yaml"))
-        load = YAML.load_file(File.join('enc', "#{fqdn}.yaml"))
-        load['parameters'] + @hiera_params
-      else
-        puts "Node not found"
-        {}
-      end
-    end
-
-    def populate_from_cgi(fqdn)
-      uri = URI.parse("http://#{Config.server}/cgi-bin/nodeinfo?q=#{fqdn}")
-      res = Net::HTTP.get_response(uri)
-      if res.body == 'KO'
-        puts "Bad arguments."
-      else
-        if res.body == ''
-          puts "Node not found"
-        else
-          @farm, @datacenter, @country = res.body.strip.split(",")
-          #puts "%s - %s - %s" % [@farm, @datacenter, @country]
-        end
-      end
-    end
 
     def populate_params(files)
       params = {}
