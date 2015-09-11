@@ -20,7 +20,11 @@ module Hieracles
       end
 
       def params(args)
-        @node.params_tree.to_yaml
+        @node.params_tree(true).to_yaml
+      end
+
+      def allparams(args)
+        @node.params_tree(false).to_yaml
       end
 
     end
