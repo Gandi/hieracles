@@ -18,8 +18,8 @@ module Hieracles
     end
 
     def get_hiera_params(fqdn)
-      if File.exist?(File.join(Config.encpath, "#{fqdn}.yaml"))
-        load = YAML.load_file(File.join(Config.encpath, "#{fqdn}.yaml"))
+      if File.exist?(File.join(Config.path('encpath'), "#{fqdn}.yaml"))
+        load = YAML.load_file(File.join(Config.path('encpath'), "#{fqdn}.yaml"))
         sym_keys(load['parameters'])
       else
         puts "Node not found"
@@ -64,30 +64,7 @@ module Hieracles
     end
 
     def modules
-      @_populated_modules ||= populate_modules(@farm)
-    end
-
-    def add_common
-      addfile "params/common/common.yaml"
-    end
-
-    def info
-      @hiera_params
-    end
-
-    def classpath(path)
-      format(Config.classpath, path)
-    end
-
-    def modulepath(path)
-      File.join(Config.modulepath, path)
-    end
-
-  private
-
-    def populate_modules(farm)
-      classfile = classpath(farm)
-      if File.exist?(classfile)
+     if File.exist?(classfile)
         modules = {}
         f = File.open(classfile, "r")
         f.each_line do |line|
@@ -100,18 +77,32 @@ module Hieracles
       end
     end
 
+    def add_common
+      addfile "params/common/common.yaml"
+    end
+
+    def info
+      @hiera_params
+    end
+
+  private
+
+    def classfile
+      format(Config.classpath, @hiera_params[:farm])
+    end
+
+    def modulepath(path)
+      File.join(Config.modulepath, path)
+    end
+
     def add_modules(line, modules)
       if /^\s*include\s*([-_:a-zA-Z0-9]*)\s*/.match(line)
         mod = $1
         mainmod = mod[/^[^:]*/]
-        if modules[mod]
-          modules[mod] += " (duplicate)"
+        if Dir.exists? modulepath(mainmod)
+          modules[mod] = File.join(Config.path('modulepath'), mainmod)
         else
-          if Dir.exists? modulepath(mainmod)
-            modules[mod] = File.join(Config.modulepath, mainmod)
-          else
-            modules[mod] = "not found."
-          end
+          modules[mod] = nil
         end
       end
       modules

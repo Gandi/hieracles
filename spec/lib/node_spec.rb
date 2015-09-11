@@ -3,10 +3,10 @@ require 'spec_helper'
 describe Hieracles::Node do
   let(:options) {
     { 
-      config: File.expand_path('../../files/config.yml', __FILE__),
-      hierafile: File.expand_path('../../files/hiera.yaml', __FILE__),
-      encpath: File.expand_path('../../files/enc', __FILE__),
-      basepath: File.expand_path('../../files', __FILE__)
+      config: 'config.yml',
+      hierafile: 'hiera.yaml',
+      encpath: 'enc',
+      basepath: 'spec/files'
     }
   }
 
@@ -112,14 +112,22 @@ describe Hieracles::Node do
     end
 
     describe '.modules' do
+      let(:expected) {
+        [
+          'module' => 'path'
+        ]
+      }
+      #it { expect(node.modules).to eq expected }
     end
 
     describe '.info' do
-      let(:node) { Hieracles::Node.new 'server.example.com', options }
       let(:expected) { {
-        fqdn: 'server.example.com'
+        fqdn: 'server.example.com',
+        datacenter: 'equinix',
+        country: 'fr',
+        farm: 'dev'
       } }
-
+      it { expect(node.info).to eq expected }
     end
   end
 

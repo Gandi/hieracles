@@ -3,8 +3,8 @@ module Hieracles
   class Hiera
 
     def initialize
-      raise IOError, "Hierafile #{Config.hierafile} not found." unless File.exist? Config.hierafile
-      @hierafile = Config.hierafile
+      raise IOError, "Hierafile #{Config.hierafile} not found." unless File.exist? Config.path('hierafile')
+      @hierafile = Config.path('hierafile')
       @loaded = YAML.load_file(@hierafile)
     end
 

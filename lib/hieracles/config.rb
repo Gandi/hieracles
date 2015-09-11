@@ -17,7 +17,7 @@ module Hieracles
       @classpath = values['classpath']
       @modulepath = values['modulepath'] || 'modules'
       @encpath = options[:encpath] || values['encpath'] || 'enc'
-      @basepath = options[:basepath] || values['basepath'] || File.expand_path('.')
+      @basepath = File.expand_path(options[:basepath] || values['basepath'] || '.')
       @hierafile = options[:hierafile] || values['hierafile'] || 'hiera.yaml'
       @format = (options[:format] || values['format'] || 'console').capitalize
     end
@@ -46,6 +46,10 @@ module Hieracles
         a["#{k[/^[^=]*/]}".to_sym] = k[/[^=]*$/]
         a
       end
+    end
+
+    def path(what)
+      File.join(@basepath, send(what.to_sym))
     end
 
   end
