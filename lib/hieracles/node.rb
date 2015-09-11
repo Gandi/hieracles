@@ -96,7 +96,7 @@ module Hieracles
         mod = $1
         mainmod = mod[/^[^:]*/]
         if Dir.exists? modulepath(mainmod)
-          modules[mod] = File.join(Config.path('modulepath'), mainmod)
+          modules[mod] = File.join(Config.modulepath, mainmod)
         else
           modules[mod] = nil
         end

@@ -27,6 +27,10 @@ module Hieracles
         @node.params_tree(false).to_yaml
       end
 
+      def modules(args)
+        @node.modules.to_yaml
+      end
+
     end
   end
 end

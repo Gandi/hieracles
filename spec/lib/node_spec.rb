@@ -120,9 +120,9 @@ describe Hieracles::Node do
       context "no unfound modules" do
         let(:expected) {
           {
-            "fake_module" => File.join(Hieracles::Config.basepath, "modules/fake_module"),
-            "fake_module2" => File.join(Hieracles::Config.basepath, "modules/fake_module2"),
-            "fake_module3" => File.join(Hieracles::Config.basepath, "modules/fake_module3")
+            "fake_module" => "modules/fake_module",
+            "fake_module2" => "modules/fake_module2",
+            "fake_module3" => "modules/fake_module3"
           }
         }
         it { expect(node.modules).to eq expected }
@@ -131,8 +131,8 @@ describe Hieracles::Node do
         let(:node) { Hieracles::Node.new 'server2.example.com', options }
         let(:expected) {
           {
-            "fake_module" => File.join(Hieracles::Config.basepath, "modules/fake_module"),
-            "fake_module2" => File.join(Hieracles::Config.basepath, "modules/fake_module2"),
+            "fake_module" => "modules/fake_module",
+            "fake_module2" => "modules/fake_module2",
             "fake_module4" => nil
           }
         }
