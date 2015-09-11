@@ -138,6 +138,10 @@ describe Hieracles::Node do
         }
         it { expect(node.modules).to eq expected }
       end
+      context "no farm file found" do
+        let(:node) { Hieracles::Node.new 'server3.example.com', options }
+        it { expect { node.modules }.to raise_error(RuntimeError) }
+      end
     end
 
     describe '.info' do
