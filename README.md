@@ -10,6 +10,19 @@ Hieracles
 
 Hieracles is a command-line tool for analysis and deep examination of [Hiera][hiera] paramaters in a [Puppet][puppet] setup. It's used internally at [Gandi][gandi] and its first incarnation is strongly tied to Gandi puppet architecture. But Hieracles tends to become, in time, a generic Hiera overlay visualisation tool.
 
+Prerequisite
+---------------
+
+There are many ways to setup puppet and use hiera. This tool is designed to match a certain kind of setup, including:
+
+- an [external node classifier (ENC)][enc]
+- a yaml hiera datastore
+- classes that only contains includes and no code
+- local availability of a hierafile
+
+As the development is going on, more generic options will be provided, but for now, we mainly make it robust to fit the context we have.
+
+
 Install
 -----------
 At this stage, it's to early to even think about installing anything. The internal code from Gandi is still in progress of transition towards total freedom and generic usage.
@@ -18,11 +31,29 @@ Despite this warning, you can
 
     gem install hieracles
 
+or add in your Gemfile:
+
+    gem 'hieracles'
+
+
+Configuration
+----------------
 At first launch it will create a configuration file in `~/.config/hieracles/config.yml`
 
+Configuration variables are:
+
+- classpath
+- modulepath
+- basepath
+- encpath
+- hierafile
+- format
+
+For an  example setup you can check in `spec/files`.
 
 Usage
 -------------
+
 
     Usage: hc <fqdn> <command> [extra_args]
 
@@ -68,3 +99,4 @@ copyright (c) 2015 Gandi http://gandi.net
 [puppet]:    https://github.com/puppetlabs/puppet
 [hiera]:     https://github.com/puppetlabs/hiera
 [gandi]:     https://gandi.net
+[enc]:       https://docs.puppetlabs.com/guides/external_nodes.html
