@@ -18,6 +18,7 @@ describe Hieracles::Node do
       let(:node) { Hieracles::Node.new 'server.example.com', extraoptions }
       let(:expected) {
         { 
+          classes: ['dev'],
           fqdn: 'server.example.com',
           country: 'fr',
           datacenter: 'equinix',
@@ -42,6 +43,7 @@ describe Hieracles::Node do
     describe '.new' do
       let(:expected) {
         { 
+          classes: ['dev'],
           fqdn: 'server.example.com',
           country: 'fr',
           datacenter: 'equinix',
@@ -146,6 +148,7 @@ describe Hieracles::Node do
 
     describe '.info' do
       let(:expected) { {
+        classes: ['dev'],
         fqdn: 'server.example.com',
         datacenter: 'equinix',
         country: 'fr',

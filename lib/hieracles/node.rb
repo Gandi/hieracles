@@ -20,7 +20,7 @@ module Hieracles
     def get_hiera_params(fqdn)
       if File.exist?(File.join(Config.path('encpath'), "#{fqdn}.yaml"))
         load = YAML.load_file(File.join(Config.path('encpath'), "#{fqdn}.yaml"))
-        sym_keys(load['parameters'])
+        sym_keys(load['parameters']).merge({ classes: load['classes']})
       else
         raise "Node not found"
       end
@@ -66,25 +66,29 @@ module Hieracles
     end
 
     def modules
-     if File.exist?(classfile)
-        modules = {}
-        f = File.open(classfile, "r")
-        f.each_line do |line|
-          modules = add_modules(line, modules)
+      modules = {}
+      classfiles.each do |c|
+        if File.exist?(c)
+          f = File.open(c, "r")
+          f.each_line do |line|
+            modules = add_modules(line, modules)
+          end
+          f.close
+        else
+          raise "Class file #{c} not found."
         end
-        f.close
-        modules
-      else
-        raise "Class file #{classfile} not found."
       end
+      modules
     end
 
     def info
       @hiera_params
     end
 
-    def classfile
-      format(Config.path('classpath'), @hiera_params[:farm])
+    def classfiles
+      @hiera_params[:classes].map do |cl|
+        format(Config.path('classpath'), cl)
+      end
     end
 
     def modulepath(path)
