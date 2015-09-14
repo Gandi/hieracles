@@ -81,7 +81,21 @@ Usage
       -b <basepath> default ./
       -e <encdir>
 
+Completion
+-------------
+There is a simple zsh completion file in `tools/completion`. 
 
+If you use [oh-my-zsh][omz] put it in `~/.oh-my-zsh/completions`
+
+    wget -O ~/.oh-my-zsh/completions/_hc https://raw.githubusercontent.com/Gandi/hieracles/master/tools/completion/_hc
+    echo 'compdef _hc hc "bundle exec hc"' >> ~/.zshrc
+
+Otherwise 
+
+    mkdir ~/.zsh-completions
+    wget -O ~/.zsh-completions/_hc https://raw.githubusercontent.com/Gandi/hieracles/master/tools/completion/_hc
+    echo 'fpath=(~/.zsh-completions $fpath)' >> ~/.zshrc
+    echo 'compdef _hc hc "bundle exec hc"' >> ~/.zshrc
 
 Authors
 -----------
@@ -100,3 +114,4 @@ copyright (c) 2015 Gandi http://gandi.net
 [hiera]:     https://github.com/puppetlabs/hiera
 [gandi]:     https://gandi.net
 [enc]:       https://docs.puppetlabs.com/guides/external_nodes.html
+[omz]:       https://github.com/robbyrussell/oh-my-zsh
