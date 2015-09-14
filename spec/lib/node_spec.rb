@@ -144,6 +144,19 @@ describe Hieracles::Node do
         let(:node) { Hieracles::Node.new 'server3.example.com', options }
         it { expect { node.modules }.to raise_error(RuntimeError) }
       end
+      context "multiple classes included" do
+        let(:node) { Hieracles::Node.new 'server4.example.com', options }
+        let(:expected) {
+          {
+            "fake_module" => "modules/fake_module",
+            "fake_module2" => "modules/fake_module2",
+            "fake_module4" => nil,
+            "faux_module1" => "modules/faux_module1",
+            "faux_module2" => "modules/faux_module2"
+          }
+        }
+        it { expect(node.modules).to eq expected }
+      end
     end
 
     describe '.info' do
