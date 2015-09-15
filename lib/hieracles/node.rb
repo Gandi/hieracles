@@ -65,6 +65,23 @@ module Hieracles
       deep_sort(params)
     end
 
+    def commented_yaml_tree(without_common = true)
+      tree = params_tree(without_common)
+      params = params(without_common)
+      mergetree('', '', tree, params)
+    end
+
+    def mergetree(output, key, leaf, params)
+      indent = key.count('.')
+      case leaf.class.name
+      when 'Hash'
+      when 'Array'
+      when 'String'
+        output += ('  ' * indent) + leaf
+      end
+      output
+    end
+
     def modules
       modules = {}
       classfiles.each do |c|
