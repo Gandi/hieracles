@@ -14,9 +14,7 @@ describe Hieracles::Formats::Yaml do
         }
       )
     }
-    it "outputs proper text" do
-      expect(yaml_format.info nil).to eq expected
-    end
+    it { expect(yaml_format.info nil).to eq expected }
   end
 
   describe ".files" do
@@ -24,9 +22,7 @@ describe Hieracles::Formats::Yaml do
     before {
       allow(node).to receive(:files).and_return(['path1', 'path2'])
     }
-    it "outputs proper text" do
-      expect(yaml_format.files nil).to eq expected
-    end
+    it { expect(yaml_format.files nil).to eq expected }
   end
 
   describe ".paths" do
@@ -34,9 +30,7 @@ describe Hieracles::Formats::Yaml do
     before {
       allow(node).to receive(:paths).and_return(['path1', 'path2'])
     }
-    it "outputs proper text" do
-      expect(yaml_format.paths nil).to eq expected
-    end
+    it { expect(yaml_format.paths nil).to eq expected }
   end
 
   describe ".modules" do
@@ -49,9 +43,7 @@ describe Hieracles::Formats::Yaml do
       )
     }
     let(:expected) { "---\nmodule1: value\nlongmodule2: not found\n" }
-    it "outputs proper text" do
-      expect(yaml_format.modules nil).to eq expected
-    end
+    it { expect(yaml_format.modules nil).to eq expected }
   end
 
   describe ".params" do
@@ -80,9 +72,36 @@ describe Hieracles::Formats::Yaml do
         }
       )
     }
-    it "outputs proper text" do
-      expect(yaml_format.params nil).to eq expected
-    end
+    it { expect(yaml_format.params nil).to eq expected }
+  end
+
+  describe ".allparams" do
+    let(:expected) { 
+       "---\n"+
+       "params: \n" +
+       "  this: \n" +
+       "    var: value1 # some/file"
+    }
+    before {
+      allow(node).to receive(:params).and_return(
+        { 
+          'params.this.var' => [{
+            file: 'some/file',
+            value: 'value1'
+          }]
+        }
+      )
+      allow(node).to receive(:params_tree).and_return(
+        { 
+          'params' => {
+            'this' => {
+              'var' => 'value1'
+            }
+          }
+        }
+      )
+    }
+    it { expect(yaml_format.allparams nil).to eq expected }
   end
 
   describe '.mergetree' do

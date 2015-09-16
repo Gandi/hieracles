@@ -76,4 +76,28 @@ describe Hieracles::Formats::Rawyaml do
       expect(yaml_format.params nil).to eq expected
     end
   end
+
+  describe ".allparams" do
+    let(:expected) { 
+       "---\n"+
+       "params:\n" +
+       "  this:\n" +
+       "    var: value1\n"
+    }
+    before {
+      allow(node).to receive(:params_tree).and_return(
+        { 
+          'params' => {
+            'this' => {
+              'var' => 'value1'
+            }
+          }
+        }
+      )
+    }
+    it "outputs proper text" do
+      expect(yaml_format.allparams nil).to eq expected
+    end
+  end
+
 end
