@@ -23,7 +23,7 @@ module Hieracles
                     Also accepts a search string
 
       Extra args:
-        -f <plain|console|csv|yaml> default console
+        -f <plain|console|csv|yaml|rawyaml> default console
         -p extraparam=what;anotherparam=this 
         -c <configfile>
         -h <hierafile>
