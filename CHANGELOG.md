@@ -1,6 +1,8 @@
 Hieracles Changelog
 =======================
 
+### 0.0.3 - wip
+
 ### 0.0.2 - 2016-09-16
 - added `yaml` format including comments about where the params is defined
 - the uncommented yaml is now the format `rawyaml`
