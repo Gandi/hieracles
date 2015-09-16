@@ -40,24 +40,31 @@ module Hieracles
 
       def mergetree(output, key, leaf, params)
         indent = '  ' * key.count
-        case leaf.class.name
-        when 'Hash'
-          leaf.each do |k, v|
-            output += "\n" + indent + k + ': '
-            output = mergetree(output, key + [k], v, params)
-          end
-        when 'Array'
-          yaml = leaf.to_yaml[4..-1]
-          aryaml = yaml.each_line.map do |l|
-            indent + l
-          end
-          output += "\n" + indent + "# " + params[key.join('.')][0][:file]
-          output += "\n" + aryaml.join().chomp
-        when 'String'
-          output += leaf
-          if params["#{key.join('.')}"]
-            output += " # " + params[key.join('.')][0][:file]
-          end
+        send("merge_#{leaf.class.name.downcase}".to_sym, output, key, leaf, params, indent)
+      end
+
+      def merge_hash(output, key, leaf, params, indent)
+        leaf.each do |k, v|
+          output += "\n" + indent + k + ': '
+          output = mergetree(output, key + [k], v, params)
+        end
+        output
+      end
+
+      def merge_array(output, key, leaf, params, indent)
+        yaml = leaf.to_yaml[4..-1]
+        aryaml = yaml.each_line.map do |l|
+          indent + l
+        end
+        output += "\n" + indent + "# " + params[key.join('.')][0][:file]
+        output += "\n" + aryaml.join().chomp
+        output        
+      end
+
+      def merge_string(output, key, leaf, params, indent)
+        output += leaf
+        if params["#{key.join('.')}"]
+          output += " # " + params[key.join('.')][0][:file]
         end
         output
       end
