@@ -27,11 +27,6 @@ module Hieracles
         commented_yaml_tree(false)
       end
 
-      def modules(args)
-        @node.modules.to_yaml
-      end
-
-
       def commented_yaml_tree(without_common = true)
         tree = @node.params_tree(without_common)
         params = Hash[@node.params(without_common)]
