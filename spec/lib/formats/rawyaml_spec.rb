@@ -14,9 +14,7 @@ describe Hieracles::Formats::Rawyaml do
         }
       )
     }
-    it "outputs proper text" do
-      expect(yaml_format.info nil).to eq expected
-    end
+    it { expect(yaml_format.info nil).to eq expected }
   end
 
   describe ".files" do
@@ -24,9 +22,7 @@ describe Hieracles::Formats::Rawyaml do
     before {
       allow(node).to receive(:files).and_return(['path1', 'path2'])
     }
-    it "outputs proper text" do
-      expect(yaml_format.files nil).to eq expected
-    end
+    it { expect(yaml_format.files nil).to eq expected }
   end
 
   describe ".paths" do
@@ -34,9 +30,7 @@ describe Hieracles::Formats::Rawyaml do
     before {
       allow(node).to receive(:paths).and_return(['path1', 'path2'])
     }
-    it "outputs proper text" do
-      expect(yaml_format.paths nil).to eq expected
-    end
+    it { expect(yaml_format.paths nil).to eq expected }
   end
 
   describe ".modules" do
@@ -49,14 +43,12 @@ describe Hieracles::Formats::Rawyaml do
       )
     }
     let(:expected) { "---\nmodule1: value\nlongmodule2: not found\n" }
-    it "outputs proper text" do
-      expect(yaml_format.modules nil).to eq expected
-    end
+    it { expect(yaml_format.modules nil).to eq expected }
   end
 
   describe ".params" do
     let(:expected) { 
-       "---\n"+
+       "---\n" +
        "params:\n" +
        "  this:\n" +
        "    var: value1\n"
@@ -72,9 +64,7 @@ describe Hieracles::Formats::Rawyaml do
         }
       )
     }
-    it "outputs proper text" do
-      expect(yaml_format.params nil).to eq expected
-    end
+    it { expect(yaml_format.params nil).to eq expected }
   end
 
   describe ".allparams" do
@@ -95,9 +85,7 @@ describe Hieracles::Formats::Rawyaml do
         }
       )
     }
-    it "outputs proper text" do
-      expect(yaml_format.allparams nil).to eq expected
-    end
+    it { expect(yaml_format.allparams nil).to eq expected }
   end
 
 end

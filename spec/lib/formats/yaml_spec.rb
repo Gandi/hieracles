@@ -48,7 +48,7 @@ describe Hieracles::Formats::Yaml do
 
   describe ".params" do
     let(:expected) { 
-       "---\n"+
+       "---\n" +
        "params: \n" +
        "  this: \n" +
        "    var: value1 # some/file"
