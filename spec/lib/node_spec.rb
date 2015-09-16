@@ -169,6 +169,72 @@ describe Hieracles::Node do
       } }
       it { expect(node.info).to eq expected }
     end
+
+
+    describe '.mergetree' do
+      context "with a simple string key-value" do
+        let(:params) {
+          { 
+            'key' => [{
+              file: 'what/file',
+              value: 'value'
+            }]
+          }
+        }
+        let(:input) {
+          { 'key' => 'value' }
+        }
+        let(:expected) {
+          "\nkey: value # what/file\n"
+        }
+        it { expect(node.mergetree('', [], input, params)).to eq expected }
+      end
+      context "with a 2-levels string key-value" do
+        let(:params) {
+          { 
+            'key.sublevel' => [{
+              file: 'what/file',
+              value: 'value'
+            }]
+          }
+        }
+        let(:input) {
+          { 
+            'key' => {
+              'sublevel' => 'value'
+            }
+          }
+        }
+        let(:expected) {
+          "\nkey: \n  sublevel: value # what/file\n"
+        }
+        it { expect(node.mergetree('', [], input, params)).to eq expected }
+      end
+      context "with a 3-levels string key-value" do
+        let(:params) {
+          { 
+            'key.sublevel.subsublevel' => [{
+              file: 'what/file',
+              value: 'value'
+            }]
+          }
+        }
+        let(:input) {
+          { 
+            'key' => {
+              'sublevel' => {
+                'subsublevel' => 'value'
+              }
+            }
+          }
+        }
+        let(:expected) {
+          "\nkey: \n  sublevel: \n    subsublevel: value # what/file\n"
+        }
+        it { expect(node.mergetree('', [], input, params)).to eq expected }
+      end
+    end
+
   end
 
 end

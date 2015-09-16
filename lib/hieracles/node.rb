@@ -68,16 +68,33 @@ module Hieracles
     def commented_yaml_tree(without_common = true)
       tree = params_tree(without_common)
       params = params(without_common)
-      mergetree('', '', tree, params)
+      mergetree('', [], tree, params)
     end
 
     def mergetree(output, key, leaf, params)
-      indent = key.count('.')
+      indent = key.count
       case leaf.class.name
       when 'Hash'
+        leaf.each do |k, v|
+          output += "\n" + ('  ' * indent) + k + ': '
+          key << k
+          output = mergetree(output, key, v, params)
+        end
       when 'Array'
+        yaml = leaf.to_yaml[4..-1]
+        aryaml = yaml.each_line.map do |l|
+          ('  ' * indent) + l
+        end
+        output += "# " + params[key.join('.')][0][:file]
+        output += aryaml.join("\n")
       when 'String'
-        output += ('  ' * indent) + leaf
+        output += leaf
+        if params["#{key.join('.')}"]
+          output += " # " + params[key.join('.')][0][:file]
+        else
+          raise "#{key}"
+        end
+        output += "\n"
       end
       output
     end
