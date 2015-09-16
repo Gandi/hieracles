@@ -57,8 +57,6 @@ module Hieracles
           output += leaf
           if params["#{key.join('.')}"]
             output += " # " + params[key.join('.')][0][:file]
-          else
-            raise "#{key}"
           end
         end
         output

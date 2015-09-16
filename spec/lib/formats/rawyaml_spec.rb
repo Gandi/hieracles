@@ -34,6 +34,7 @@ describe Hieracles::Formats::Rawyaml do
   end
 
   describe ".modules" do
+    let(:expected) { "---\nmodule1: value\nlongmodule2: not found\n" }
     before {
       allow(node).to receive(:modules).and_return(
         { 
@@ -42,7 +43,6 @@ describe Hieracles::Formats::Rawyaml do
         }
       )
     }
-    let(:expected) { "---\nmodule1: value\nlongmodule2: not found\n" }
     it { expect(yaml_format.modules nil).to eq expected }
   end
 
