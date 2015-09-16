@@ -57,11 +57,19 @@ describe Hieracles::Formats::Yaml do
   describe ".params" do
     let(:expected) { 
        "---\n"+
-       "params:\n" +
-       "  this:\n" +
-       "    var: value1\n"
+       "params: \n" +
+       "  this: \n" +
+       "    var: value1 # some/file"
     }
     before {
+      allow(node).to receive(:params).and_return(
+        { 
+          'params.this.var' => [{
+            file: 'some/file',
+            value: 'value1'
+          }]
+        }
+      )
       allow(node).to receive(:params_tree).and_return(
         { 
           'params' => {
@@ -130,6 +138,32 @@ describe Hieracles::Formats::Yaml do
       }
       let(:expected) {
         "\nkey: \n  sublevel: value # what/file"
+      }
+      it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
+    end
+    context "with 2 2-levels string key-value" do
+      let(:params) {
+        { 
+          'key.sublevel' => [{
+            file: 'what/file',
+            value: 'value'
+          }],
+          'key.sublevel2' => [{
+            file: 'what/file2',
+            value: 'value2'
+          }]
+        }
+      }
+      let(:input) {
+        { 
+          'key' => {
+            'sublevel' => 'value',
+            'sublevel2' => 'value2'
+          }
+        }
+      }
+      let(:expected) {
+        "\nkey: \n  sublevel: value # what/file\n  sublevel2: value2 # what/file2"
       }
       it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
     end

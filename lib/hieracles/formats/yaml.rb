@@ -20,11 +20,11 @@ module Hieracles
       end
 
       def params(args)
-        @node.params_tree(true).to_yaml
+        commented_yaml_tree(true)
       end
 
       def allparams(args)
-        @node.params_tree(false).to_yaml
+        commented_yaml_tree(false)
       end
 
       def modules(args)
@@ -33,9 +33,9 @@ module Hieracles
 
 
       def commented_yaml_tree(without_common = true)
-        tree = params_tree(without_common)
-        params = params(without_common)
-        mergetree('', [], tree, params)
+        tree = @node.params_tree(without_common)
+        params = Hash[@node.params(without_common)]
+        mergetree('---', [], tree, params)
       end
 
       def mergetree(output, key, leaf, params)
@@ -44,9 +44,7 @@ module Hieracles
         when 'Hash'
           leaf.each do |k, v|
             output += "\n" + indent + k + ': '
-            key << k
-            output = mergetree(output, key, v, params)
-            key = []
+            output = mergetree(output, key + [k], v, params)
           end
         when 'Array'
           yaml = leaf.to_yaml[4..-1]

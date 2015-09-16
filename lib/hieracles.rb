@@ -9,6 +9,7 @@ require 'hieracles/formats/csv'
 require 'hieracles/formats/yaml'
 require 'hieracles/formats/plain'
 require 'hieracles/formats/console'
+require 'hieracles/formats/rawyaml'
 
 # https://github.com/Gandi/hieracles
 module Hieracles
