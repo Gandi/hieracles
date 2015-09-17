@@ -1,0 +1,5 @@
+hieracles (0.0.2) unstable; urgency=medium
+
+  * Initial debian packaging 
+
+ -- mose <mose@gandi.net>  Thu, 17 Sep 2015 10:22:03 +0800
