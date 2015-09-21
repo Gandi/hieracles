@@ -1,6 +1,9 @@
 Hieracles Changelog
 =======================
 
+### 0.0.4 - 2015-09-21
+- another adjustment for debian packaging
+
 ### 0.0.3 - 2015-09-21
 - preparing hieracles to be packageable for debian
 
