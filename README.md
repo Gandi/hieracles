@@ -112,6 +112,20 @@ and install
 
     dpkg -i hieracles_0.0.6-1_all.deb
 
+Todo
+--------------
+- add json format
+- add opverride information in yaml format
+- add a command to search for node according to a filter
+- add a command to find all nodes that use a given module
+- add a command that finds all nodes for which a params is defined
+- detect unused params
+- create a repl, which at launch reads all data so the queries are blazing fast
+- adapt to other ENCs
+- adapt to puppetdb storage
+- 
+
+
 Authors
 -----------
 Hieracles original code is writen by [@mose](https://github.com/mose).
