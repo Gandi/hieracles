@@ -42,7 +42,7 @@ describe Hieracles::Config do
       after { FileUtils.rm(options[:config]) if File.exist? options[:config] }
 
       it 'creates a default config file' do
-        expect(File.exist? options[:config]).to be_truthy
+        expect(File.exist? options[:config]).to be true
       end
 
       it 'initialize config values' do
@@ -52,7 +52,7 @@ describe Hieracles::Config do
   end
 
   describe '.defaultconfig' do
-    it { expect(Hieracles::Config.defaultconfig).to be_truthy }
+    it { expect(Hieracles::Config.defaultconfig).not_to eq nil }
   end
 
   describe '.extract_params' do

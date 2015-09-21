@@ -1,6 +1,9 @@
 Hieracles Changelog
 =======================
 
+### 0.0.5 - 2015-09-21
+- made rspec tests compat with 2.14, bundled with jessie
+
 ### 0.0.4 - 2015-09-21
 - another adjustment for debian packaging
 
