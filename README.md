@@ -97,6 +97,21 @@ Otherwise
     echo 'fpath=(~/.zsh-completions $fpath)' >> ~/.zshrc
     echo 'compdef _hc hc "bundle exec hc"' >> ~/.zshrc
 
+
+Debian packaging
+--------------------
+On a Jessie
+
+    apt-get install gem2deb ruby-coveralls ruby-all-dev ruby-rspec ruby-rspec-expectations 
+
+Then build
+
+    gem2deb -p hieracles hieracles
+
+and install
+
+    dpkg -i hieracles_0.0.6-1_all.deb
+
 Authors
 -----------
 Hieracles original code is writen by [@mose](https://github.com/mose).
