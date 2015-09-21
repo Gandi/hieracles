@@ -1,9 +1,10 @@
 Hieracles Changelog
 =======================
 
-### 0.0.3 - wip
+### 0.0.3 - 2015-09-21
+- preparing hieracles to be packageable for debian
 
-### 0.0.2 - 2016-09-16
+### 0.0.2 - 2015-09-16
 - added `yaml` format including comments about where the params is defined
 - the uncommented yaml is now the format `rawyaml`
 
