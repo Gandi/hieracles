@@ -123,7 +123,6 @@ Todo
 - create a repl, which at launch reads all data so the queries are blazing fast
 - adapt to other ENCs
 - adapt to puppetdb storage
-- 
 
 
 Authors
