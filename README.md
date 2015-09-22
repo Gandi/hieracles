@@ -115,7 +115,7 @@ and install
 Todo
 --------------
 - add json format
-- add opverride information in yaml format
+- add override information in yaml format
 - add a command to search for node according to a filter
 - add a command to find all nodes that use a given module
 - add a command that finds all nodes for which a params is defined
