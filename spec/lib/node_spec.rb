@@ -67,8 +67,8 @@ describe Hieracles::Node do
     describe '.paths' do
       let(:expected) {
         [
-          File.join(node.hiera.datadir, 'nodes/server.example.com.yaml'),
-          File.join(node.hiera.datadir, 'farm/dev.yaml')
+          File.join(node.hiera.datapath, 'nodes/server.example.com.yaml'),
+          File.join(node.hiera.datapath, 'farm/dev.yaml')
         ]
       }
       it { expect(node.paths).to eq expected }

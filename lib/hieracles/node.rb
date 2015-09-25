@@ -30,7 +30,7 @@ module Hieracles
       @hiera.hierarchy.reduce([]) do |a, f|
         file = format("#{f}.yaml", @hiera_params) rescue nil
         if file && 
-           File.exist?(File.join(@hiera.datadir, file)) &&
+           File.exist?(File.join(@hiera.datapath, file)) &&
            (!without_common ||
            !file[/common/])
           a << file
@@ -40,13 +40,13 @@ module Hieracles
     end
 
     def paths(without_common = true)
-      files(without_common).map { |p| File.join(@hiera.datadir, p) }
+      files(without_common).map { |p| File.join(@hiera.datapath, p) }
     end
 
     def params(without_common = true)
       params = {}
       files(without_common).each do |f|
-        data = YAML.load_file(File.join(@hiera.datadir, f))
+        data = YAML.load_file(File.join(@hiera.datapath, f))
         s = to_shallow_hash(data)
         s.each do |k,v|
           params[k] ||= []

@@ -32,7 +32,7 @@ describe Hieracles::Hiera do
 
   end
 
-  describe '.datadir' do
+  describe '.datapath' do
     context 'hiera file do not have a yaml backend' do
       let(:options) { { 
         basepath: 'spec/files',
@@ -40,7 +40,7 @@ describe Hieracles::Hiera do
       } }
       let(:hiera) { Hieracles::Hiera.new }
       it 'raises an error' do
-        expect { hiera.datadir }.to raise_error(TypeError)
+        expect { hiera.datapath }.to raise_error(TypeError)
       end
     end
     context 'hiera file has a yaml backend but dir not found' do
@@ -50,7 +50,7 @@ describe Hieracles::Hiera do
       } }
       let(:hiera) { Hieracles::Hiera.new }
       it 'raises an error' do
-        expect { hiera.datadir }.to raise_error(IOError)
+        expect { hiera.datapath }.to raise_error(IOError)
       end
     end
     context 'hiera file has a yaml backend' do
@@ -64,9 +64,21 @@ describe Hieracles::Hiera do
       let(:hiera) { Hieracles::Hiera.new }
       let(:expected) { File.expand_path(File.join(Hieracles::Config.basepath, 'params')) }
       it 'returns params path' do
-        expect(hiera.datadir).to eq expected
+        expect(hiera.datapath).to eq expected
       end
     end
+  end
+
+  describe '.datadir' do
+    let(:options) {
+      {
+        config: 'spec/files/config.yml',
+        hierafile: 'hiera.yaml',
+        basepath: 'spec/files'
+      }
+    }
+    let(:hiera) { Hieracles::Hiera.new }
+    it { expect(hiera.datadir).to eq 'params/' }
   end
 
   context "with proper params" do
