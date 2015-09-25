@@ -30,4 +30,19 @@ describe Hieracles::Registry do
     it { expect(Hieracles::Registry.nodes Hieracles::Config).to eq expected }
   end
 
+  describe '.modules' do
+    let(:options) do
+      { config: 'spec/files/config.yml', basepath: 'spec/files' }
+    end
+    let(:expected) { [
+    		'fake_module',
+    		'fake_module2',
+    		'fake_module3',
+    		'faux_module1',
+    		'faux_module2'
+  	] }
+    before { Hieracles::Config.load options}
+    it { expect(Hieracles::Registry.modules Hieracles::Config).to eq expected }
+  end
+
 end
