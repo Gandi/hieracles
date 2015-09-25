@@ -2,6 +2,7 @@ Hieracles Changelog
 =======================
 
 ### 0.1.0 - wip
+- display full local path in params output
 
 ### 0.0.6 - 2015-09-21
 - added doc on how to build the debian package

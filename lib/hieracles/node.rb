@@ -33,20 +33,20 @@ module Hieracles
            File.exist?(File.join(@hiera.datapath, file)) &&
            (!without_common ||
            !file[/common/])
-          a << file
+          a << File.join(@hiera.datadir, file)
         end
         a
       end
     end
 
     def paths(without_common = true)
-      files(without_common).map { |p| File.join(@hiera.datapath, p) }
+      files(without_common).map { |p| File.join(Config.basepath, p) }
     end
 
     def params(without_common = true)
       params = {}
       files(without_common).each do |f|
-        data = YAML.load_file(File.join(@hiera.datapath, f))
+        data = YAML.load_file(File.join(Config.basepath, f))
         s = to_shallow_hash(data)
         s.each do |k,v|
           params[k] ||= []

@@ -57,8 +57,8 @@ describe Hieracles::Node do
     describe '.files' do
       let(:expected) {
         [
-          'nodes/server.example.com.yaml',
-          'farm/dev.yaml'
+          'params/nodes/server.example.com.yaml',
+          'params/farm/dev.yaml'
         ]
       }
       it { expect(node.files).to eq expected }
@@ -80,19 +80,19 @@ describe Hieracles::Node do
           [ "another.sublevel.thing", 
             [{
               value: "always",
-              file: 'nodes/server.example.com.yaml'
+              file: 'params/nodes/server.example.com.yaml'
             }]
           ],
           [ "common_param.subparam",
             [{
               value: "overriden", 
-              file: 'nodes/server.example.com.yaml'
+              file: 'params/nodes/server.example.com.yaml'
             }]
           ], 
           [ "somefarmparam", 
             [{
               value: false,
-              file: 'farm/dev.yaml'
+              file: 'params/farm/dev.yaml'
             }]
           ]
         ]
