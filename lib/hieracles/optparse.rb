@@ -28,6 +28,10 @@ module Hieracles
       encpath: {
         has_arg: true,
         aliases: ['e', 'encpath']
+      },
+      version: {
+        has_arg: false,
+        aliases: ['v', 'version']
       }
     }
 

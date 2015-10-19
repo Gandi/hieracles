@@ -6,6 +6,11 @@ require 'hieracles'
 
 opt = Hieracles::Optparse.new(ARGV)
 
+if opt.options.has_key? :version
+  puts Hieracles.version
+  exit(0)
+end
+
 fqdn = opt.payload[0]
 command = opt.payload[1]
 args = opt.payload[2..-1]
