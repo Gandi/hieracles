@@ -64,6 +64,22 @@ module Hieracles
         output
       end
 
+      def add_trueclass(output, key, leaf, params, indent)
+        output += 'true'
+        if params["#{key.join('.')}"]
+          output += " # " + params[key.join('.')][0][:file]
+        end
+        output
+      end
+
+      def add_falseclass(output, key, leaf, params, indent)
+        output += 'false'
+        if params["#{key.join('.')}"]
+          output += " # " + params[key.join('.')][0][:file]
+        end
+        output
+      end
+
     end
   end
 end

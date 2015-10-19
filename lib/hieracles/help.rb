@@ -29,6 +29,7 @@ module Hieracles
         -h <hierafile>
         -b <basepath> default ./
         -e <encdir>
+        -v just displays the version of Hieracles
       END
     end
   end

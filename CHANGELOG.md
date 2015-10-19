@@ -3,6 +3,8 @@ Hieracles Changelog
 
 ### 0.1.0 - wip
 - display full local path in params output
+- add an option to display version
+- fix yaml output for true and false cases
 
 ### 0.0.6 - 2015-09-21
 - added doc on how to build the debian package
