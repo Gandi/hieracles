@@ -36,26 +36,23 @@ module Hieracles
       def commented_yaml_tree(filter, without_common = true)
         tree = @node.params_tree(without_common)
         params = Hash[@node.params(without_common)]
-        mergetree('---', [], tree, params, filter)
+        mergetree('---', [], tree, params)
       end
 
-      def mergetree(output, key, leaf, params, filter)
+      def mergetree(output, key, leaf, params)
         indent = '  ' * key.count
-        send("add_#{leaf.class.name.downcase}".to_sym, output, key, leaf, params, indent, filter)
+        send("add_#{leaf.class.name.downcase}".to_sym, output, key, leaf, params, indent)
       end
 
-      def add_hash(output, key, leaf, params, indent, filter)
+      def add_hash(output, key, leaf, params, indent)
         leaf.each do |k, v|
-          thiskey = key + [k]
-          if !filter or Regexp.new(filter).match thiskey.join('.')
-            output += "\n" + indent + k + ': '
-            output = mergetree(output, thiskey, v, params, filter)
-          end
+          output += "\n" + indent + k + ': '
+          output = mergetree(output, key + [k], v, params)
         end
         output
       end
 
-      def add_array(output, key, leaf, params, indent, filter)
+      def add_array(output, key, leaf, params, indent)
         yaml = leaf.to_yaml[4..-1]
         aryaml = yaml.each_line.map do |l|
           indent + l
@@ -65,7 +62,7 @@ module Hieracles
         output        
       end
 
-      def add_string(output, key, leaf, params, indent, filter)
+      def add_string(output, key, leaf, params, indent)
         output += leaf
         if params["#{key.join('.')}"]
           output += " # " + params[key.join('.')][0][:file]
@@ -73,7 +70,7 @@ module Hieracles
         output
       end
 
-      def add_trueclass(output, key, leaf, params, indent, filter)
+      def add_trueclass(output, key, leaf, params, indent)
         output += 'true'
         if params["#{key.join('.')}"]
           output += " # " + params[key.join('.')][0][:file]
@@ -81,7 +78,7 @@ module Hieracles
         output
       end
 
-      def add_falseclass(output, key, leaf, params, indent, filter)
+      def add_falseclass(output, key, leaf, params, indent)
         output += 'false'
         if params["#{key.join('.')}"]
           output += " # " + params[key.join('.')][0][:file]

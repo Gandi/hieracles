@@ -120,7 +120,7 @@ describe Hieracles::Formats::Yaml do
       let(:expected) {
         "\nkey: value # what/file"
       }
-      it { expect(yaml_format.mergetree('', [], input, params, nil)).to eq expected }
+      it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
     end
     context "with a simple array key-value" do
       let(:params) {
@@ -137,7 +137,7 @@ describe Hieracles::Formats::Yaml do
       let(:expected) {
         "\nkey: \n  # what/file\n  - value1\n  - value2"
       }
-      it { expect(yaml_format.mergetree('', [], input, params, nil)).to eq expected }
+      it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
     end
     context "with a 2-levels string key-value" do
       let(:params) {
@@ -158,7 +158,7 @@ describe Hieracles::Formats::Yaml do
       let(:expected) {
         "\nkey: \n  sublevel: value # what/file"
       }
-      it { expect(yaml_format.mergetree('', [], input, params, nil)).to eq expected }
+      it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
     end
     context "with 2 2-levels string key-value" do
       let(:params) {
@@ -184,7 +184,7 @@ describe Hieracles::Formats::Yaml do
       let(:expected) {
         "\nkey: \n  sublevel: value # what/file\n  sublevel2: value2 # what/file2"
       }
-      it { expect(yaml_format.mergetree('', [], input, params, nil)).to eq expected }
+      it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
     end
     context "with a 3-levels string key-value" do
       let(:params) {
@@ -207,7 +207,7 @@ describe Hieracles::Formats::Yaml do
       let(:expected) {
         "\nkey: \n  sublevel: \n    subsublevel: value # what/file"
       }
-      it { expect(yaml_format.mergetree('', [], input, params, nil)).to eq expected }
+      it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
     end
     context "with a 3-levels double string key-value" do
       let(:params) {
@@ -238,7 +238,7 @@ describe Hieracles::Formats::Yaml do
         "\nkey: \n  sublevel: \n    subsublevel: value # what/file" +
         "\nkey2: \n  sublevel: value # what/file2"
       }
-      it { expect(yaml_format.mergetree('', [], input, params, nil)).to eq expected }
+      it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
     end
   end
 
