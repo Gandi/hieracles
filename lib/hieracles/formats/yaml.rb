@@ -28,7 +28,7 @@ module Hieracles
 
       def allparams(args = nil)
         if args 
-          args = args.join(' ')
+          args = args.join('.')
         end
         commented_yaml_tree(args, false)
       end

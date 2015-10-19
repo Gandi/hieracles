@@ -5,6 +5,8 @@ Hieracles Changelog
 - display full local path in params output
 - add an option to display version
 - fix yaml output for true and false cases
+- added a simple filter fetaure for yaml format,
+  but it only matches like a 'start_with'
 
 ### 0.0.6 - 2015-09-21
 - added doc on how to build the debian package
