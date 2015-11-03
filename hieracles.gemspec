@@ -13,7 +13,29 @@ Gem::Specification.new do |spec|
   spec.metadata      = { "changelog" => "https://github.com/Gandi/hieracles/blob/master/CHANGELOG.md" }
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files -z`.split("\x0")
+  spec.files         = %w(
+                        CHANGELOG.md
+                        Gemfile
+                        LICENSE
+                        README.md
+                        Rakefile
+                        bin/hc
+                        hieracles.gemspec
+                        lib/hieracles.rb
+                        lib/hieracles/config.rb
+                        lib/hieracles/format.rb
+                        lib/hieracles/formats/console.rb
+                        lib/hieracles/formats/csv.rb
+                        lib/hieracles/formats/plain.rb
+                        lib/hieracles/formats/rawyaml.rb
+                        lib/hieracles/formats/yaml.rb
+                        lib/hieracles/help.rb
+                        lib/hieracles/hiera.rb
+                        lib/hieracles/node.rb
+                        lib/hieracles/optparse.rb
+                        lib/hieracles/registry.rb
+                        lib/hieracles/utils.rb
+                        )
   spec.executables   = ['hc']
   spec.test_files    = spec.files.grep(%r{^spec/})
   spec.require_paths = ["lib"]
