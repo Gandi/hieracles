@@ -1,3 +1,9 @@
+ruby-hieracles (0.0.6-1) unstable; urgency=medium
+
+  * trying to make it work on jenkins
+
+ -- mose <mose@gandi.net>  Tue, 03 Nov 2015 12:26:00 +0800
+
 ruby-hieracles (0.0.6) unstable; urgency=medium
 
   * Initial packaging
