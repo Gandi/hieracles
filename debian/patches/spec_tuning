@@ -1,0 +1,42 @@
+Description: Remove dependencies for running tests
+Author: mose <mose@gandi.net>
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/spec/spec_helper.rb
++++ b/spec/spec_helper.rb
+@@ -1,20 +1,20 @@
+ $LOAD_PATH << File.expand_path('../../lib', __FILE__)
+-require 'rubygems'
+-require 'bundler'
++# require 'rubygems'
++# require 'bundler'
+ 
+-if ENV['COV']
+-  require 'simplecov'
+-  SimpleCov.profiles.define :app do
+-    add_group 'bin', '/bin'
+-    add_group 'lib', '/lib'
+-    add_filter '/vendor/'
+-    add_filter '/spec/'
+-  end
+-  SimpleCov.start :app
+-else
+-  require 'coveralls'
+-  Coveralls.wear!
+-end
++# if ENV['COV']
++#   require 'simplecov'
++#   SimpleCov.profiles.define :app do
++#     add_group 'bin', '/bin'
++#     add_group 'lib', '/lib'
++#     add_filter '/vendor/'
++#     add_filter '/spec/'
++#   end
++#   SimpleCov.start :app
++# else
++#   require 'coveralls'
++#   Coveralls.wear!
++# end
+ 
+ require 'hieracles'
+ 
