@@ -3,7 +3,7 @@ Section: ruby
 Priority: optional
 Maintainer: Debian Ruby Extras Maintainers <pkg-ruby-extras-maintainers@lists.alioth.debian.org>
 Uploaders: mose <mose@gandi.net>
-Build-Depends: debhelper (>= 7.0.50~), gem2deb (>= 0.6.1~)
+Build-Depends: debhelper (>= 7.0.50~), gem2deb (>= 0.6.1~), bundler (>= 1.1.4~)
 Standards-Version: 3.9.4
 Homepage: https://github.com/Gandi/hieracles
 XS-Ruby-Versions: all
