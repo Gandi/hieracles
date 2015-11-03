@@ -1,0 +1,14 @@
+---
+- spec/lib/config_spec.rb
+- spec/lib/format_spec.rb
+- spec/lib/formats/console_spec.rb
+- spec/lib/formats/csv_spec.rb
+- spec/lib/formats/plain_spec.rb
+- spec/lib/formats/rawyaml_spec.rb
+- spec/lib/formats/yaml_spec.rb
+- spec/lib/help_spec.rb
+- spec/lib/hiera_spec.rb
+- spec/lib/node_spec.rb
+- spec/lib/optparse_spec.rb
+- spec/lib/utils_spec.rb
+- spec/spec_helper.rb
