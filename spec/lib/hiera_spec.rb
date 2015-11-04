@@ -7,6 +7,7 @@ describe Hieracles::Hiera do
 
     context 'hiera file not found' do
       let(:options) { { 
+        config: 'spec/files/config.yml',
         basepath: 'spec/files',
         hierafile: 'hiera_no.yaml' 
       } }
@@ -17,6 +18,7 @@ describe Hieracles::Hiera do
     
     context 'hiera file found' do
       let(:options) { { 
+        config: 'spec/files/config.yml',
         basepath: 'spec/files',
         hierafile: 'hiera.yaml' 
       } }
@@ -35,6 +37,7 @@ describe Hieracles::Hiera do
   describe '.datapath' do
     context 'hiera file do not have a yaml backend' do
       let(:options) { { 
+        config: 'spec/files/config.yml',
         basepath: 'spec/files',
         hierafile: 'hiera_no_yamlbackend.yaml' 
       } }
@@ -45,6 +48,7 @@ describe Hieracles::Hiera do
     end
     context 'hiera file has a yaml backend but dir not found' do
       let(:options) { { 
+        config: 'spec/files/config.yml',
         basepath: 'spec/files',
         hierafile: 'hiera_yamlbackend_notfound.yaml' 
       } }
@@ -82,10 +86,13 @@ describe Hieracles::Hiera do
   end
 
   context "with proper params" do
-    let(:options) { { 
-      basepath: 'spec/files',
-      hierafile: 'hiera.yaml' 
-    } }
+    let(:options) {
+      { 
+        config: 'spec/files/config.yml',
+        basepath: 'spec/files',
+        hierafile: 'hiera.yaml' 
+      }
+    }
     let(:hiera) { Hieracles::Hiera.new }
 
     describe '.hierarchy' do
