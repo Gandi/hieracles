@@ -1,0 +1,15 @@
+Source: ruby-hieracles
+Section: ruby
+Priority: optional
+Maintainer: mose <mose@gandi.net>
+Uploaders: mose <mose@gandi.net>
+Build-Depends: debhelper (>= 7.0.50~), gem2deb (>= 0.6.1~), ruby-rspec (>= 2.10.0~)
+Standards-Version: 3.9.4
+Homepage: https://github.com/Gandi/hieracles
+XS-Ruby-Versions: all
+
+Package: ruby-hieracles
+Architecture: all
+XB-Ruby-Versions: ${ruby:Versions}
+Depends: ${shlibs:Depends}, ${misc:Depends}, ruby | ruby-interpreter
+Description: CLI tool for Hiera parameters visualisation and analysis.
