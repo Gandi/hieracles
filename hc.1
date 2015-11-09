@@ -1,0 +1,82 @@
+.TH hc 1 "2015-11-08" "version 0.1.0" "Hieracles command manual"
+
+.SH NAME
+hc \- Command tool for Hieracles
+.SH SYNOPSIS
+.B hc 
+.I fqdn
+.I action
+.B [
+.I options
+.B ]
+
+.SH DESCRIPTION
+.PP
+Hieracles is a command-line tool for analysis and deep examination
+of [Hiera][hiera] paramaters in a [Puppet][puppet] setup. It's used
+internally at Gandi and its first incarnation is strongly
+tied to Gandi puppet architecture. But Hieracles tends to become, in
+time, a generic Hiera overlay visualisation tool.
+.PP
+hc command takes at minimum 2 arguments:
+.RS 4
+.IP fqdn 10
+the fqdn under which the node is known in the ENC dir
+.IP action 
+the action needs to be one of the following
+.RS
+.IP info 10
+provides the farm, datacenter, country associated to the given fqdn.
+.IP files
+list all files containing params affecting this fqdn 
+(in more than commons).
+.IP paths
+list all file paths for files with params.
+.IP modules
+list modules included in the farm where the node is.
+.IP params
+list params for the node matching the fqdn.
+An extra filter string can be added to limit the list
+use ruby regexp without the enclosing slashes
+.RS
+eg. hc <fqdn> params postfix.*version
+.RE
+.RS
+eg. hc <fqdn> params '^postfix'
+.RE
+.RS
+eg. hc <fqdn> params 'version$'
+.RE
+.IP all
+same as params but including the common.yaml params (huge)
+Also accepts a search string
+.RE
+.RE
+
+.SH OPTIONS
+.IT Fl f Ar fornat
+.IT Fl -format Ar fornat
+outputs in the selected format. Available formats are
+.Bl -hang -offset indent
+.It Sy plain
+Plain text format with no color.
+.It Sy console
+Ansi text optionaly with colors (if specified in the conf).
+
+.SH FILES
+.I ~/.config/hieracles/config.yaml
+.RS
+Where sits the main hieracles configuration
+
+.SH EXAMPLES
+
+.SH SEE ALSO
+hiera(1), puppet(8)
+
+.SH BUGS
+Pleae report any bug to https://github.com/Gandi/hieracles/issues
+
+.SH AUTHORS
+Hieracles is written by mose at gandi.net
+https://gandi.net
+https://github.com/Gandi/hieracles
