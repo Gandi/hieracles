@@ -54,14 +54,63 @@ Also accepts a search string
 .RE
 
 .SH OPTIONS
-.IT Fl f Ar fornat
-.IT Fl -format Ar fornat
+.TP
+.PD 0
+.B \-f \fRformat
+.TP
+.PD
+.B \-\-format \fRformat
 outputs in the selected format. Available formats are
-.Bl -hang -offset indent
-.It Sy plain
-Plain text format with no color.
-.It Sy console
-Ansi text optionaly with colors (if specified in the conf).
+csv, console, plain, yaml and rawyaml
+.IP
+Note that the difference betrween yaml and rawyaml 
+is that rawyaml don't include comments with the 
+provenance of each params.
+.RE
+
+.TP
+.PD 0
+.B \-p \fRextraparam=what;anotherparam=this
+.TP
+.PD
+.B \-\-params \fRextraparam=what;anotherparam=this
+makes possible to add additional params. 
+Those params will be merged with the ones provided in the hierafile.
+
+.TP
+.PD 0
+.B \-c \fRfile
+.TP
+.PD
+.B \-\-config \fRfile
+specify an alternative config file instead of 
+~/.config/hieracles/config.yaml
+
+.TP
+.PD 0
+.B \-h \fRfile
+.TP
+.PD
+.B \-\-hierafile \fRfile
+specify an alternative hierafile instead of the one 
+stated in the configfile.
+
+.TP
+.PD 0
+.B \-b \fRpath
+.TP
+.PD
+.B \-\-basepath \fRpath
+the basepath is prepended to the paths found in the configfile and the hierafile. Default is ./ but you can change thise using the -b option.
+
+.TP
+.PD 0
+.B \-e \fRpath
+.TP
+.PD
+.B \-\-encdir \fRpath
+encdir is where we can find the ENC definitions. It's stated in the configfile but can be overriden by the -e option.
+
 
 .SH FILES
 .I ~/.config/hieracles/config.yaml
@@ -69,14 +118,33 @@ Ansi text optionaly with colors (if specified in the conf).
 Where sits the main hieracles configuration
 
 .SH EXAMPLES
+A typical config file would look like:
+.PP
+.RS
+---
+.RE
+.RS
+colors: true
+.RE
+.RS
+classpath: farm_modules/%s/manifests/init.pp
+.RE
+.RS
+hierafile: dev/hiera-local.yaml
+.RE
+.RS
+encpath: enc
+.RE
 
 .SH SEE ALSO
 hiera(1), puppet(8)
 
 .SH BUGS
-Pleae report any bug to https://github.com/Gandi/hieracles/issues
+Please report any bug to https://github.com/Gandi/hieracles/issues
 
 .SH AUTHORS
-Hieracles is written by mose at gandi.net
-https://gandi.net
+Copyright (c) 2015 gandi.net https://gandi.net
+.LP
+Hieracles is written by mose@gandi.net
+.LP
 https://github.com/Gandi/hieracles
