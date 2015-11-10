@@ -1,7 +1,7 @@
 Hieracles Changelog
 =======================
 
-### 0.1.0 - wip
+### 0.1.0 - 2015-11-10
 - display full local path in params output
 - add an option to display version
 - fix yaml output for true and false cases
