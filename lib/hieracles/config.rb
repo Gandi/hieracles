@@ -1,11 +1,13 @@
 require 'fileutils'
+require 'json'
+require 'yaml'
 
 module Hieracles
   # configuration singleton
   module Config
     extend self
 
-    attr_reader :extraparams, :server, :classpath, 
+    attr_reader :extraparams, :server, :classpath, :facts,
       :modulepath, :hierafile, :basepath, :encpath, :format
 
     def load(options)
@@ -20,6 +22,9 @@ module Hieracles
       @basepath = File.expand_path(options[:basepath] || values['basepath'] || '.')
       @hierafile = options[:hierafile] || values['hierafile'] || 'hiera.yaml'
       @format = (options[:format] || values['format'] || 'console').capitalize
+      facts_file = options[:yaml_facts] || options[:json_facts]
+      facts_format = options[:json_facts] ? :json : :yaml
+      @facts = (facts_file && load_facts(facts_file, facts_format)) || {}
     end
 
     def initconfig(file)
@@ -50,6 +55,14 @@ module Hieracles
 
     def path(what)
       File.join(@basepath, send(what.to_sym))
+    end
+
+    def load_facts(file, format)
+      if format == :json
+        JSON.load_file(file)
+      else
+        YAML.load_file(file)
+      end
     end
 
   end

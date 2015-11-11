@@ -32,6 +32,14 @@ module Hieracles
       version: {
         has_arg: false,
         aliases: ['v', 'version']
+      },
+      yaml_facts: {
+        has_arg: true,
+        aliases: ['y', 'yaml']
+      },
+      json_facts: {
+        has_arg: true,
+        aliases: ['j', 'json']
       }
     }
 
