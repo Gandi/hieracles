@@ -1,7 +1,7 @@
 Hieracles Changelog
 =======================
 
-### 0.1.2 - wip
+### 0.1.2 - 2015-11-12
 - fix yaml more for case of nilclass in params
 - fix the case when a params file is empty
 
