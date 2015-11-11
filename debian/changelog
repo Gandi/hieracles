@@ -1,3 +1,12 @@
+ruby-hieracles (0.1.1.0) unstable; urgency=medium
+
+  * upstream 0.1.1
+  * add json output
+  * fix when paramsd contain number type fixnum or float
+  * prepare loading of facts (just not used yet)
+
+ -- mose <mose@gandi.net>  Wed, 11 Nov 2015 23:01:00 +0800
+
 ruby-hieracles (0.1.0.0) unstable; urgency=medium
 
   * upstream 0.1.0
