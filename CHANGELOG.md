@@ -1,6 +1,8 @@
 Hieracles Changelog
 =======================
 
+### 0.1.2 - wip
+
 ### 0.1.1 - 2015-11-11
 - add json format output
 - add an option to load facts files in json or yaml
