@@ -122,6 +122,74 @@ describe Hieracles::Formats::Yaml do
       }
       it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
     end
+    context "with various boolean type of key-values (true)" do
+      let(:params) {
+        { 
+          'key' => [{
+            file: 'what/file',
+            value: 'value'
+          }]
+        }
+      }
+      let(:input) {
+        { 'key' => true }
+      }
+      let(:expected) {
+        "\nkey: true # what/file"
+      }
+      it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
+    end
+    context "with various boolean type of key-values (false)" do
+      let(:params) {
+        { 
+          'key' => [{
+            file: 'what/file',
+            value: 'value'
+          }]
+        }
+      }
+      let(:input) {
+        { 'key' => false }
+      }
+      let(:expected) {
+        "\nkey: false # what/file"
+      }
+      it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
+    end
+    context "with various fixnum type of key-values" do
+      let(:params) {
+        { 
+          'key' => [{
+            file: 'what/file',
+            value: 'value'
+          }]
+        }
+      }
+      let(:input) {
+        { 'key' => 3 }
+      }
+      let(:expected) {
+        "\nkey: 3 # what/file"
+      }
+      it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
+    end
+    context "with various float type of key-values" do
+      let(:params) {
+        { 
+          'key' => [{
+            file: 'what/file',
+            value: 'value'
+          }]
+        }
+      }
+      let(:input) {
+        { 'key' => 0.3 }
+      }
+      let(:expected) {
+        "\nkey: 0.3 # what/file"
+      }
+      it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
+    end
     context "with a simple array key-value" do
       let(:params) {
         { 
