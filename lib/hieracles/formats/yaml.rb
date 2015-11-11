@@ -86,6 +86,14 @@ module Hieracles
         output
       end
 
+      def add_fixnum(output, key, leaf, params, indent)
+        output += leaf.to_s
+        if params["#{key.join('.')}"]
+          output += " # " + params[key.join('.')][0][:file]
+        end
+        output
+      end
+
     end
   end
 end
