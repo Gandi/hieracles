@@ -14,8 +14,8 @@ if !ENV['BUILD']
     end
     SimpleCov.start :app
   else
-    require 'coveralls'
-    Coveralls.wear!
+    #require 'coveralls'
+    #Coveralls.wear!
   end
 end
 
