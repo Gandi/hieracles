@@ -60,4 +60,34 @@ describe Hieracles::Config do
     let(:expected) { { bla: 'blu', one: 'two' } }
     it { expect(Hieracles::Config.extract_params(str)).to eq expected }
   end
+
+  describe '.facts' do
+    context 'with a yaml file' do
+      let(:options) do
+        { 
+          config: 'spec/files/config.yml', 
+          basepath: 'spec/files', 
+          yaml_facts: 'spec/files/facts.yaml'
+        }
+      end
+      let(:expected) { 'Debian' }
+      before { Hieracles::Config.load options }
+
+      it { expect(Hieracles::Config.facts['osfamily']).to eq expected }
+    end
+    context 'with a json file' do
+      let(:options) do
+        { 
+          config: 'spec/files/config.yml', 
+          basepath: 'spec/files', 
+          json_facts: 'spec/files/facts.json'
+        }
+      end
+      let(:expected) { 'Debian' }
+      before { Hieracles::Config.load options }
+
+      it { expect(Hieracles::Config.facts['osfamily']).to eq expected }
+    end
+  end
+
 end

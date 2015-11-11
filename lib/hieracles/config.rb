@@ -59,7 +59,7 @@ module Hieracles
 
     def load_facts(file, format)
       if format == :json
-        JSON.load_file(file)
+        JSON.parse(File.read(file))
       else
         YAML.load_file(file)
       end
