@@ -63,38 +63,28 @@ module Hieracles
       end
 
       def add_string(output, key, leaf, params, indent)
-        output += leaf
-        if params["#{key.join('.')}"]
-          output += " # " + params[key.join('.')][0][:file]
-        end
-        output
+        added output, key, leaf, params
       end
 
       def add_trueclass(output, key, leaf, params, indent)
-        output += 'true'
-        if params["#{key.join('.')}"]
-          output += " # " + params[key.join('.')][0][:file]
-        end
-        output
+        added output, key, 'true', params
       end
 
       def add_falseclass(output, key, leaf, params, indent)
-        output += 'false'
-        if params["#{key.join('.')}"]
-          output += " # " + params[key.join('.')][0][:file]
-        end
-        output
+        added output, key, 'false', params
       end
 
       def add_fixnum(output, key, leaf, params, indent)
-        output += leaf.to_s
-        if params["#{key.join('.')}"]
-          output += " # " + params[key.join('.')][0][:file]
-        end
-        output
+        added output, key, leaf, params
       end
 
       def add_float(output, key, leaf, params, indent)
+        added output, key, leaf, params
+      end
+
+      private
+
+      def added(output, key, leaf, params)
         output += leaf.to_s
         if params["#{key.join('.')}"]
           output += " # " + params[key.join('.')][0][:file]
