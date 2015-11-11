@@ -66,6 +66,14 @@ module Hieracles
         added output, key, leaf, params
       end
 
+      def add_fixnum(output, key, leaf, params, indent)
+        added output, key, leaf, params
+      end
+
+      def add_float(output, key, leaf, params, indent)
+        added output, key, leaf, params
+      end
+
       def add_trueclass(output, key, leaf, params, indent)
         added output, key, 'true', params
       end
@@ -74,12 +82,8 @@ module Hieracles
         added output, key, 'false', params
       end
 
-      def add_fixnum(output, key, leaf, params, indent)
-        added output, key, leaf, params
-      end
-
-      def add_float(output, key, leaf, params, indent)
-        added output, key, leaf, params
+      def add_nilclass(output, key, leaf, params, indent)
+        added output, key, '', params
       end
 
       private

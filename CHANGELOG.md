@@ -2,6 +2,7 @@ Hieracles Changelog
 =======================
 
 ### 0.1.2 - wip
+- fix yaml more for case of nilclass in params
 
 ### 0.1.1 - 2015-11-11
 - add json format output
