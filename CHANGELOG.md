@@ -4,7 +4,7 @@ Hieracles Changelog
 ### 0.1.1 - wip
 - add json format output
 - add an option to load facts files in json or yaml
-- fix yaml output when there is a fixnum in yaml
+- fix yaml output when there is a fixnum or a float in yaml
 
 ### 0.1.0 - 2015-11-10
 - display full local path in params output
