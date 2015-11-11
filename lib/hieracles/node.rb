@@ -47,10 +47,12 @@ module Hieracles
       params = {}
       files(without_common).each do |f|
         data = YAML.load_file(File.join(Config.basepath, f))
-        s = to_shallow_hash(data)
-        s.each do |k,v|
-          params[k] ||= []
-          params[k] << { value: v, file: f}
+        if data
+          s = to_shallow_hash(data)
+          s.each do |k,v|
+            params[k] ||= []
+            params[k] << { value: v, file: f}
+          end
         end
       end
       params.sort
@@ -60,7 +62,7 @@ module Hieracles
       params = {}
       paths(without_common).each do |f|
         data = YAML.load_file(f)
-        deep_merge!(params, data)
+        deep_merge!(params, data) if data
       end
       deep_sort(params)
     end
