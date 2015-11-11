@@ -16,6 +16,8 @@ if !ENV['BUILD']
   else
     #require 'coveralls'
     #Coveralls.wear!
+    require "codeclimate-test-reporter"
+    CodeClimate::TestReporter.start
   end
 end
 
