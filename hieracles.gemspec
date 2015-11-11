@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
                         lib/hieracles/format.rb
                         lib/hieracles/formats/console.rb
                         lib/hieracles/formats/csv.rb
+                        lib/hieracles/formats/json.rb
                         lib/hieracles/formats/plain.rb
                         lib/hieracles/formats/rawyaml.rb
                         lib/hieracles/formats/yaml.rb
@@ -58,6 +59,7 @@ Gem::Specification.new do |spec|
                         spec/lib/format_spec.rb
                         spec/lib/formats/console_spec.rb
                         spec/lib/formats/csv_spec.rb
+                        spec/lib/formats/json_spec.rb
                         spec/lib/formats/plain_spec.rb
                         spec/lib/formats/rawyaml_spec.rb
                         spec/lib/formats/yaml_spec.rb

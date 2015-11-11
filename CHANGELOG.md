@@ -1,6 +1,9 @@
 Hieracles Changelog
 =======================
 
+### 0.1.1 - wip
+- add json format output
+
 ### 0.1.0 - 2015-11-10
 - display full local path in params output
 - add an option to display version
