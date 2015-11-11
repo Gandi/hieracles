@@ -54,7 +54,6 @@ For an  example setup you can check in `spec/files`.
 Usage
 -------------
 
-
     Usage: hc <fqdn> <command> [extra_args]
 
     Available commands:
@@ -81,6 +80,20 @@ Usage
       -b <basepath> default ./
       -e <encdir>
       -v - displays version
+      -y <fact_file> - facts in yaml format
+      -j <fact_file> - facts in json format
+
+
+About facts
+------------------
+
+_(work in progress)_
+
+Like with Hiera CLI you can use hieracles with defined top-scope variables. Those top-scope vars can be defined with:
+
+- `-p extraparam=what;anotherparam=this`
+- `-y <fact_file>` which takes the fact file from a yaml source created by `facter -y` on your node for example, but it can be written manually for experimentation purposes.
+- `-j <fact_file>` same as above, but with output of `facter -j`
 
 Completion
 -------------

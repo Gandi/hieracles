@@ -1,0 +1,103 @@
+--- 
+  uptime_days: 103
+  hardwaremodel: x86_64
+  kernelmajversion: "3.12"
+  lsbminordistrelease: "1"
+  filesystems: "ext2,ext3,ext4"
+  path: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  fqdn: dev.example.com
+  kernel: Linux
+  blockdevice_sda_size: 3221225472
+  blockdevice_sda_vendor: vendor
+  blockdevice_sda_model: "QEMU HARDDISK"
+  blockdevice_sdb_size: 536870912
+  blockdevice_sdb_vendor: vendor
+  blockdevice_sdb_model: "QEMU HARDDISK"
+  blockdevices: "sda,sdb"
+  lsbdistrelease: "8.1"
+  selinux: "false"
+  operatingsystemmajrelease: "8"
+  operatingsystem: Debian
+  ps: "ps -ef"
+  kernelrelease: "3.12.36-guest-27-c9b6624-x86_64"
+  netmask: "255.255.254.0"
+  virtual: kvm
+  is_virtual: "true"
+  uniqueid: "960a0508"
+  network_eth0: "10.0.0.0"
+  network_lo: "127.0.0.0"
+  uptime: "103 days"
+  processors: 
+    models: 
+      - "Intel(R) Xeon(R) CPU E5-2650L 0 @ 1.80GHz"
+    count: 1
+    physicalcount: 1
+  lsbdistcodename: jessie
+  interfaces: "eth0,lo"
+  ipaddress_eth0: "10.0.0.42"
+  macaddress_eth0: "00:11:22:33:44:55"
+  netmask_eth0: "255.255.254.0"
+  mtu_eth0: "1500"
+  ipaddress_lo: "127.0.0.1"
+  netmask_lo: "255.0.0.0"
+  mtu_lo: "65536"
+  lsbmajdistrelease: "8"
+  memorysize: "891.80 MB"
+  memoryfree: "745.68 MB"
+  swapsize: "512.00 MB"
+  swapfree: "511.82 MB"
+  swapsize_mb: "512.00"
+  swapfree_mb: "511.82"
+  memorysize_mb: "891.80"
+  memoryfree_mb: "745.68"
+  macaddress: "00:11:22:33:44:55"
+  kernelversion: "3.12.36"
+  lsbdistid: Debian
+  id: root
+  lsbdistdescription: "Debian GNU/Linux 8.1 (jessie)"
+  physicalprocessorcount: "1"
+  domain: example.com
+  architecture: amd64
+  os: 
+    name: Debian
+    family: Debian
+    release: 
+      major: "8"
+      minor: "1"
+      full: "8.1"
+    lsb: 
+      distcodename: jessie
+      distid: Debian
+      distdescription: "Debian GNU/Linux 8.1 (jessie)"
+      distrelease: "8.1"
+      majdistrelease: "8"
+      minordistrelease: "1"
+  gid: root
+  system_uptime: 
+    seconds: 8982629
+    hours: 2495
+    days: 103
+    uptime: "103 days"
+  uptime_seconds: 8982629
+  hardwareisa: unknown
+  rubysitedir: /usr/local/lib/site_ruby/2.1.0
+  facterversion: "2.2.0"
+  augeasversion: "1.2.0"
+  operatingsystemrelease: "8.1"
+  uptime_hours: 2495
+  puppetversion: "3.7.2"
+  bios_vendor: SeaBIOS
+  bios_version: rel-1.7.5.1-0-g8936dbb-20141113_115728-nilsson.home.kraxel.org
+  bios_release_date: "04/01/2014"
+  manufacturer: QEMU
+  productname: "Standard PC (i440FX + PIIX, 1996)"
+  serialnumber: "Not Specified"
+  uuid: "Not Settable"
+  type: Other
+  processor0: "Intel(R) Xeon(R) CPU E5-2650L 0 @ 1.80GHz"
+  processorcount: "1"
+  rubyversion: "2.1.5"
+  osfamily: Debian
+  ipaddress: "10.0.0.42"
+  hostname: dev
+  timezone: CET
