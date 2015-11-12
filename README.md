@@ -84,8 +84,8 @@ Usage
       -j <fact_file> - facts in json format
 
 
-About facts
-------------------
+About facts aka. scope
+------------------------
 
 _(work in progress)_
 

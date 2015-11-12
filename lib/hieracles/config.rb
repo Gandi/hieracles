@@ -1,10 +1,12 @@
 require 'fileutils'
 require 'json'
 require 'yaml'
+require 'hieracles/utils'
 
 module Hieracles
   # configuration singleton
   module Config
+    include Hieracles::Utils
     extend self
 
     attr_reader :extraparams, :server, :classpath, :scope,
@@ -24,7 +26,7 @@ module Hieracles
       @format = (options[:format] || values['format'] || 'console').capitalize
       facts_file = options[:yaml_facts] || options[:json_facts]
       facts_format = options[:json_facts] ? :json : :yaml
-      @scope = (facts_file && load_facts(facts_file, facts_format)) || {}
+      @scope = sym_keys((facts_file && load_facts(facts_file, facts_format)) || values['defaultscope'] || {})
     end
 
     def initconfig(file)

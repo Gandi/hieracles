@@ -1,8 +1,8 @@
 Hieracles Changelog
 =======================
 
-### 0.1.3 - wip
-- added scope (facts) interpretation in the hiera file
+### 0.1.3 - 2015-11-12
+- added scope (facts) interpretation for the hiera file
   (very basic interpolation, not yet hiera-lib level)
 
 ### 0.1.2 - 2015-11-12

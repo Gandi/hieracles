@@ -29,6 +29,8 @@ module Hieracles
         -h <hierafile>
         -b <basepath> default ./
         -e <encdir>
+        -y <fact_file> - facts in yaml format
+        -j <fact_file> - facts in json format
         -v just displays the version of Hieracles
       END
     end
