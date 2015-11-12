@@ -61,7 +61,7 @@ describe Hieracles::Config do
     it { expect(Hieracles::Config.extract_params(str)).to eq expected }
   end
 
-  describe '.facts' do
+  describe '.scope' do
     context 'with a yaml file' do
       let(:options) do
         { 
@@ -73,7 +73,7 @@ describe Hieracles::Config do
       let(:expected) { 'Debian' }
       before { Hieracles::Config.load options }
 
-      it { expect(Hieracles::Config.facts['osfamily']).to eq expected }
+      it { expect(Hieracles::Config.scope['osfamily']).to eq expected }
     end
     context 'with a json file' do
       let(:options) do
@@ -86,7 +86,7 @@ describe Hieracles::Config do
       let(:expected) { 'Debian' }
       before { Hieracles::Config.load options }
 
-      it { expect(Hieracles::Config.facts['osfamily']).to eq expected }
+      it { expect(Hieracles::Config.scope['osfamily']).to eq expected }
     end
   end
 

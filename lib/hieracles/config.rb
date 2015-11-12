@@ -7,7 +7,7 @@ module Hieracles
   module Config
     extend self
 
-    attr_reader :extraparams, :server, :classpath, :facts,
+    attr_reader :extraparams, :server, :classpath, :scope,
       :modulepath, :hierafile, :basepath, :encpath, :format
 
     def load(options)
@@ -24,7 +24,7 @@ module Hieracles
       @format = (options[:format] || values['format'] || 'console').capitalize
       facts_file = options[:yaml_facts] || options[:json_facts]
       facts_format = options[:json_facts] ? :json : :yaml
-      @facts = (facts_file && load_facts(facts_file, facts_format)) || {}
+      @scope = (facts_file && load_facts(facts_file, facts_format)) || {}
     end
 
     def initconfig(file)

@@ -13,6 +13,7 @@ module Hieracles
       @hiera = Hieracles::Hiera.new
       @hiera_params = { fqdn: fqdn }.
         merge(get_hiera_params(fqdn)).
+        merge(Config.scope).
         merge(Config.extraparams)
       @fqdn = fqdn
     end
@@ -51,6 +52,7 @@ module Hieracles
           s = to_shallow_hash(data)
           s.each do |k,v|
             params[k] ||= []
+            # f needs interpolation
             params[k] << { value: v, file: f}
           end
         end
@@ -62,7 +64,10 @@ module Hieracles
       params = {}
       paths(without_common).each do |f|
         data = YAML.load_file(f)
-        deep_merge!(params, data) if data
+        if data
+          # data needs interpolation
+          deep_merge!(params, data)
+        end
       end
       deep_sort(params)
     end

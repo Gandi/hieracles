@@ -1,5 +1,4 @@
 module Hieracles
-
   class Hiera
 
     def initialize
