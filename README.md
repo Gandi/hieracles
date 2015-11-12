@@ -48,6 +48,7 @@ Configuration variables are:
 - encpath
 - hierafile
 - format
+- defaultscope
 
 For an  example setup you can check in `spec/files`.
 
@@ -95,6 +96,24 @@ Like with Hiera CLI you can use hieracles with defined top-scope variables. Thos
 - `-y <fact_file>` which takes the fact file from a yaml source created by `facter -y` on your node for example, but it can be written manually for experimentation purposes.
 - `-j <fact_file>` same as above, but with output of `facter -j`
 
+You can define a default scope in your configuration file `defaultscope` in `~/.confg/hieracles/config.yml`. For example:
+
+    ---
+    colors: true
+    classpath: farm_modules/%s/manifests/init.pp
+    hierafile: dev/hiera-local.yaml
+    encpath: enc 
+    defaultscope:
+        operatingsystem: Debian
+        lsbdistcodename: Jessie
+
+In order the scope with be built from:
+
+- the config file
+- if `-y <file>` option (or `-j`) is present the `defaultscope` in the config file will be totally ignored
+- the `-p key=value` option with overide variable per variable
+
+
 Completion
 -------------
 There is a simple zsh completion file in `tools/completion`. 
@@ -128,9 +147,9 @@ and install
 
 Todo
 --------------
-- add json format
-- add override information in yaml format
-- add a command to search for node according to a filter
+- add json format (done)
+- add override information in yaml format (done)
+- add a command to search for node according to a filter (done)
 - add a command to find all nodes that use a given module
 - add a command that finds all nodes for which a params is defined
 - detect unused params
