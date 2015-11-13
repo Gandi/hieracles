@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
                         LICENSE
                         README.md
                         Rakefile
+                        hc.1
                         bin/hc
                         hieracles.gemspec
                         lib/hieracles.rb

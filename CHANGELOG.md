@@ -1,6 +1,9 @@
 Hieracles Changelog
 =======================
 
+### 0.1.4 - 2015-11-13
+- no real change, just preparing for BSD port
+
 ### 0.1.3 - 2015-11-12
 - added scope (facts) interpretation for the hiera file
   (very basic interpolation, not yet hiera-lib level)
