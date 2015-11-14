@@ -2,7 +2,7 @@ module Hieracles
   module Interpolate
 
     def parse(data, values)
-      data.gsub(/%(?:(scope|hiera|literal|alias) *)?\{([^\}]*)\}/0) do |match|
+      data.gsub(/%(?:(scope|hiera|literal|alias) *)?\{([^\}]*)\}/) do |match|
         puts match
       end
     end
