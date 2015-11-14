@@ -33,6 +33,7 @@ Gem::Specification.new do |spec|
                         lib/hieracles/formats/yaml.rb
                         lib/hieracles/help.rb
                         lib/hieracles/hiera.rb
+                        lib/hieracles/interpolate.rb
                         lib/hieracles/node.rb
                         lib/hieracles/optparse.rb
                         lib/hieracles/registry.rb

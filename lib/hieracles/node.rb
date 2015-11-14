@@ -5,6 +5,7 @@ require "yaml"
 module Hieracles
   class Node
     include Hieracles::Utils
+    include Hieracles::Interpolate
 
     attr_reader :hiera_params, :hiera
 
