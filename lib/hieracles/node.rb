@@ -29,8 +29,8 @@ module Hieracles
     end
 
     def files(without_common = true)
-      @hiera.hierarchy.reduce([]) do |a, f|
-        file = format("#{f}.yaml", @hiera_params) rescue nil
+      @__files ||= @hiera.hierarchy.reduce([]) do |a, f|
+        file = parse("#{f}.yaml", @hiera_params, Config.interactive)
         if file && 
            File.exist?(File.join(@hiera.datapath, file)) &&
            (!without_common ||

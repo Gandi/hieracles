@@ -40,6 +40,10 @@ module Hieracles
       json_facts: {
         has_arg: true,
         aliases: ['j', 'json']
+      },
+      interactive: {
+        has_arg: false,
+        aliases: ['i', 'interactive']
       }
     }
 

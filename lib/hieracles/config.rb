@@ -10,7 +10,7 @@ module Hieracles
     extend self
 
     attr_reader :extraparams, :server, :classpath, :scope,
-      :modulepath, :hierafile, :basepath, :encpath, :format
+      :modulepath, :hierafile, :basepath, :encpath, :format, :interactive
 
     def load(options)
       @optionfile = options[:config] || defaultconfig
@@ -27,6 +27,7 @@ module Hieracles
       facts_file = options[:yaml_facts] || options[:json_facts]
       facts_format = options[:json_facts] ? :json : :yaml
       @scope = sym_keys((facts_file && load_facts(facts_file, facts_format)) || values['defaultscope'] || {})
+      @interactive = options[:interactive] || values['interactive']
     end
 
     def initconfig(file)
