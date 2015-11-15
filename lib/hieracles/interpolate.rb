@@ -4,8 +4,7 @@ module Hieracles
     def parse(data, values, interactive = false)
       data.gsub(/%\{(?:(scope|hiera|literal|alias) *)?([^\}]*)\}/) do |match|
         if interactive && !values[$2.to_sym]
-          val = ask_about($2)
-          values[$2.to_sym] = val
+          values[$2.to_sym] = ask_about($2)
           val
         else
           values[$2.to_sym]
