@@ -1,6 +1,12 @@
 Hieracles Changelog
 =======================
 
+### 0.1.5 - 2015-11-15
+- add `interactive` new option `-i` for having 
+  CLI user promtped to fill up missing scope vars
+- implement interpolation adapted from the code of hiera
+- fixed the single option parsing for `-i`
+
 ### 0.1.4 - 2015-11-13
 - no real change, just preparing for BSD port
 

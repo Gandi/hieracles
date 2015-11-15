@@ -83,6 +83,7 @@ Usage
       -v - displays version
       -y <fact_file> - facts in yaml format
       -j <fact_file> - facts in json format
+      -i - interactive mode
 
 
 About facts aka. scope
@@ -99,7 +100,6 @@ Like with Hiera CLI you can use hieracles with defined top-scope variables. Thos
 You can define a default scope in your configuration file `defaultscope` in `~/.confg/hieracles/config.yml`. For example:
 
     ---
-    colors: true
     classpath: farm_modules/%s/manifests/init.pp
     hierafile: dev/hiera-local.yaml
     encpath: enc 
@@ -113,6 +113,10 @@ In order the scope with be built from:
 - if `-y <file>` option (or `-j`) is present the `defaultscope` in the config file will be totally ignored
 - the `-p key=value` option with overide variable per variable
 
+Note that if the scope var is not defined or if the file declared in hiera config is not found, this entry is silently ignored.
+
+An option, `-i` enables the `interactive mode` in which you are prompted to fill up for undefined scope variables encountered in the hiera config file. This behavior can be made systematic by enabling `interactive: true` in hieracles configuration file.
+
 
 Completion
 -------------
@@ -122,13 +126,15 @@ If you use [oh-my-zsh][omz] put it in `~/.oh-my-zsh/completions`
 
     wget -O ~/.oh-my-zsh/completions/_hc https://raw.githubusercontent.com/Gandi/hieracles/master/tools/completion/_hc
     echo 'compdef _hc hc "bundle exec hc"' >> ~/.zshrc
-
+    echo 'autoload -U _hc' >> ~/.zshrc
+    
 Otherwise 
 
     mkdir ~/.zsh-completions
     wget -O ~/.zsh-completions/_hc https://raw.githubusercontent.com/Gandi/hieracles/master/tools/completion/_hc
     echo 'fpath=(~/.zsh-completions $fpath)' >> ~/.zshrc
     echo 'compdef _hc hc "bundle exec hc"' >> ~/.zshrc
+    echo 'autoload -U _hc' >> ~/.zshrc
 
 
 Debian packaging

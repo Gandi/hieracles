@@ -53,8 +53,13 @@ module Hieracles
       ok = optionkeys
       while x = array.shift
         if x[0] == '-'
-          if ok[x[/[a-z][-_a-z]*$/]]
-            @options[ok[x[/[a-z][-_a-z]*$/]]] = array.shift
+          found = ok[x[/[a-z][-_a-z]*$/]]
+          if found
+            if found[:has_args]
+              @options[found[:var]] = array.shift
+            else
+              @options[found[:var]] = true
+            end
           else
             array.shift
           end
@@ -68,7 +73,7 @@ module Hieracles
       back = {}
       OPTIONS.each do |k, v|
         v[:aliases].each do |a|
-          back[a] = k
+          back[a] = { var: k, has_args: v[:has_arg] }
         end
       end
       back
