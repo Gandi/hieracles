@@ -11,5 +11,5 @@ XS-Ruby-Versions: all
 Package: ruby-hieracles
 Architecture: all
 XB-Ruby-Versions: ${ruby:Versions}
-Depends: ${shlibs:Depends}, ${misc:Depends}, ruby | ruby-interpreter
+Depends: ${shlibs:Depends}, ${misc:Depends}, ruby | ruby-interpreter, ruby-deep-merge
 Description: CLI tool for Hiera parameters visualisation and analysis.

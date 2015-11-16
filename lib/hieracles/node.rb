@@ -1,6 +1,7 @@
 require "net/http"
 require "uri"
 require "yaml"
+require 'deep_merge'
 
 module Hieracles
   class Node
@@ -64,11 +65,8 @@ module Hieracles
     def params_tree(without_common = true)
       params = {}
       paths(without_common).each do |f|
-        data = YAML.load_file(f)
-        if data
-          # data needs interpolation
-          deep_merge!(params, data)
-        end
+        data = YAML.load_file(f) || {}
+        merge_trees params, data
       end
       deep_sort(params)
     end
@@ -114,6 +112,17 @@ module Hieracles
         end
       end
       modules
+    end
+
+    def merge_trees(left, right)
+      case @hiera.merge_behavior
+      when :deeper
+        left.deep_merge!(right)
+      when :deep
+        left.deep_merge(right)
+      else # Native and undefined
+        deep_merge!(left, right)
+      end
     end
 
   end

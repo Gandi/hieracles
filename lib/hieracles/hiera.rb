@@ -26,5 +26,14 @@ module Hieracles
       hierarchy.join(',').scan(/%\{(?:::)?([^\}]*)\}/).flatten.uniq
     end
 
+    def merge_behavior
+      case @loaded[:merge_behavior]
+      when :deep,'deep',:deeper,'deeper'
+        @loaded[:merge_behavior].to_sym
+      else
+        :native
+      end
+    end
+
   end
 end
