@@ -173,6 +173,29 @@ describe Hieracles::Node do
     end
   end
 
+  context "when parameters include double-column variables" do
+    let(:options) {
+      { 
+        config: 'spec/files/config.yml',
+        hierafile: 'hiera_columns.yaml',
+        encpath: 'enc',
+        basepath: 'spec/files'
+      }
+    }
+    let(:node) { Hieracles::Node.new 'server.example.com', options }
+
+    describe '.files' do
+      let(:expected) {
+        [
+          'params/nodes/server.example.com.yaml',
+          'params/farm/dev.yaml'
+        ]
+      }
+      it { expect(node.files).to eq expected }
+    end
+  end
+
+
   context "with deep merge" do
     let(:options) {
       { 
