@@ -1,9 +1,13 @@
 Hieracles Changelog
 =======================
 
+### 0.1.6 - wip
+- add dependency on deep-merge gem like hiera does
+- take in account the `merge_behavior` in hiera file
+
 ### 0.1.5 - 2015-11-15
 - add `interactive` new option `-i` for having 
-  CLI user promtped to fill up missing scope vars
+  CLI user prompted to fill up missing scope vars
 - implement interpolation adapted from the code of hiera
 - fixed the single option parsing for `-i`
 
@@ -27,7 +31,7 @@ Hieracles Changelog
 - display full local path in params output
 - add an option to display version
 - fix yaml output for true and false cases
-- added a simple filter fetaure for yaml format,
+- added a simple filter feature for yaml format,
   but it only matches like a 'start_with'
 
 ### 0.0.6 - 2015-09-21
