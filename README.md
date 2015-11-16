@@ -139,17 +139,38 @@ Otherwise
 
 Debian packaging
 --------------------
-On a Jessie
 
-    apt-get install gem2deb ruby-coveralls ruby-all-dev ruby-rspec ruby-rspec-expectations 
+A debian/ dir is included you can just use `sbuild` in here and it will build the .deb.
 
-Then build
+For new releases:
 
-    gem2deb -p hieracles hieracles
+- update the debian/changelog file
 
-and install
+FreeBSD packaging
+--------------------
 
-    dpkg -i hieracles_0.0.6-1_all.deb
+For new releases:
+
+- update the Makefile with new version number
+- in a FreeBSD jail or machine:
+  - ```
+    cd hieracles
+    git pull
+    cd ports/
+    make makesum
+    # test the stuff, get that there is no warning or what
+    portlint
+    make stage
+    make check-orphans
+    make package
+    make install
+    make deinstall
+    make clean
+    cd ..
+    shar `find rubygem-hieracles` > rubygem-hieracles.shar
+    ```
+- on https://bugs.freebsd.org submit the new version
+
 
 Todo
 --------------
