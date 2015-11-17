@@ -2,7 +2,7 @@ module Hieracles
   module Interpolate
 
     def parse(data, values, interactive = false)
-      data.gsub(/%\{(?:(scope|hiera|literal|alias)\(['"])?([^\}"']*)(?:["']\))?\}/) do |match|
+      data.gsub(/%\{(?:(scope|hiera|literal|alias)\(['"])?(?:::)?([^\}"']*)(?:["']\))?\}/) do |match|
         if interactive && !values[$2.to_sym]
           values[$2.to_sym] = ask_about($2)
           val
