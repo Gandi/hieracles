@@ -3,3 +3,8 @@ common_param:
 another:
   sublevel:
     thing: always
+    array:
+      - one
+      - two
+      - three
+
