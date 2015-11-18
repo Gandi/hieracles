@@ -3,6 +3,9 @@ ruby-hieracles (0.1.6.0) unstable; urgency=medium
   * upstream 0.1.6
   * add dependency on deep-merge gem like hiera does
   * take in account the `merge_behavior` in hiera file
+  * make possible to use `%{::variables}` from puppet scope
+    but this is a temporary implementation, 
+    only works for top level variables
 
  -- mose <mose@gandi.net>  wip
 
