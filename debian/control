@@ -3,7 +3,7 @@ Section: ruby
 Priority: optional
 Maintainer: mose <mose@gandi.net>
 Uploaders: mose <mose@gandi.net>
-Build-Depends: debhelper (>= 7.0.50~), gem2deb (>= 0.6.1~), ruby-rspec (>= 2.10.0~)
+Build-Depends: debhelper (>= 7.0.50~), gem2deb (>= 0.6.1~), ruby-rspec (>= 2.10.0~), ruby-deep-merge (>= 1.0.1~)
 Standards-Version: 3.9.4
 Homepage: https://github.com/Gandi/hieracles
 XS-Ruby-Versions: all
