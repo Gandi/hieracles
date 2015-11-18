@@ -1,9 +1,0 @@
-somefarmparam: false
-another:
-  more_sublevel: something
-  sublevel:
-    array:
-      - one
-      - two
-      - three
-

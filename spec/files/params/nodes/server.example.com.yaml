@@ -4,7 +4,5 @@ another:
   sublevel:
     thing: always
     array:
-      - one
-      - two
-      - three
-
+      - four
+      - five

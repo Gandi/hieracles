@@ -78,6 +78,24 @@ describe Hieracles::Node do
       describe '.params' do
         let(:expected) {
           [
+            [ "another.more_sublevel", 
+              [{
+                value: "something",
+                file: 'params/farm/dev.yaml'
+              }]
+            ],
+            [ "another.sublevel.array", 
+              [
+                {
+                  value: ["four", "five"],
+                  file: 'params/nodes/server.example.com.yaml'
+                },
+                {
+                  value: ["one", "two", "three"],
+                  file: 'params/farm/dev.yaml'
+                }
+              ]
+            ],
             [ "another.sublevel.thing", 
               [{
                 value: "always",
@@ -105,7 +123,9 @@ describe Hieracles::Node do
         let(:expected) {
           {
             "another" => { 
+              "more_sublevel" => "something",
               "sublevel" => {
+                "array" => ["one", "three", "two"],
                 "thing" => "always"
               }
             },
@@ -205,7 +225,7 @@ describe Hieracles::Node do
         basepath: 'spec/files'
       }
     }
-    let(:node) { Hieracles::Node.new 'server_deep.example.com', options }
+    let(:node) { Hieracles::Node.new 'server.example.com', options }
 
     describe '.params' do
       let(:expected) {
@@ -213,67 +233,21 @@ describe Hieracles::Node do
           [ "another.more_sublevel", 
             [{
               value: "something",
-              file: 'params/farm/dev_deep.yaml'
+              file: 'params/farm/dev.yaml'
             }]
           ],
-          [ "another.sublevel.thing", 
-            [{
-              value: "always",
-              file: 'params/nodes/server_deep.example.com.yaml'
-            }]
+          [ "another.sublevel.array", 
+            [
+              {
+                value: ["four", "five"],
+                file: 'params/nodes/server.example.com.yaml'
+              },
+              {
+                value: ["one", "two", "three"],
+                file: 'params/farm/dev.yaml'
+              }              
+            ]
           ],
-          [ "common_param.subparam",
-            [{
-              value: "overriden", 
-              file: 'params/nodes/server_deep.example.com.yaml'
-            }]
-          ], 
-          [ "somefarmparam", 
-            [{
-              value: false,
-              file: 'params/farm/dev_deep.yaml'
-            }]
-          ]
-        ]
-      }
-      it { expect(node.params).to eq expected }
-    end
-
-    describe '.params_tree' do
-      let(:expected) {
-        {
-          "another" => {
-            "more_sublevel" => "something",
-            "sublevel" => {
-              "thing" => "always"
-            }
-          },
-          "common_param" => {
-            "subparam" => "overriden"
-          }, 
-          "somefarmparam" => false
-        }
-      }
-      it { expect(node.params_tree).to eq expected }
-    end
-
-  end
-
-
-  context "with deeper merge" do
-    let(:options) {
-      { 
-        config: 'spec/files/config.yml',
-        hierafile: 'hiera_deeper.yaml',
-        encpath: 'enc',
-        basepath: 'spec/files'
-      }
-    }
-    let(:node) { Hieracles::Node.new 'server_deeper.example.com', options }
-
-    describe '.params' do
-      let(:expected) {
-        [
           [ "another.sublevel.thing", 
             [{
               value: "always",
@@ -300,9 +274,88 @@ describe Hieracles::Node do
     describe '.params_tree' do
       let(:expected) {
         {
-          "another" => { 
+          "another" => {
+            "more_sublevel" => "something",
             "sublevel" => {
-              "thing" => "always"
+              "array" => ["five", "four", "one", "three", "two"],
+              "thing" => "always",
+            }
+          },
+          "common_param" => {
+            "subparam" => "overriden"
+          }, 
+          "somefarmparam" => false
+        }
+      }
+      it { expect(node.params_tree).to eq expected }
+    end
+
+  end
+
+
+  context "with deeper merge" do
+    let(:options) {
+      { 
+        config: 'spec/files/config.yml',
+        hierafile: 'hiera_deeper.yaml',
+        encpath: 'enc',
+        basepath: 'spec/files'
+      }
+    }
+    let(:node) { Hieracles::Node.new 'server.example.com', options }
+
+    describe '.params' do
+      let(:expected) {
+        [
+          [ "another.more_sublevel", 
+            [{
+              value: "something",
+              file: 'params/farm/dev.yaml'
+            }]
+          ],
+          [ "another.sublevel.array", 
+            [
+              {
+                value: ["four", "five"],
+                file: 'params/nodes/server.example.com.yaml'
+              },
+              {
+                value: ["one", "two", "three"],
+                file: 'params/farm/dev.yaml'
+              }              
+            ]
+          ],
+          [ "another.sublevel.thing", 
+            [{
+              value: "always",
+              file: 'params/nodes/server.example.com.yaml'
+            }]
+          ],
+          [ "common_param.subparam",
+            [{
+              value: "overriden", 
+              file: 'params/nodes/server.example.com.yaml'
+            }]
+          ], 
+          [ "somefarmparam", 
+            [{
+              value: false,
+              file: 'params/farm/dev.yaml'
+            }]
+          ]
+        ]
+      }
+      it { expect(node.params).to eq expected }
+    end
+
+    describe '.params_tree' do
+      let(:expected) {
+        {
+          "another" => {
+            "more_sublevel" => "something",
+            "sublevel" => {
+              "array" => ["five", "four", "one", "three", "two"],
+              "thing" => "always",
             }
           },
           "common_param" => {
