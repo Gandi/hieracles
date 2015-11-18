@@ -15,8 +15,7 @@ module Hieracles
     def load(options)
       @optionfile = options[:config] || defaultconfig
       @extraparams = extract_params(options[:params])
-      initconfig(@optionfile) unless File.exist? @optionfile
-      values = YAML.load_file(@optionfile)
+      values = get_config(@optionfile)
       @server = values['server']
       @classpath = values['classpath']
       @modulepath = values['modulepath'] || 'modules'
@@ -28,6 +27,11 @@ module Hieracles
       facts_format = options[:json_facts] ? :json : :yaml
       @scope = sym_keys((facts_file && load_facts(facts_file, facts_format)) || values['defaultscope'] || {})
       @interactive = options[:interactive] || values['interactive']
+    end
+
+    def get_config(file)
+      initconfig(file) unless File.exist? file
+      values = YAML.load_file(file)
     end
 
     def initconfig(file)
