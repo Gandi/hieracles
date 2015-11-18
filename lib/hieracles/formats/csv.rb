@@ -28,11 +28,11 @@ module Hieracles
       def build_params_line(key, value, filter)
         output = ''
         if !filter || Regexp.new(filter).match(key)
-          first = value.shift
+          first = value.pop
           output << make_csv(in_what_file(first[:file]) +
                    [key, first[:value].to_s, '0'])
           while value.count > 0
-            overriden = value.shift
+            overriden = value.pop
             output << make_csv(in_what_file(overriden[:file]) +
                      [key, overriden[:value].to_s, '1'])
           end

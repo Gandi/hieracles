@@ -54,8 +54,8 @@ describe Hieracles::Formats::Plain do
 
   describe ".build_params_line" do
     let(:expected) { 
-       "[0] params.this.var value1\n"+
-       "    [1] params.this.var value2\n"
+       "[1] params.this.var value2\n"+
+       "    [0] params.this.var value1\n"
     }
     let(:params) {
       [

@@ -54,8 +54,8 @@ describe Hieracles::Formats::Console do
 
   describe ".build_params_line" do
     let(:expected) { 
-       "\e[31m[0]\e[0m \e[36mparams.this.var\e[0m value1\n"+
-       "    \e[97m[1] params.this.var value2\e[0m\n"
+       "\e[32m[1]\e[0m \e[36mparams.this.var\e[0m value2\n"+
+       "    \e[97m[0] params.this.var value1\e[0m\n"
     }
     let(:params) {
       [

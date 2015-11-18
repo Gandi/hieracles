@@ -51,8 +51,8 @@ describe Hieracles::Formats::Csv do
 
   describe ".build_params_line" do
     let(:expected) { 
-       "1;0;params.this.var;value1;0\n"+
-       "0;1;params.this.var;value2;1\n"
+       "0;1;params.this.var;value2;0\n"+
+       "1;0;params.this.var;value1;1\n"
     }
     let(:params) {
       [

@@ -91,7 +91,12 @@ module Hieracles
       def added(output, key, leaf, params)
         output += leaf.to_s
         if params["#{key.join('.')}"]
-          output += " # " + params[key.join('.')][0][:file]
+          params["#{key.join('.')}"].each do |k|
+            if k[:value].to_s == leaf.to_s
+              output += " # " + k[:file]
+              break
+            end
+          end
         end
         output
       end

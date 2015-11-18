@@ -127,7 +127,7 @@ describe Hieracles::Formats::Yaml do
         { 
           'key' => [{
             file: 'what/file',
-            value: 'value'
+            value: 'true'
           }]
         }
       }
@@ -144,7 +144,7 @@ describe Hieracles::Formats::Yaml do
         { 
           'key' => [{
             file: 'what/file',
-            value: 'value'
+            value: 'false'
           }]
         }
       }
@@ -161,7 +161,7 @@ describe Hieracles::Formats::Yaml do
         { 
           'key' => [{
             file: 'what/file',
-            value: 'value'
+            value: '3'
           }]
         }
       }
@@ -178,7 +178,7 @@ describe Hieracles::Formats::Yaml do
         { 
           'key' => [{
             file: 'what/file',
-            value: 'value'
+            value: '0.3'
           }]
         }
       }
@@ -305,6 +305,43 @@ describe Hieracles::Formats::Yaml do
       let(:expected) {
         "\nkey: \n  sublevel: \n    subsublevel: value # what/file" +
         "\nkey2: \n  sublevel: value # what/file2"
+      }
+      it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
+    end
+    context "with a 3-levels double string key-value and override" do
+      let(:params) {
+        { 
+          'key.sublevel.subsublevel' => [{
+            file: 'what/file',
+            value: 'value'
+          }],
+          'key2.sublevel' => [
+            {
+              file: 'what/file2',
+              value: 'value'
+            },
+            {
+              file: 'what/file1',
+              value: 'value2'
+            }
+          ]
+        }
+      }
+      let(:input) {
+        { 
+          'key' => {
+            'sublevel' => {
+              'subsublevel' => 'value'
+            }
+          },
+          'key2' => {
+            'sublevel' => 'value2'
+          }
+        }
+      }
+      let(:expected) {
+        "\nkey: \n  sublevel: \n    subsublevel: value # what/file" +
+        "\nkey2: \n  sublevel: value2 # what/file1"
       }
       it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
     end
