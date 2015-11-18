@@ -87,12 +87,12 @@ describe Hieracles::Node do
             [ "another.sublevel.array", 
               [
                 {
-                  value: ["four", "five"],
-                  file: 'params/nodes/server.example.com.yaml'
-                },
-                {
                   value: ["one", "two", "three"],
                   file: 'params/farm/dev.yaml'
+                },
+                {
+                  value: ["four", "five"],
+                  file: 'params/nodes/server.example.com.yaml'
                 }
               ]
             ],
@@ -125,7 +125,7 @@ describe Hieracles::Node do
             "another" => { 
               "more_sublevel" => "something",
               "sublevel" => {
-                "array" => ["one", "three", "two"],
+                "array" => ["five", "four"],
                 "thing" => "always"
               }
             },
@@ -239,13 +239,13 @@ describe Hieracles::Node do
           [ "another.sublevel.array", 
             [
               {
-                value: ["four", "five"],
-                file: 'params/nodes/server.example.com.yaml'
-              },
-              {
                 value: ["one", "two", "three"],
                 file: 'params/farm/dev.yaml'
-              }              
+              },
+              {
+                value: ["four", "five"],
+                file: 'params/nodes/server.example.com.yaml'
+              }
             ]
           ],
           [ "another.sublevel.thing", 
@@ -316,13 +316,13 @@ describe Hieracles::Node do
           [ "another.sublevel.array", 
             [
               {
-                value: ["four", "five"],
-                file: 'params/nodes/server.example.com.yaml'
-              },
-              {
                 value: ["one", "two", "three"],
                 file: 'params/farm/dev.yaml'
-              }              
+              },
+              {
+                value: ["four", "five"],
+                file: 'params/nodes/server.example.com.yaml'
+              }
             ]
           ],
           [ "another.sublevel.thing", 

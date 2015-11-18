@@ -19,12 +19,12 @@ module Hieracles
         keys = key.to_s.split('.').reverse
         leaf_key = keys.shift
         key_hash = keys.reduce(leaf_key.to_sym => value) { |h, k| { k.to_sym => h } }
-        deep_merge!(a, key_hash)
+        local_merge!(a, key_hash)
         a
       end
     end
     
-    def deep_merge!(hash1, hash2)
+    def local_merge!(hash1, hash2)
       merger = proc { |key, v1, v2| v1.is_a?(Hash) && v2.is_a?(Hash) ? v1.merge(v2, &merger) : v2 }
       hash1.merge!(hash2, &merger)
     end

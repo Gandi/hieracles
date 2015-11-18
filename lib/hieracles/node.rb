@@ -48,7 +48,7 @@ module Hieracles
 
     def params(without_common = true)
       params = {}
-      files(without_common).each do |f|
+      files(without_common).reverse.each do |f|
         data = YAML.load_file(File.join(Config.basepath, f))
         if data
           s = to_shallow_hash(data)
@@ -64,7 +64,7 @@ module Hieracles
 
     def params_tree(without_common = true)
       params = {}
-      paths(without_common).each do |f|
+      paths(without_common).reverse.each do |f|
         data = YAML.load_file(f) || {}
         merge_trees params, data
       end
@@ -121,7 +121,7 @@ module Hieracles
       when :deep
         left.deep_merge(right)
       else # Native and undefined
-        deep_merge!(left, right)
+        local_merge!(left, right)
       end
     end
 
