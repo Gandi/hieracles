@@ -28,13 +28,15 @@ module Hieracles
       @@output = output
     end
 
+    private
+
     # defaults to STDIN
-    private def input
+    def input
       @@input ||= STDIN
     end
 
     # defaults to STDOUT
-    private def output
+    def output
       @@output ||= STDOUT
     end
 
