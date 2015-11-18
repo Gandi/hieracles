@@ -12,9 +12,9 @@ Package: ruby-hieracles
 Architecture: all
 XB-Ruby-Versions: ${ruby:Versions}
 Depends: ${shlibs:Depends}, ${misc:Depends}, ruby | ruby-interpreter, ruby-deep-merge
-Description: CLI tool for Hiera parameters visualisation and analysis.
+Description: CLI tool for Hiera parameters visualization and analysis.
   Hieracles is a command-line tool for analysis and deep examination 
-  of Hiera paramaters in a Puppet setup. It can be used to quickly 
+  of Hiera parameters in a Puppet setup. It can be used to quickly 
   visualize, from a local puppet (typically on a developers 
   environment), all the Hiera params related to a specific node.
 

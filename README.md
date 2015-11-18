@@ -8,14 +8,16 @@ Hieracles
 [![Dependency Status](https://img.shields.io/gemnasium/Gandi/hieracles.svg)](https://gemnasium.com/Gandi/hieracles)
 [![Code Climate](https://img.shields.io/codeclimate/github/Gandi/hieracles.svg)](https://codeclimate.com/github/Gandi/hieracles)
 
-Hieracles is a command-line tool for analysis and deep examination of [Hiera][hiera] paramaters in a [Puppet][puppet] setup. It can be used to quickly visualize, from a local puppet (typically on a developers environment), all the Hiera params related to a specific node.
+Hieracles is a command-line tool for analysis and deep examination of [Hiera][hiera] parameters in a [Puppet][puppet] setup. It can be used to quickly visualize, from a local puppet (typically on a developers environment), all the Hiera params related to a specific node.
 
-It's used internally at [Gandi][gandi] and its first incarnation is strongly tied to Gandi puppet architecture. But Hieracles tends to become, in time, a generic Hiera overlay visualisation tool.
+It's used internally at [Gandi][gandi] and its first incarnation is strongly tied to Gandi puppet architecture. But Hieracles tends to become, in time, a generic Hiera overlay visualization tool.
+
+Have a look at the [Changelog](CHANGELOG.md) for details about the evolution.
 
 Prerequisite
 ---------------
 
-There are many ways to setup puppet and use hiera. This tool is designed to match a certain kind of setup, including:
+There are many ways to setup puppet and use Hiera. This tool is designed to match a certain kind of setup, including:
 
 - an [external node classifier (ENC)][enc]
 - a yaml hiera datastore
@@ -189,7 +191,7 @@ Todo
 
 Authors
 -----------
-Hieracles original code is writen by [@mose](https://github.com/mose).
+Hieracles original code is written by [@mose](https://github.com/mose).
 
 License
 -----------
