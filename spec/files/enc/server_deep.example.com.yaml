@@ -1,0 +1,7 @@
+---                                                                                                                                              
+classes:
+  - dev
+parameters:
+  country: fr
+  datacenter: equinix
+  farm: dev_deep

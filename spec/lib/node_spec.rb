@@ -205,27 +205,33 @@ describe Hieracles::Node do
         basepath: 'spec/files'
       }
     }
-    let(:node) { Hieracles::Node.new 'server.example.com', options }
+    let(:node) { Hieracles::Node.new 'server_deep.example.com', options }
 
     describe '.params' do
       let(:expected) {
         [
+          [ "another.more_sublevel", 
+            [{
+              value: "something",
+              file: 'params/farm/dev_deep.yaml'
+            }]
+          ],
           [ "another.sublevel.thing", 
             [{
               value: "always",
-              file: 'params/nodes/server.example.com.yaml'
+              file: 'params/nodes/server_deep.example.com.yaml'
             }]
           ],
           [ "common_param.subparam",
             [{
               value: "overriden", 
-              file: 'params/nodes/server.example.com.yaml'
+              file: 'params/nodes/server_deep.example.com.yaml'
             }]
           ], 
           [ "somefarmparam", 
             [{
               value: false,
-              file: 'params/farm/dev.yaml'
+              file: 'params/farm/dev_deep.yaml'
             }]
           ]
         ]
@@ -236,7 +242,8 @@ describe Hieracles::Node do
     describe '.params_tree' do
       let(:expected) {
         {
-          "another" => { 
+          "another" => {
+            "more_sublevel" => "something",
             "sublevel" => {
               "thing" => "always"
             }
@@ -262,7 +269,7 @@ describe Hieracles::Node do
         basepath: 'spec/files'
       }
     }
-    let(:node) { Hieracles::Node.new 'server.example.com', options }
+    let(:node) { Hieracles::Node.new 'server_deeper.example.com', options }
 
     describe '.params' do
       let(:expected) {
