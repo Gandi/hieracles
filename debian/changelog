@@ -7,7 +7,7 @@ ruby-hieracles (0.1.6.0) unstable; urgency=medium
     but this is a temporary implementation, 
     only works for top level variables
 
- -- mose <mose@gandi.net>  wip
+ -- mose <mose@gandi.net>  Wed, 18 Nov 2015 14:25:00 +0800
 
 ruby-hieracles (0.1.5.0) unstable; urgency=medium
 
