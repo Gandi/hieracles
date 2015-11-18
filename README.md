@@ -155,22 +155,22 @@ For new releases:
 
 - update the Makefile with new version number
 - in a FreeBSD jail or machine:
-  - ```
-    cd hieracles
-    git pull
-    cd ports/
-    make makesum
-    # test the stuff, get that there is no warning or what
-    portlint
-    make stage
-    make check-orphans
-    make package
-    make install
-    make deinstall
-    make clean
-    cd ..
-    shar `find rubygem-hieracles` > rubygem-hieracles.shar
-    ```
+```
+cd hieracles
+git pull
+cd ports/
+make makesum
+# test the stuff, get that there is no warning or what
+portlint
+make stage
+make check-orphans
+make package
+make install
+make deinstall
+make clean
+cd ..
+shar `find rubygem-hieracles` > rubygem-hieracles.shar
+```
 - on https://bugs.freebsd.org submit the new version
 
 

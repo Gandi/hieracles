@@ -2,7 +2,7 @@ Hieracles Changelog
 =======================
 
 ### 0.1.6 - wip
-- add dependency on deep-merge gem like hiera does
+- add dependency on `deep-merge` gem like hiera does
 - take in account the `merge_behavior` in hiera file
 - make possible to use `%{::variables}` from puppet scope
   but this is a temporary implementation, 
