@@ -55,7 +55,7 @@ module Hieracles
           s.each do |k,v|
             params[k] ||= []
             # f needs interpolation
-            params[k] << { value: v, file: f}
+            params[k] << { value: v, file: f, merged: merge_value(params[k], v) }
           end
         end
       end
@@ -120,8 +120,29 @@ module Hieracles
         left.deep_merge!(right)
       when :deep
         left.deep_merge(right)
-      else # Native and undefined
+      else
         local_merge!(left, right)
+      end
+    end
+
+    def merge_value(previous, value)
+      if value.is_a? Array
+        if previous == []
+          deep_sort(value)
+        else
+          left = previous.last[:merged]
+          case @hiera.merge_behavior
+          # TODO: handle the case where right is not an array
+          when :deeper
+            deep_sort(left | value)
+          when :deep
+            deep_sort(left | value)
+          else
+            deep_sort(value)
+          end
+        end
+      else
+        value
       end
     end
 

@@ -81,37 +81,50 @@ describe Hieracles::Node do
             [ "another.more_sublevel", 
               [{
                 value: "something",
-                file: 'params/farm/dev.yaml'
+                file: 'params/farm/dev.yaml',
+                merged: 'something'
               }]
             ],
             [ "another.sublevel.array", 
               [
                 {
                   value: ["one", "two", "three"],
-                  file: 'params/farm/dev.yaml'
+                  file: 'params/farm/dev.yaml',
+                  merged: ["one", "three", "two"]
                 },
                 {
                   value: ["four", "five"],
-                  file: 'params/nodes/server.example.com.yaml'
+                  file: 'params/nodes/server.example.com.yaml',
+                  merged: ["five", "four"]
                 }
               ]
             ],
             [ "another.sublevel.thing", 
               [{
                 value: "always",
-                file: 'params/nodes/server.example.com.yaml'
+                file: 'params/nodes/server.example.com.yaml',
+                merged: "always"
               }]
             ],
             [ "common_param.subparam",
-              [{
+            [
+              {
+                value: "override-me", 
+                file: 'params/farm/dev.yaml',
+                merged: "override-me"
+              },
+              {
                 value: "overriden", 
-                file: 'params/nodes/server.example.com.yaml'
-              }]
+                file: 'params/nodes/server.example.com.yaml',
+                merged: "overriden"
+              }
+            ]
             ], 
             [ "somefarmparam", 
               [{
                 value: false,
-                file: 'params/farm/dev.yaml'
+                file: 'params/farm/dev.yaml',
+                merged: false
               }]
             ]
           ]
@@ -233,37 +246,50 @@ describe Hieracles::Node do
           [ "another.more_sublevel", 
             [{
               value: "something",
-              file: 'params/farm/dev.yaml'
+              file: 'params/farm/dev.yaml',
+              merged: "something"
             }]
           ],
           [ "another.sublevel.array", 
             [
               {
                 value: ["one", "two", "three"],
-                file: 'params/farm/dev.yaml'
+                file: 'params/farm/dev.yaml',
+                merged: ["one", "three", "two"]
               },
               {
                 value: ["four", "five"],
-                file: 'params/nodes/server.example.com.yaml'
+                file: 'params/nodes/server.example.com.yaml',
+                merged: ["five", "four", "one", "three", "two"]
               }
             ]
           ],
           [ "another.sublevel.thing", 
             [{
               value: "always",
-              file: 'params/nodes/server.example.com.yaml'
+              file: 'params/nodes/server.example.com.yaml',
+              merged: "always"
             }]
           ],
           [ "common_param.subparam",
-            [{
-              value: "overriden", 
-              file: 'params/nodes/server.example.com.yaml'
-            }]
+            [
+              {
+                value: "override-me", 
+                file: 'params/farm/dev.yaml',
+                merged: "override-me"
+              },
+              {
+                value: "overriden", 
+                file: 'params/nodes/server.example.com.yaml',
+                merged: "overriden"
+              }
+            ]
           ], 
           [ "somefarmparam", 
             [{
               value: false,
-              file: 'params/farm/dev.yaml'
+              file: 'params/farm/dev.yaml',
+              merged: false
             }]
           ]
         ]
@@ -282,7 +308,7 @@ describe Hieracles::Node do
             }
           },
           "common_param" => {
-            "subparam" => "overriden"
+            "subparam" => "override-me"
           }, 
           "somefarmparam" => false
         }
@@ -310,37 +336,50 @@ describe Hieracles::Node do
           [ "another.more_sublevel", 
             [{
               value: "something",
-              file: 'params/farm/dev.yaml'
+              file: 'params/farm/dev.yaml',
+              merged: "something"
             }]
           ],
           [ "another.sublevel.array", 
             [
               {
                 value: ["one", "two", "three"],
-                file: 'params/farm/dev.yaml'
+                file: 'params/farm/dev.yaml',
+                merged: ["one", "three", "two"]
               },
               {
                 value: ["four", "five"],
-                file: 'params/nodes/server.example.com.yaml'
+                file: 'params/nodes/server.example.com.yaml',
+                merged: ["five", "four", "one", "three", "two"]
               }
             ]
           ],
           [ "another.sublevel.thing", 
             [{
               value: "always",
-              file: 'params/nodes/server.example.com.yaml'
+              file: 'params/nodes/server.example.com.yaml',
+              merged: "always"
             }]
           ],
           [ "common_param.subparam",
-            [{
-              value: "overriden", 
-              file: 'params/nodes/server.example.com.yaml'
-            }]
+            [
+              {
+                value: "override-me", 
+                file: 'params/farm/dev.yaml',
+                merged: "override-me"
+              },
+              {
+                value: "overriden", 
+                file: 'params/nodes/server.example.com.yaml',
+                merged: "overriden"
+              }
+            ]
           ], 
           [ "somefarmparam", 
             [{
               value: false,
-              file: 'params/farm/dev.yaml'
+              file: 'params/farm/dev.yaml',
+              merged: false
             }]
           ]
         ]
