@@ -107,18 +107,18 @@ describe Hieracles::Node do
               }]
             ],
             [ "common_param.subparam",
-            [
-              {
-                value: "override-me", 
-                file: 'params/farm/dev.yaml',
-                merged: "override-me"
-              },
-              {
-                value: "overriden", 
-                file: 'params/nodes/server.example.com.yaml',
-                merged: "overriden"
-              }
-            ]
+              [
+                {
+                  value: "override-me", 
+                  file: 'params/farm/dev.yaml',
+                  merged: "override-me"
+                },
+                {
+                  value: "overriden", 
+                  file: 'params/nodes/server.example.com.yaml',
+                  merged: "overriden"
+                }
+              ]
             ], 
             [ "somefarmparam", 
               [{

@@ -205,7 +205,60 @@ describe Hieracles::Formats::Yaml do
       let(:expected) {
         "\nkey: \n  # what/file\n  - value1\n  - value2"
       }
+      let(:hiera) { Struct.new( :merge_behavior ) }
+      before {
+        allow(node).to receive(:hiera).and_return(
+          hiera.new('deeper')
+        )
+      }
       it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
+    end
+    context "with a double array key-value" do
+      let(:params) {
+        { 
+          'key' => [
+            {
+              file: 'what/file',
+              value: ['value1', 'value2'],
+              merged: ['value1', 'value2']
+            },
+            {
+              file: 'what/other-file',
+              value: ['value3'],
+              merged: ['value1', 'value2', 'value3']
+            }
+          ]
+        }
+      }
+      let(:hiera) { Struct.new( :merge_behavior ) }
+      context "with native merge behavior" do
+        let(:input) {
+          { 'key' => ['value3'] }
+        }
+        let(:expected) {
+          "\nkey: \n  # what/other-file\n  - value3"
+        }
+        before {
+          allow(node).to receive(:hiera).and_return(
+            hiera.new(:native)
+          )
+        }
+        it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
+      end
+      context "with deep merge behavior" do
+        let(:input) {
+          { 'key' => ['value1', 'value2', 'value3'] }
+        }
+        let(:expected) {
+          "\nkey: \n  # what/file\n  # what/other-file\n  - value1\n  - value2\n  - value3"
+        }
+        before {
+          allow(node).to receive(:hiera).and_return(
+            hiera.new(:deep)
+          )
+        }
+        it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
+      end
     end
     context "with a 2-levels string key-value" do
       let(:params) {

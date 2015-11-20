@@ -57,7 +57,14 @@ module Hieracles
         aryaml = yaml.each_line.map do |l|
           indent + l
         end
-        output += "\n" + indent + "# " + params[key.join('.')][0][:file]
+        if @node.hiera.merge_behavior == :deep ||
+           @node.hiera.merge_behavior == :deeper 
+          params[key.join('.')].each do |f|
+            output += "\n" + indent + "# " + f[:file]
+          end
+        else
+          output += "\n" + indent + "# " + params[key.join('.')].last[:file]
+        end
         output += "\n" + aryaml.join().chomp
         output        
       end
