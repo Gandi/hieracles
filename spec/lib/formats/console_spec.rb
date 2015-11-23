@@ -43,7 +43,7 @@ describe Hieracles::Formats::Console do
   end
 
   describe ".build_head" do
-    let(:expected) { "\e[31m[0] path1\e[0m\n\e[32m[1] path2\e[0m\n\n" }
+    let(:expected) { "[-] (merged)\n\e[31m[0] path1\e[0m\n\e[32m[1] path2\e[0m\n\n" }
     before {
       allow(node).to receive(:files).and_return(['path1', 'path2'])
     }
@@ -59,8 +59,8 @@ describe Hieracles::Formats::Console do
     }
     let(:params) {
       [
-        { file: 'path1', value: 'value1'},
-        { file: 'path2', value: 'value2'},
+        { file: 'path1', value: 'value1', merged: 'value1'},
+        { file: 'path2', value: 'value2', merged: 'value2'},
       ] 
     }
     before {

@@ -1,7 +1,7 @@
 Hieracles Changelog
 =======================
 
-### 0.1.7 - wip
+### 0.1.7 - 2015-11-23
 - various fixes on deep_merge behavior
 
 ### 0.1.6 - 2015-11-18

@@ -28,7 +28,7 @@ module Hieracles
       end
 
       def build_head(without_common)
-        output = ''
+        output = "[-] (merged)\n"
         @node.files(without_common).each_with_index do |f, i|
           output << "[#{i}] #{f}\n"
           @index[f] = i
@@ -41,7 +41,12 @@ module Hieracles
         if !filter || Regexp.new(filter).match(key)
           first = value.pop
           filecolor_index = @index[first[:file]]
-          output << "[#{filecolor_index}] #{key} #{first[:value]}\n"
+          if first[:merged] != first[:value]
+            output << "[-] #{key} #{first[:merged]}\n"
+            output << "    [#{filecolor_index}] #{key} #{first[:value]}\n"
+          else
+            output << "[#{filecolor_index}] #{key} #{first[:value]}\n"
+          end
           while value.count > 0
             overriden = value.pop
             filecolor_index = @index[overriden[:file]]

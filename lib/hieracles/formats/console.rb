@@ -41,7 +41,7 @@ module Hieracles
       end
 
       def build_head(without_common)
-        output = ''
+        output = "[-] (merged)\n"
         @node.files(without_common).each_with_index do |f, i|
           output << format("#{COLORS[i]}\n", "[#{i}] #{f}")
           @colors[f] = i
@@ -55,11 +55,24 @@ module Hieracles
           first = value.pop
           filecolor_index = @colors[first[:file]]
           filecolor = COLORS[filecolor_index]
-          output << format("#{filecolor} #{COLORS[5]} %s\n",
-                           "[#{filecolor_index}]",
-                            key,
-                            first[:value].to_s.gsub('%', '%%')
-                          )
+          if first[:merged] != first[:value]
+            output << format("%s #{COLORS[5]} %s\n",
+                             "[-]",
+                              key,
+                              first[:merged].to_s.gsub('%', '%%')
+                            )
+            output << format("    #{COLORS[8]} #{COLORS[8]} #{COLORS[8]}\n",
+                             "[#{filecolor_index}]",
+                              key,
+                              first[:value].to_s.gsub('%', '%%')
+                            )
+          else
+            output << format("#{filecolor} #{COLORS[5]} %s\n",
+                             "[#{filecolor_index}]",
+                              key,
+                              first[:value].to_s.gsub('%', '%%')
+                            )
+          end
           while value.count > 0
             overriden = value.pop
             filecolor_index = @colors[overriden[:file]]
