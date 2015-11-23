@@ -63,7 +63,7 @@ Configuration variables are:
 
 For an  example setup you can check in `spec/files`.
 
-
+If you don't specify the basepath, your current location will be used as a base path.
 
 Usage
 -------------
