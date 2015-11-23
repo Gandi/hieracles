@@ -155,9 +155,9 @@ describe Hieracles::Node do
         context "no unfound modules" do
           let(:expected) {
             {
-              "fake_module" => "modules/fake_module",
-              "fake_module2" => "modules/fake_module2",
-              "fake_module3" => "modules/fake_module3"
+              "fake_module" => File.expand_path("spec/files/modules/fake_module"),
+              "fake_module2" => File.expand_path("spec/files/modules/fake_module2"),
+              "fake_module3" => File.expand_path("spec/files/modules/fake_module3")
             }
           }
           it { expect(node.modules).to eq expected }
@@ -166,8 +166,8 @@ describe Hieracles::Node do
           let(:node) { Hieracles::Node.new 'server2.example.com', options }
           let(:expected) {
             {
-              "fake_module" => "modules/fake_module",
-              "fake_module2" => "modules/fake_module2",
+              "fake_module" => File.expand_path("spec/files/modules/fake_module"),
+              "fake_module2" => File.expand_path("spec/files/modules/fake_module2"),
               "fake_module4" => nil
             }
           }
@@ -181,11 +181,11 @@ describe Hieracles::Node do
           let(:node) { Hieracles::Node.new 'server4.example.com', options }
           let(:expected) {
             {
-              "fake_module" => "modules/fake_module",
-              "fake_module2" => "modules/fake_module2",
+              "fake_module" => File.expand_path("spec/files/modules/fake_module"),
+              "fake_module2" => File.expand_path("spec/files/modules/fake_module2"),
               "fake_module4" => nil,
-              "faux_module1" => "modules/faux_module1",
-              "faux_module2" => "modules/faux_module2"
+              "faux_module1" => File.expand_path("spec/files/modules/faux_module1"),
+              "faux_module2" => File.expand_path("spec/files/modules/faux_module2")
             }
           }
           it { expect(node.modules).to eq expected }

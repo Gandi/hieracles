@@ -1,6 +1,11 @@
 Hieracles Changelog
 =======================
 
+### 0.2.0 - wip
+- fix merging for unsorted arrays
+- translate all paths to absolute paths,
+  so that hc can be executed out of puppet dir
+
 ### 0.1.7 - 2015-11-23
 - various fixes on deep_merge behavior
 

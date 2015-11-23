@@ -1,18 +1,18 @@
 require 'spec_helper'
 
 describe Hieracles::Hiera do
-  before { Hieracles::Config.load(options) }
 
   describe '.new' do
 
     context 'hiera file not found' do
-      let(:options) { { 
+      let(:options) { {
+        basepath: 'spec/files',
         config: 'spec/files/config.yml',
         basepath: 'spec/files',
         hierafile: 'hiera_no.yaml' 
       } }
       it 'raises an error' do
-        expect { Hieracles::Hiera.new }.to raise_error(IOError)
+        expect { Hieracles::Config.load(options) }.to raise_error(IOError)
       end
     end
     
@@ -26,6 +26,7 @@ describe Hieracles::Hiera do
         File.expand_path(File.join(options[:basepath], options[:hierafile]))
       }
       let(:hiera) { Hieracles::Hiera.new }
+      before { Hieracles::Config.load(options) }
       it 'load the file' do
         expect(hiera.instance_variable_get :@loaded).to be_a Hash
         expect(hiera.instance_variable_get :@hierafile).to eq expected
@@ -35,6 +36,7 @@ describe Hieracles::Hiera do
   end
 
   describe '.datapath' do
+    before { Hieracles::Config.load(options) }
     context 'hiera file do not have a yaml backend' do
       let(:options) { { 
         config: 'spec/files/config.yml',
@@ -74,6 +76,7 @@ describe Hieracles::Hiera do
   end
 
   describe '.datadir' do
+    before { Hieracles::Config.load(options) }
     let(:options) {
       {
         config: 'spec/files/config.yml',
@@ -86,6 +89,7 @@ describe Hieracles::Hiera do
   end
 
   context "with proper params" do
+    before { Hieracles::Config.load(options) }
     let(:options) {
       { 
         config: 'spec/files/config.yml',

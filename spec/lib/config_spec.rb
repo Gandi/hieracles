@@ -4,14 +4,24 @@ describe Hieracles::Config do
   describe '.load' do
     context 'with an existing file' do
       let(:options) do
-        { config: 'spec/files/config.yml', basepath: 'spec/files' }
+        { 
+          config: 'spec/files/config.yml', 
+          basepath: 'spec/files'
+        }
+      end
+      let(:expected) do
+        {
+          classpath: File.expand_path('spec/files/farm_modules/%s.pp'),
+          modulepath: File.expand_path('spec/files/modules'),
+          hierafile: File.expand_path('spec/files/hiera.yaml')
+        }
       end
       before { Hieracles::Config.load options }
 
       it 'initialize config values' do
-        expect(Hieracles::Config.classpath).to eq 'farm_modules/%s.pp'
-        expect(Hieracles::Config.modulepath).to eq 'modules'
-        expect(Hieracles::Config.hierafile).to eq 'hiera.yaml'
+        expect(Hieracles::Config.classpath).to eq expected[:classpath]
+        expect(Hieracles::Config.modulepath).to eq expected[:modulepath]
+        expect(Hieracles::Config.hierafile).to eq expected[:hierafile]
         expect(Hieracles::Config.format).to eq 'Console'
       end
     end
@@ -19,21 +29,35 @@ describe Hieracles::Config do
     context 'with additional parameters' do
       let(:hierapath) { 'hiera.yaml' }
       let(:options) do
-        { config: 'spec/files/config.yml', basepath: 'spec/files', hierafile: hierapath }
+        { 
+          config: 'spec/files/config.yml', 
+          basepath: 'spec/files',
+          hierafile: hierapath
+        }
+      end
+      let(:expected) do
+        {
+          classpath: File.expand_path('spec/files/farm_modules/%s.pp'),
+          modulepath: File.expand_path('spec/files/modules'),
+          hierafile: File.expand_path('spec/files/hiera.yaml')
+        }
       end
       before { Hieracles::Config.load options }
 
       it 'initialize config values' do
-        expect(Hieracles::Config.classpath).to eq 'farm_modules/%s.pp'
-        expect(Hieracles::Config.modulepath).to eq 'modules'
-        expect(Hieracles::Config.hierafile).to eq hierapath
+        expect(Hieracles::Config.classpath).to eq expected[:classpath]
+        expect(Hieracles::Config.modulepath).to eq expected[:modulepath]
+        expect(Hieracles::Config.hierafile).to eq expected[:hierafile]
         expect(Hieracles::Config.format).to eq 'Console'
       end
     end
 
     context 'without an existing config file' do
       let(:options) do
-        { config: 'spec/files/config_no.yml' }
+        {
+          basepath: 'spec/files',
+          config: 'spec/files/config_no.yml'
+        }
       end
       before do
         FileUtils.rm(options[:config]) if File.exist? options[:config]
@@ -46,7 +70,7 @@ describe Hieracles::Config do
       end
 
       it 'initialize config values' do
-        expect(Hieracles::Config.classpath).to eq 'manifests/classes/%s.pp'
+        expect(Hieracles::Config.classpath).to eq File.expand_path('spec/files/manifests/classes/%s.pp')
       end
     end
   end

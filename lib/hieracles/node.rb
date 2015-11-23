@@ -98,7 +98,7 @@ module Hieracles
     end
 
     def modulepath(path)
-      File.join(Config.path('modulepath'), path)
+      File.join(Config.modulepath, path)
     end
 
     def add_modules(line, modules)

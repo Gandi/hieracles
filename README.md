@@ -46,15 +46,24 @@ At first launch it will create a configuration file in `~/.config/hieracles/conf
 
 Configuration variables are:
 
-- classpath
-- modulepath
-- basepath
-- encpath
-- hierafile
-- format
-- defaultscope
+- basepath (alias localpath)  
+  This is where your puppet repo is cloned
+- classpath  
+  where to find classes defined in the ENC
+- modulepath  
+  where to find modules called in the classes
+- encpath  
+  where to read information about each nodes
+- hierafile  
+  where to find a hierafile customised for your local puppet installation
+- format  
+  can be plain, console, csv, yaml, rawyaml, json
+- defaultscope  
+  a hash defining scope variables that will be used if not defined by a facts file or by params passed as arguments
 
 For an  example setup you can check in `spec/files`.
+
+
 
 Usage
 -------------

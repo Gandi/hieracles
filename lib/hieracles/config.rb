@@ -17,11 +17,11 @@ module Hieracles
       @extraparams = extract_params(options[:params])
       values = get_config(@optionfile)
       @server = values['server']
-      @classpath = values['classpath']
-      @modulepath = values['modulepath'] || 'modules'
-      @encpath = options[:encpath] || values['encpath'] || 'enc'
-      @basepath = File.expand_path(options[:basepath] || values['basepath'] || '.')
-      @hierafile = options[:hierafile] || values['hierafile'] || 'hiera.yaml'
+      @basepath = File.expand_path(options[:basepath] || values['basepath'] || values['localpath'] || '.')
+      @classpath = build_path(values['classpath'])
+      @modulepath = resolve_path(values['modulepath'] || 'modules')
+      @encpath = resolve_path(options[:encpath] || values['encpath'] || 'enc')
+      @hierafile = resolve_path(options[:hierafile] || values['hierafile'] || 'hiera.yaml')
       @format = (options[:format] || values['format'] || 'console').capitalize
       facts_file = options[:yaml_facts] || options[:json_facts]
       facts_format = options[:json_facts] ? :json : :yaml
@@ -61,7 +61,7 @@ module Hieracles
     end
 
     def path(what)
-      File.join(@basepath, send(what.to_sym))
+      send(what.to_sym)
     end
 
     def load_facts(file, format)
@@ -70,6 +70,20 @@ module Hieracles
       else
         YAML.load_file(file)
       end
+    end
+
+    def resolve_path(path)
+      if File.exists?(File.expand_path(path))
+        File.expand_path(path)
+      elsif File.exists?(File.expand_path(File.join(@basepath, path)))
+        File.expand_path(File.join(@basepath, path))
+      else
+        raise IOError, "File #{path} not found."
+      end
+    end
+
+    def build_path(path)
+      File.expand_path(File.join(@basepath, path))
     end
 
   end

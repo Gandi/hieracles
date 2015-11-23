@@ -5,12 +5,15 @@ describe Hieracles::Registry do
 
   describe '.farms' do
     let(:options) do
-      { config: 'spec/files/config.yml', basepath: 'spec/files' }
+      { 
+        config: 'spec/files/config.yml', 
+        basepath: 'spec/files'
+      }
     end
     let(:expected) { [
-    		File.join(base, options[:basepath], 'farm_modules', 'dev.pp'),
-    		File.join(base, options[:basepath], 'farm_modules', 'dev2.pp'),
-    		File.join(base, options[:basepath], 'farm_modules', 'dev4.pp')
+    		File.join(Hieracles::Config.basepath, 'farm_modules', 'dev.pp'),
+    		File.join(Hieracles::Config.basepath, 'farm_modules', 'dev2.pp'),
+    		File.join(Hieracles::Config.basepath, 'farm_modules', 'dev4.pp')
   	] }
     before { Hieracles::Config.load options}
     it { expect(Hieracles::Registry.farms Hieracles::Config).to eq expected }
@@ -18,7 +21,10 @@ describe Hieracles::Registry do
 
   describe '.nodes' do
     let(:options) do
-      { config: 'spec/files/config.yml', basepath: 'spec/files' }
+      { 
+        config: 'spec/files/config.yml',
+        basepath: 'spec/files'
+      }
     end
     let(:expected) { [
     		'server.example.com',
@@ -32,7 +38,10 @@ describe Hieracles::Registry do
 
   describe '.modules' do
     let(:options) do
-      { config: 'spec/files/config.yml', basepath: 'spec/files' }
+      {
+        config: 'spec/files/config.yml',
+        basepath: 'spec/files'
+      }
     end
     let(:expected) { [
     		'fake_module',

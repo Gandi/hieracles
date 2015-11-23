@@ -55,7 +55,8 @@ module Hieracles
           first = value.pop
           filecolor_index = @colors[first[:file]]
           filecolor = COLORS[filecolor_index]
-          if first[:merged] != first[:value]
+          if first[:value].is_a?(Array) &&
+            (first[:value] | first[:merged]) != first[:value]
             output << format("%s #{COLORS[5]} %s\n",
                              "[-]",
                               key,
