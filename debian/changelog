@@ -1,3 +1,10 @@
+ruby-hieracles (0.1.7.0) unstable; urgency=medium
+
+  * upstream 0.1.7
+  * various fixes on display for marged values
+
+ -- mose <mose@gandi.net>  Mon, 23 Nov 2015 16:20:00 +0800
+
 ruby-hieracles (0.1.6.0) unstable; urgency=medium
 
   * upstream 0.1.6
