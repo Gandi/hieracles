@@ -29,14 +29,14 @@ module Hieracles
         output = ''
         if !filter || Regexp.new(filter).match(key)
           first = value.pop
-          if first[:value] == first[:merged]
-            output << make_csv(in_what_file(first[:file]) +
-                     [key, first[:value].to_s, '0'])
-          else
+          if is_merged? first
             output << make_csv(in_what_file('-') +
                      [key, first[:merged].to_s, '0'])
             output << make_csv(in_what_file(first[:file]) +
                      [key, first[:value].to_s, '1'])
+          else
+            output << make_csv(in_what_file(first[:file]) +
+                     [key, first[:value].to_s, '0'])
           end
           while value.count > 0
             overriden = value.pop

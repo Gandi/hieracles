@@ -41,8 +41,7 @@ module Hieracles
         if !filter || Regexp.new(filter).match(key)
           first = value.pop
           filecolor_index = @index[first[:file]]
-          if first[:value].is_a?(Array) &&
-            (first[:value] | first[:merged]) != first[:value]
+          if is_merged? first
             output << "[-] #{key} #{first[:merged]}\n"
             output << "    [#{filecolor_index}] #{key} #{first[:value]}\n"
           else

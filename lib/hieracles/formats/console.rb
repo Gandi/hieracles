@@ -55,23 +55,22 @@ module Hieracles
           first = value.pop
           filecolor_index = @colors[first[:file]]
           filecolor = COLORS[filecolor_index]
-          if first[:value].is_a?(Array) &&
-            (first[:value] | first[:merged]) != first[:value]
+          if is_merged? first
             output << format("%s #{COLORS[5]} %s\n",
                              "[-]",
                               key,
-                              first[:merged].to_s.gsub('%', '%%')
+                              sanitize(first[:merged])
                             )
             output << format("    #{COLORS[8]} #{COLORS[8]} #{COLORS[8]}\n",
                              "[#{filecolor_index}]",
                               key,
-                              first[:value].to_s.gsub('%', '%%')
+                              sanitize(first[:value])
                             )
           else
             output << format("#{filecolor} #{COLORS[5]} %s\n",
                              "[#{filecolor_index}]",
                               key,
-                              first[:value].to_s.gsub('%', '%%')
+                              sanitize(first[:value])
                             )
           end
           while value.count > 0
@@ -91,6 +90,10 @@ module Hieracles
         value_color = COLORS[0] if /not found/i.match value
         value_color = COLORS[2] if /\(duplicate\)/i.match value
         format("%-#{length}s #{value_color}\n", key, value)
+      end
+
+      def sanitize(v)
+        v.to_s.gsub('%', '%%')
       end
 
     end

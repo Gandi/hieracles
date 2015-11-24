@@ -54,5 +54,14 @@ module Hieracles
     def build_modules_line(key, value)
       "#{__callee__} not implemented, please inherit from the Hieracles::Format class to implement a format.\n"
     end
+
+    def is_merged?(v)
+      v[:value].is_a?(Array) && (v[:value] | v[:merged]) != v[:value]
+    end
+
+    def sanitize(v)
+      v.to_s.gsub('%', '%%')
+    end
+
   end
 end
