@@ -51,25 +51,48 @@ describe Hieracles::Formats::Csv do
 
   describe ".build_params_line" do
     context "with array values" do
-      let(:expected) { 
-         "0;0;params.this.var;[\"value1\", \"value2\"];0\n"+
-         "0;1;params.this.var;[\"value2\"];1\n"+
-         "1;0;params.this.var;[\"value1\"];1\n"
-      }
-      let(:params) {
-        [
-          { file: 'path1', value: ['value1'], merged: ['value1'] },
-          { file: 'path2', value: ['value2'], merged: ['value1','value2'] },
-        ] 
-      }
-      before {
-        allow(node).to receive(:files).and_return(['path1', 'path2'])
-      }
-      it "outputs proper text" do
-        expect(csv_format.send :build_params_line,
-          "params.this.var", 
-          params, 
-          nil).to eq expected
+      context "when not merged" do
+        let(:expected) { 
+           "0;1;params.this.var;[\"value1\"];0\n"+
+           "1;0;params.this.var;[\"value1\"];1\n"
+        }
+        let(:params) {
+          [
+            { file: 'path1', value: ['value1'], merged: ['value1'] },
+            { file: 'path2', value: ['value1'], merged: ['value1'] },
+          ] 
+        }
+        before {
+          allow(node).to receive(:files).and_return(['path1', 'path2'])
+        }
+        it "outputs proper text" do
+          expect(csv_format.send :build_params_line,
+            "params.this.var", 
+            params, 
+            nil).to eq expected
+        end
+      end
+      context "when merged" do
+        let(:expected) { 
+           "0;0;params.this.var;[\"value1\", \"value2\"];0\n"+
+           "0;1;params.this.var;[\"value2\"];1\n"+
+           "1;0;params.this.var;[\"value1\"];1\n"
+        }
+        let(:params) {
+          [
+            { file: 'path1', value: ['value1'], merged: ['value1'] },
+            { file: 'path2', value: ['value2'], merged: ['value1','value2'] },
+          ] 
+        }
+        before {
+          allow(node).to receive(:files).and_return(['path1', 'path2'])
+        }
+        it "outputs proper text" do
+          expect(csv_format.send :build_params_line,
+            "params.this.var", 
+            params, 
+            nil).to eq expected
+        end
       end
     end
     context "with non-array values" do

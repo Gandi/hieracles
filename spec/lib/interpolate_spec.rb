@@ -45,5 +45,5 @@ describe Hieracles::Interpolate do
 
   describe ".ask_about" do
   end
-  
+
 end

@@ -23,21 +23,9 @@ module Hieracles
     end
 
     # makes possible to set input and output
-    def setio(input, output)
+    def setio(input=STDIN, output=STDOUT)
       @@input = input
       @@output = output
-    end
-
-    private
-
-    # defaults to STDIN
-    def input
-      @@input ||= STDIN
-    end
-
-    # defaults to STDOUT
-    def output
-      @@output ||= STDOUT
     end
 
   end

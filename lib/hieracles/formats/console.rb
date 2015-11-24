@@ -56,29 +56,15 @@ module Hieracles
           filecolor_index = @colors[first[:file]]
           filecolor = COLORS[filecolor_index]
           if is_merged? first
-            output << format("%s #{COLORS[5]} %s\n",
-                             "[-]",
-                              key,
-                              sanitize(first[:merged])
-                            )
-            output << format("    #{COLORS[8]} #{COLORS[8]} #{COLORS[8]}\n",
-                             "[#{filecolor_index}]",
-                              key,
-                              sanitize(first[:value])
-                            )
+            output << format("%s #{COLORS[5]} %s\n", "[-]", key, sanitize(first[:merged]) )
+            output << format("    #{COLORS[8]}\n", "[#{filecolor_index}] #{key} #{sanitize(first[:value])}" )
           else
-            output << format("#{filecolor} #{COLORS[5]} %s\n",
-                             "[#{filecolor_index}]",
-                              key,
-                              sanitize(first[:value])
-                            )
+            output << format("#{filecolor} #{COLORS[5]} %s\n", "[#{filecolor_index}]", key, sanitize(first[:value]) )
           end
           while value.count > 0
             overriden = value.pop
             filecolor_index = @colors[overriden[:file]]
-            output << format("    #{COLORS[8]}\n",
-                             "[#{filecolor_index}] #{key} #{overriden[:value]}"
-                            )
+            output << format("    #{COLORS[8]}\n", "[#{filecolor_index}] #{key} #{overriden[:value]}")
           end
         end
         output
@@ -90,10 +76,6 @@ module Hieracles
         value_color = COLORS[0] if /not found/i.match value
         value_color = COLORS[2] if /\(duplicate\)/i.match value
         format("%-#{length}s #{value_color}\n", key, value)
-      end
-
-      def sanitize(v)
-        v.to_s.gsub('%', '%%')
       end
 
     end
