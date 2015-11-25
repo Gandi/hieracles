@@ -2,14 +2,19 @@
 
 export PUPPET_PATH=$(grep '\(local\|base\)path' $HOME/.config/hieracles/config.yml | cut -d' ' -f2)
 
-_hc() {
-  local cmd
-  if (( CURRENT == 2 ))
-  then
-    _values -C 'fqdn' ${$(find $PUPPET_PATH/enc -print | xargs -- basename -s | sed -e 's~\.yaml~~')}
-  else if (( CURRENT == 3 ))
-    _values -C 'command' info files paths modules params allparams
-  fi
-}
+! test -z $PUPPET_PATH || export PUPPET_PATH=.
 
-_hc
+if [ -d "$PUPPET_PATH/enc" ]
+then
+  _hc() {
+      local cmd
+      if (( CURRENT == 2 ))
+      then
+        _values -C 'fqdn' ${$(find $PUPPET_PATH/enc -print | xargs -- basename -s | sed -e 's~\.yaml~~')}
+      else if (( CURRENT == 3 ))
+        _values -C 'command' info files paths modules params allparams
+      fi
+  }
+
+  _hc
+fi
