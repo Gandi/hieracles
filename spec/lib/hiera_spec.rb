@@ -8,7 +8,6 @@ describe Hieracles::Hiera do
       let(:options) { {
         basepath: 'spec/files',
         config: 'spec/files/config.yml',
-        basepath: 'spec/files',
         hierafile: 'hiera_no.yaml' 
       } }
       it 'raises an error' do

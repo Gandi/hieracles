@@ -114,4 +114,16 @@ describe Hieracles::Config do
     end
   end
 
+  describe '.resolve_path' do
+    context "when path is found" do
+      let(:path) { 'README.md' }
+      let(:expected) { File.expand_path('README.md') }
+      it { expect(Hieracles::Config.resolve_path(path)).to eq expected }
+    end
+    context "when path is not found anywhere" do
+      let(:path) { 'README-NOT.md' }
+      it { expect { Hieracles::Config.resolve_path(path) }.to raise_error(IOError) }
+    end
+  end
+
 end

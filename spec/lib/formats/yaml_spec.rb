@@ -47,61 +47,121 @@ describe Hieracles::Formats::Yaml do
   end
 
   describe ".params" do
-    let(:expected) { 
-       "---\n" +
-       "params: \n" +
-       "  this: \n" +
-       "    var: value1 # some/file"
-    }
-    before {
-      allow(node).to receive(:params).and_return(
-        { 
-          'params.this.var' => [{
-            file: 'some/file',
-            value: 'value1'
-          }]
-        }
-      )
-      allow(node).to receive(:params_tree).and_return(
-        { 
-          'params' => {
-            'this' => {
-              'var' => 'value1'
+    context "with args" do
+      let(:expected) { 
+         "---\n" +
+         "params: \n" +
+         "  this: \n" +
+         "    var: value1 # some/file"
+      }
+      before {
+        allow(node).to receive(:params).with(true).and_return(
+          { 
+            'params.this.var' => [{
+              file: 'some/file',
+              value: 'value1'
+            }]
+          }
+        )
+        allow(node).to receive(:params_tree).with(true).and_return(
+          { 
+            'params' => {
+              'this' => {
+                'var' => 'value1'
+              }
             }
           }
-        }
-      )
-    }
-    it { expect(yaml_format.params nil).to eq expected }
+        )
+      }
+      it { expect(yaml_format.params ['some', 'things']).to eq expected }
+    end
+    context "without args" do
+      let(:expected) { 
+         "---\n" +
+         "params: \n" +
+         "  this: \n" +
+         "    var: value1 # some/file"
+      }
+      before {
+        allow(node).to receive(:params).and_return(
+          { 
+            'params.this.var' => [{
+              file: 'some/file',
+              value: 'value1'
+            }]
+          }
+        )
+        allow(node).to receive(:params_tree).and_return(
+          { 
+            'params' => {
+              'this' => {
+                'var' => 'value1'
+              }
+            }
+          }
+        )
+      }
+      it { expect(yaml_format.params nil).to eq expected }
+    end
   end
 
   describe ".allparams" do
-    let(:expected) { 
-       "---\n"+
-       "params: \n" +
-       "  this: \n" +
-       "    var: value1 # some/file"
-    }
-    before {
-      allow(node).to receive(:params).and_return(
-        { 
-          'params.this.var' => [{
-            file: 'some/file',
-            value: 'value1'
-          }]
-        }
-      )
-      allow(node).to receive(:params_tree).and_return(
-        { 
-          'params' => {
-            'this' => {
-              'var' => 'value1'
+    context 'with args' do
+      let(:expected) { 
+         "---\n"+
+         "params: \n" +
+         "  this: \n" +
+         "    var: value1 # some/file"
+      }
+      before {
+        allow(node).to receive(:params).and_return(
+          { 
+            'params.this.var' => [{
+              file: 'some/file',
+              value: 'value1'
+            }]
+          }
+        )
+        allow(node).to receive(:params_tree).and_return(
+          { 
+            'params' => {
+              'this' => {
+                'var' => 'value1'
+              }
             }
           }
-        }
-      )
-    }
-    it { expect(yaml_format.allparams nil).to eq expected }
+        )
+      }
+      it { expect(yaml_format.allparams nil).to eq expected }
+    end
+    context 'without args' do
+      let(:expected) { 
+         "---\n"+
+         "params: \n" +
+         "  this: \n" +
+         "    var: value1 # some/file"
+      }
+      before {
+        allow(node).to receive(:params).with(false).and_return(
+          { 
+            'params.this.var' => [{
+              file: 'some/file',
+              value: 'value1'
+            }]
+          }
+        )
+        allow(node).to receive(:params_tree).with(false).and_return(
+          { 
+            'params' => {
+              'this' => {
+                'var' => 'value1'
+              }
+            }
+          }
+        )
+      }
+      it { expect(yaml_format.allparams ['some', 'things']).to eq expected }
+    end
   end
 
   describe '.mergetree' do
@@ -136,6 +196,23 @@ describe Hieracles::Formats::Yaml do
       }
       let(:expected) {
         "\nkey: true # what/file"
+      }
+      it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
+    end
+    context "with various null type of key-values (nil)" do
+      let(:params) {
+        { 
+          'key' => [{
+            file: 'what/file',
+            value: nil
+          }]
+        }
+      }
+      let(:input) {
+        { 'key' => nil }
+      }
+      let(:expected) {
+        "\nkey:  # what/file"
       }
       it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
     end
