@@ -17,6 +17,7 @@ module Hieracles
       @extraparams = extract_params(options[:params])
       values = get_config(@optionfile)
       @server = values['server']
+      @puppetdb = values['puppetdb']
       @basepath = File.expand_path(options[:basepath] || values['basepath'] || values['localpath'] || '.')
       @classpath = build_path(values['classpath'])
       @modulepath = resolve_path(values['modulepath'] || 'modules')

@@ -97,6 +97,8 @@ Usage
       -y <fact_file> - facts in yaml format
       -j <fact_file> - facts in json format
       -i - interactive mode
+      -db - query puppetdb
+      -no-db - do not query puppetdb
 
 
 About facts aka. scope
@@ -129,6 +131,39 @@ In order the scope with be built from:
 Note that if the scope var is not defined or if the file declared in hiera config is not found, this entry is silently ignored.
 
 An option, `-i` enables the `interactive mode` in which you are prompted to fill up for undefined scope variables encountered in the hiera config file. This behavior can be made systematic by enabling `interactive: true` in hieracles configuration file.
+
+
+Optionnaly connecting to a puppetDB
+--------------------------------------
+
+*experimental*
+
+#### Configuration
+
+When adding to the configuration file:
+
+    usedb: false
+    puppetdb:
+      usessl: false
+      host: puppetdb.example.com
+      port: 8080
+
+or for a ssl setup:
+
+    usedb: false
+    puppetdb:
+      usessl: true
+      host: puppetdb.example.com
+      port: 8081
+      key: path/to/key
+      cert: path/to/cert
+      ca_file: path/to/ca_file
+
+#### Usage
+
+If you set `usedb: false` the `hc` commands will not query the puppetdb unless you pass the `-db` options.
+
+If you set `usedb: true` the `hc` command will query the puppetdb by default and display extra informations for the queried node. This default behavior can be changed by passing the `-no-db` option on the commandline.
 
 
 Completion
