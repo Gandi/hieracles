@@ -13,6 +13,6 @@ client = Hieracles::Puppetdb::Client.new(
 
 node = 'mose.dev.bi1.0x35.net'
 
-response = client.request("nodes", [:'=', ['fact', 'fqdn'], node])
+response = client.request("nodes", [:'=', 'certname', node])
 
 ap response.data

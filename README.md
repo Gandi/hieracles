@@ -156,8 +156,10 @@ or for a ssl setup:
       host: puppetdb.example.com
       port: 8081
       key: path/to/key
+      key_password: somepassword
       cert: path/to/cert
       ca_file: path/to/ca_file
+      verify_peer: false
 
 #### Usage
 

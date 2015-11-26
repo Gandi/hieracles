@@ -88,7 +88,11 @@ module Hieracles
     end
 
     def info
-      @hiera_params
+      extra = {}
+      if Config.usedb
+        extra = puppetdb_info
+      end
+      @hiera_params.merge extra
     end
 
     def classfiles
@@ -112,6 +116,10 @@ module Hieracles
         end
       end
       modules
+    end
+
+    def puppetdb_info
+      { 'something': 'that' }
     end
 
     def merge_trees(left, right)

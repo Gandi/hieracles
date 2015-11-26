@@ -9,7 +9,7 @@ module Hieracles
     include Hieracles::Utils
     extend self
 
-    attr_reader :extraparams, :server, :classpath, :scope,
+    attr_reader :extraparams, :server, :classpath, :scope, :puppetdb, :usedb,
       :modulepath, :hierafile, :basepath, :encpath, :format, :interactive
 
     def load(options)
@@ -17,6 +17,7 @@ module Hieracles
       @extraparams = extract_params(options[:params])
       values = get_config(@optionfile)
       @server = values['server']
+      @usedb = values['usedb']
       @puppetdb = values['puppetdb']
       @basepath = File.expand_path(options[:basepath] || values['basepath'] || values['localpath'] || '.')
       @classpath = build_path(values['classpath'])
