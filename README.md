@@ -4,7 +4,7 @@ Hieracles
 [![Gem Version](https://img.shields.io/gem/v/hieracles.svg)](http://rubygems.org/gems/hieracles)
 [![Downloads](http://img.shields.io/gem/dt/hieracles.svg)](https://rubygems.org/gems/hieracles)
 [![Build Status](https://img.shields.io/travis/Gandi/hieracles.svg)](https://travis-ci.org/Gandi/hieracles)
-[![Coverage Status](https://img.shields.io/coveralls/Gandi/hieracles/badge.svg?branch=master&service=github)](https://coveralls.io/github/Gandi/hieracles?branch=master)
+[![Coverage Status](https://img.shields.io/coveralls/Gandi/hieracles.svg)](https://coveralls.io/github/Gandi/hieracles?branch=master)
 [![Dependency Status](https://img.shields.io/gemnasium/Gandi/hieracles.svg)](https://gemnasium.com/Gandi/hieracles)
 [![Code Climate](https://img.shields.io/codeclimate/github/Gandi/hieracles.svg)](https://codeclimate.com/github/Gandi/hieracles)
 
