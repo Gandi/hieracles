@@ -127,7 +127,12 @@ module Hieracles
     end
 
     def puppetdb_info
-      { 'something': 'that' }
+      resp = puppetdb.request("nodes/#{@fqdn}")
+      resp.data
+    end
+
+    def puppetdb
+      @_puppetdb ||= Hieracles::Puppetdb::Client.new Config.puppetdb
     end
 
     def merge_trees(left, right)

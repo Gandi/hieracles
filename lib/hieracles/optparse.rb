@@ -51,7 +51,7 @@ module Hieracles
       },
       nodb: {
         has_arg: false,
-        aliases: ['nodb']
+        aliases: ['nodb', 'no-db', 'no']
       }
     }
 
