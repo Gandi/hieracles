@@ -21,7 +21,12 @@ unless fqdn && command
 end
  
 if Hieracles::Format.method_defined? command
-  node = Hieracles::Node.new fqdn, opt.options
+  begin
+    node = Hieracles::Node.new fqdn, opt.options
+  rescue Exception => e
+    puts "  Error: #{e.message}"
+    exit(1)
+  end
   begin
     formatter = Object.const_get("Hieracles::Formats::#{Hieracles::Config.format}")
   rescue
