@@ -13,6 +13,7 @@ module Hieracles
       :modulepath, :hierafile, :basepath, :encpath, :format, :interactive
 
     def load(options)
+      @options = options
       @optionfile = options[:config] || defaultconfig
       @extraparams = extract_params(options[:params])
       values = get_config(@optionfile)
@@ -31,9 +32,7 @@ module Hieracles
       @encpath = resolve_path(options[:encpath] || values['encpath'] || 'enc')
       @hierafile = resolve_path(options[:hierafile] || values['hierafile'] || 'hiera.yaml')
       @format = (options[:format] || values['format'] || 'console').capitalize
-      facts_file = options[:yaml_facts] || options[:json_facts]
-      facts_format = options[:json_facts] ? :json : :yaml
-      @scope = sym_keys((facts_file && load_facts(facts_file, facts_format)) || values['defaultscope'] || {})
+      @scope = load_scope(values)
       @interactive = options[:interactive] || values['interactive']
     end
 
@@ -70,6 +69,12 @@ module Hieracles
 
     def path(what)
       send(what.to_sym)
+    end
+
+    def load_scope(values)
+      facts_file = @options[:yaml_facts] || @options[:json_facts]
+      facts_format = @options[:json_facts] ? :json : :yaml
+      sym_keys((facts_file && load_facts(facts_file, facts_format)) || values['defaultscope'] || {})
     end
 
     def load_facts(file, format)
