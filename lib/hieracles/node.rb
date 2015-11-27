@@ -72,6 +72,10 @@ module Hieracles
     end
 
     def modules
+      @_modules ||= _get_modules
+    end
+
+    def _get_modules
       modules = {}
       classfiles.each do |c|
         if File.exist?(c)
@@ -88,6 +92,10 @@ module Hieracles
     end
 
     def info
+      @_info ||= _get_info
+    end
+
+    def _get_info
       extra = {}
       if Config.usedb
         extra = puppetdb_info

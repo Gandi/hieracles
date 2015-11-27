@@ -98,7 +98,7 @@ Usage
       -j <fact_file> - facts in json format
       -i - interactive mode
       -db - query puppetdb
-      -no-db - do not query puppetdb
+      -nodb - do not query puppetdb
 
 
 About facts aka. scope
@@ -165,7 +165,7 @@ or for a ssl setup:
 
 If you set `usedb: false` the `hc` commands will not query the puppetdb unless you pass the `-db` options.
 
-If you set `usedb: true` the `hc` command will query the puppetdb by default and display extra informations for the queried node. This default behavior can be changed by passing the `-no-db` option on the commandline.
+If you set `usedb: true` the `hc` command will query the puppetdb by default and display extra informations for the queried node. This default behavior can be changed by passing the `-nodb` option on the commandline.
 
 
 Completion

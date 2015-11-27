@@ -1,6 +1,6 @@
 #compdef hc
 
-export PUPPET_PATH=$(grep '\(local\|base\)path' $HOME/.config/hieracles/config.yml | cut -d' ' -f2)
+export PUPPET_PATH=$(grep "\(local\|base\)path" $HOME/.config/hieracles/config.yml | cut -d' ' -f2)
 
 ! test -z $PUPPET_PATH || export PUPPET_PATH=.
 

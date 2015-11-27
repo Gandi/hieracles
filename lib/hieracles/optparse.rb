@@ -44,6 +44,14 @@ module Hieracles
       interactive: {
         has_arg: false,
         aliases: ['i', 'interactive']
+      },
+      db: {
+        has_arg: false,
+        aliases: ['db']
+      },
+      nodb: {
+        has_arg: false,
+        aliases: ['nodb']
       }
     }
 
