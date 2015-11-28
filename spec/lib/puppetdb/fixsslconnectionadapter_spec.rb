@@ -95,7 +95,8 @@ describe Hieracles::Puppetdb::FixSSLConnectionAdapter do
         {
           'cert_file' => File.expand_path('spec/files/ssl/cert.crt'),
           'key_file' => File.expand_path('spec/files/ssl/key.pem'),
-          'ca_file' => File.expand_path('spec/files/ssl/ca.crt')
+          'ca_file' => File.expand_path('spec/files/ssl/ca.crt'),
+          'verify_peer' => '1'
         }
       }
       it { expect { adapter.connection }.not_to raise_error }
