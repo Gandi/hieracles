@@ -46,15 +46,41 @@ describe Hieracles::Config do
       end
     end
 
-    context 'with no-db set' do
-      let(:options) do
-        { 
-          config: 'spec/files/config_withdb.yml'
-        }
+    context 'with db set' do
+      context 'when no param is provided' do
+        let(:options) do
+          { 
+            config: 'spec/files/config_withdb.yml'
+          }
+        end
+        before { Hieracles::Config.load options }
+        it { expect(Hieracles::Config.usedb).to be_truthy }
       end
-      before { Hieracles::Config.load options }
-      it { expect(Hieracles::Config.usedb).to be_truthy }
+      context 'with nodb passed as param' do
+        let(:options) do
+          { 
+            config: 'spec/files/config_withdb.yml',
+            nodb: true
+          }
+        end
+        before { Hieracles::Config.load options }
+        it { expect(Hieracles::Config.usedb).to be_falsey }
+      end
     end
+
+    context 'with no-db set' do
+      context 'and db passed as param' do
+        let(:options) do
+          { 
+            config: 'spec/files/config.yml',
+            db: true
+          }
+        end
+        before { Hieracles::Config.load options }
+        it { expect(Hieracles::Config.usedb).to be_truthy }
+      end
+    end
+
 
     context 'without an existing config file' do
       let(:options) do
