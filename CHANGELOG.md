@@ -1,6 +1,12 @@
 Hieracles Changelog
 =======================
 
+### 0.2.1 - wip
+- add configuration variables for connection to puppetdb
+- make puppetdb calls fill up the facts for the node queried
+- add a `facts` command to display the facts, provided locally 
+  or from puppetdb directly
+
 ### 0.2.0 - 2015-11-24
 - fix merging for unsorted arrays
 - translate all paths to absolute paths,

@@ -73,6 +73,8 @@ Usage
     Available commands:
       info        provides the farm, datacenter, country
                   associated to the given fqdn
+      facts       lists facts, either provided as a fact file
+                  or grabbed from puppetdb
       files       list all files containing params affecting this fqdn
                   (in more than commons)
       paths       list all file paths for files with params

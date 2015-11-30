@@ -23,20 +23,30 @@ time, a generic Hiera overlay visualization tool.
 .PP
 hc command takes at minimum 2 arguments:
 .RS 4
+
 .IP fqdn 10
 the fqdn under which the node is known in the ENC dir
+
 .IP action 
 the action needs to be one of the following
 .RS
+
 .IP info 10
 provides the farm, datacenter, country associated to the given fqdn.
+
+.IP facts 10
+lists facts for a given fqdn, from puppetdb or local facts (see configuration).
+
 .IP files
 list all files containing params affecting this fqdn 
 (in more than commons).
+
 .IP paths
 list all file paths for files with params.
+
 .IP modules
 list modules included in the farm where the node is.
+
 .IP params
 list params for the node matching the fqdn.
 An extra filter string can be added to limit the list
@@ -122,7 +132,6 @@ the basepath is prepended to the paths found in the configfile and the hierafile
 .B \-\-encdir \fRpath
 encdir is where we can find the ENC definitions. It's stated in the configfile but can be overridden by the -e option.
 
-
 .TP
 .PD 0
 .B \-y \fRfile
@@ -136,7 +145,6 @@ and test locally what would be the consequences of switching from
 one environment to another. It's also good for anticipation
 of how new node, that don't have facts yet, will behave.
 
-
 .TP
 .PD 0
 .B \-j \fRfile
@@ -149,7 +157,6 @@ flag but in json format, which can be obtained on the node with
 .B "facter -j"
 and this behave the same way. Note that the \-y has precedence on
 the \-j in this context.
-
 
 .TP
 .PD 0
@@ -165,6 +172,24 @@ in which you are prompted to fill up for undefined scope variables encountered i
 .I "interactive: true"
 in hieracles configuration file.
 .RE
+
+.TP
+.PD 0
+.B \-db
+if
+.I "usedb: false"
+is specified in the hieracles configuration file, it cancels the calls to puppetdb 
+and only display information according to local data.
+
+
+.TP
+.PD 0
+.B \-nodb
+if
+.I "usedb: true"
+is specified in the hieracles configuration file, it forces the calls to puppetdb 
+for gathering facts and node information.
+
 
 .SH FILES
 .I ~/.config/hieracles/config.yaml
