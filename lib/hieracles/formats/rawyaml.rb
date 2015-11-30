@@ -7,6 +7,10 @@ module Hieracles
         @node.info.to_yaml
       end
 
+      def facts(_)
+        @node.facts.to_yaml
+      end
+
       def files(_)
         @node.files.to_yaml
       end

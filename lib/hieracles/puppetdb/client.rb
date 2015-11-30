@@ -35,8 +35,7 @@ module Hieracles
       def request(endpoint, query = nil, opts = {})
         path = "/" + endpoint
         if query
-          query = Query.maybe_promote(query)
-          json_query = query.build()
+          json_query = JSON.dump(query)
           filtered_opts = {'query' => json_query}
           opts.each do |k,v|
             if k == :counts_filter
@@ -50,7 +49,6 @@ module Hieracles
           # return
           ret = self.class.get(path, query: filtered_opts)
         else
-          puts path
           ret = self.class.get(path)
         end
 

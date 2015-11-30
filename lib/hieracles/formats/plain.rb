@@ -11,9 +11,17 @@ module Hieracles
       end
 
       def info(_)
+        build_list(@node.info)
+      end
+
+      def facts(_)
+        build_list(@node.facts)
+      end
+
+      def build_list(hash)
         back = ''
-        length = max_key_length(@node.info) + 2
-        @node.info.each do |k, v|
+        length = max_key_length(hash) + 2
+        hash.each do |k, v|
           back << format("%-#{length}s %s\n", k, v)
         end
         back

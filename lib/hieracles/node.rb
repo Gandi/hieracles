@@ -8,16 +8,18 @@ module Hieracles
     include Hieracles::Utils
     include Hieracles::Interpolate
 
-    attr_reader :hiera_params, :hiera
+    attr_reader :hiera_params, :hiera, :facts
 
     def initialize(fqdn, options)
+      @fqdn = fqdn
       Config.load(options)
       @hiera = Hieracles::Hiera.new
       @hiera_params = { fqdn: fqdn }.
         merge(get_hiera_params(fqdn)).
-        merge(Config.scope).
         merge(Config.extraparams)
-      @fqdn = fqdn
+      @facts = @hiera_params.
+        merge(Config.scope).
+        merge(puppet_facts)
     end
 
     def get_hiera_params(fqdn)
@@ -31,7 +33,7 @@ module Hieracles
 
     def files(without_common = true)
       @__files ||= @hiera.hierarchy.reduce([]) do |a, f|
-        file = parse("#{f}.yaml", @hiera_params, Config.interactive)
+        file = parse("#{f}.yaml", @facts, Config.interactive)
         if file && 
            File.exist?(File.join(@hiera.datapath, file)) &&
            (!without_common ||
@@ -129,6 +131,23 @@ module Hieracles
     def puppetdb_info
       resp = puppetdb.request("nodes/#{@fqdn}")
       resp.data
+    end
+
+    def puppet_facts
+      if Config.usedb
+        resp = puppetdb.request("nodes/#{@fqdn}/facts")
+        if resp.total_records > 0
+          resp.data.reduce({}) do |a, v|
+            a[v['name'].to_sym] = v['value']
+            a
+          end
+        else
+          puts "not found in puppetdb."
+          {}
+        end
+      else
+        {}
+      end
     end
 
     def puppetdb

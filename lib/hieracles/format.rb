@@ -8,6 +8,10 @@ module Hieracles
       "#{__callee__} not implemented, please inherit from the Hieracles::Format class to implement a format.\n"
     end
 
+    def facts(_)
+      "#{__callee__} not implemented, please inherit from the Hieracles::Format class to implement a format.\n"
+    end
+
     def files(_)
       "#{__callee__} not implemented, please inherit from the Hieracles::Format class to implement a format.\n"
     end

@@ -3,3 +3,4 @@ classpath: farm_modules/%s.pp
 modulepath: modules
 hierafile: hiera.yaml
 paramspath: params
+usedb: false

@@ -23,10 +23,18 @@ module Hieracles
       end
 
       def info(_)
+        build_list(@node.info)
+      end
+
+      def facts(_)
+        build_list(@node.facts)
+      end
+
+      def build_list(hash)
         back = ''
-        length = max_key_length(@node.info) + 2
+        length = max_key_length(hash) + 2
         title = format(COLORS[8], "%-#{length}s")
-        @node.info.each do |k, v|
+        hash.each do |k, v|
           back << format("#{title} %s\n", k, v)
         end
         back

@@ -8,6 +8,10 @@ module Hieracles
         make_csv @node.info.values
       end
 
+      def facts(_)
+        make_csv(@node.facts.keys) + make_csv(@node.facts.values)
+      end
+
       def files(_)
         make_csv @node.files
       end

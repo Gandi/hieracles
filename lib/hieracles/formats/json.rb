@@ -9,6 +9,10 @@ module Hieracles
         @node.info.to_json
       end
 
+      def facts(_)
+        @node.facts.to_json
+      end
+
       def files(_)
         @node.files.to_json
       end

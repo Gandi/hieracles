@@ -7,7 +7,8 @@ describe Hieracles::Node do
         config: 'spec/files/config.yml',
         hierafile: 'hiera.yaml',
         encpath: 'enc',
-        basepath: 'spec/files'
+        basepath: 'spec/files',
+        usedb: false
       }
     }
 
