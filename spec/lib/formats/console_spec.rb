@@ -22,6 +22,25 @@ describe Hieracles::Formats::Console do
     end
   end
 
+  describe ".facts" do
+    let(:expected) {
+      "\e[97mNode  \e[0m fqdn\n" +
+      "\e[97mFarm  \e[0m farm\n"
+    }
+    before {
+      allow(node).to receive(:facts).and_return(
+        {
+          'Node' => 'fqdn',
+          'Farm' => 'farm'
+        }
+      )
+    }
+    it "outputs proper text" do
+      expect(console_format.facts nil).to eq expected
+    end
+  end
+
+
   describe ".files" do
     let(:expected) { "path1\npath2\n" }
     before {

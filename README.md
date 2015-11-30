@@ -169,6 +169,10 @@ If you set `usedb: false` the `hc` commands will not query the puppetdb unless y
 
 If you set `usedb: true` the `hc` command will query the puppetdb by default and display extra informations for the queried node. This default behavior can be changed by passing the `-nodb` option on the commandline.
 
+#### Impact
+
+When usedb is true, a call to puppetdb will be made for all commands to retrieve facts if they are present for the queried node.
+
 
 Completion
 -------------

@@ -19,6 +19,21 @@ describe Hieracles::Formats::Csv do
     end
   end
 
+  describe ".facts" do
+    let(:expected) {"Node;Farm\nfqdn;farm\n"}
+    before {
+      allow(node).to receive(:facts).and_return(
+        {
+          'Node' => 'fqdn',
+          'Farm' => 'farm'
+        }
+      )
+    }
+    it "outputs proper text" do
+      expect(csv_format.facts nil).to eq expected
+    end
+  end
+
   describe ".files" do
     let(:expected) { "path1;path2\n" }
     before {

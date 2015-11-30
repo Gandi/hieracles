@@ -18,6 +18,8 @@ module Hieracles
           self.class.default_options = {:options => options}
           self.class.connection_adapter(FixSSLConnectionAdapter)
         end
+        options['port'] || 8080
+        options['host'] || 'localhost'
         scheme = options['usessl'] ? "https://" : "http://"
         self.class.base_uri(scheme + 
           options['host'] +

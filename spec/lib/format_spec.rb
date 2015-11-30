@@ -17,6 +17,11 @@ describe Hieracles::Format do
       expect(dispatch.info nil).to eq format(not_implemented, 'info')
     end
   end
+  describe ".facts" do
+    it "returns a message informing that this class should be inherited" do
+      expect(dispatch.facts nil).to eq format(not_implemented, 'facts')
+    end
+  end
   describe ".files" do
     it "returns a message informing that this class should be inherited" do
       expect(dispatch.files nil).to eq format(not_implemented, 'files')

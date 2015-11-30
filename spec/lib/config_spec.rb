@@ -3,12 +3,7 @@ require 'spec_helper'
 describe Hieracles::Config do
   describe '.load' do
     context 'with an existing file' do
-      let(:options) do
-        { 
-          config: 'spec/files/config.yml', 
-          basepath: 'spec/files'
-        }
-      end
+      let(:options) { { config: 'spec/files/config.yml' } }
       let(:expected) do
         {
           classpath: File.expand_path('spec/files/farm_modules/%s.pp'),
@@ -31,7 +26,6 @@ describe Hieracles::Config do
       let(:options) do
         { 
           config: 'spec/files/config.yml', 
-          basepath: 'spec/files',
           hierafile: hierapath
         }
       end
@@ -52,11 +46,21 @@ describe Hieracles::Config do
       end
     end
 
+    context 'with no-db set' do
+      let(:options) do
+        { 
+          config: 'spec/files/config_withdb.yml'
+        }
+      end
+      before { Hieracles::Config.load options }
+      it { expect(Hieracles::Config.usedb).to be_truthy }
+    end
+
     context 'without an existing config file' do
       let(:options) do
         {
-          basepath: 'spec/files',
-          config: 'spec/files/config_no.yml'
+          config: 'spec/files/config_no.yml',
+          basepath: 'spec/files'
         }
       end
       before do
@@ -90,7 +94,6 @@ describe Hieracles::Config do
       let(:options) do
         { 
           config: 'spec/files/config.yml', 
-          basepath: 'spec/files', 
           yaml_facts: 'spec/files/facts.yaml'
         }
       end
@@ -103,7 +106,6 @@ describe Hieracles::Config do
       let(:options) do
         { 
           config: 'spec/files/config.yml', 
-          basepath: 'spec/files', 
           json_facts: 'spec/files/facts.json'
         }
       end

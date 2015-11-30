@@ -17,6 +17,19 @@ describe Hieracles::Formats::Json do
     it { expect(json_format.info nil).to eq expected }
   end
 
+  describe ".facts" do
+    let(:expected) { '{"Node":"fqdn","Farm":"farm"}' }
+    before {
+      allow(node).to receive(:facts).and_return(
+        {
+          'Node' => 'fqdn',
+          'Farm' => 'farm'
+        }
+      )
+    }
+    it { expect(json_format.facts nil).to eq expected }
+  end
+
   describe ".files" do
     let(:expected) { '["path1","path2"]' }
     before {

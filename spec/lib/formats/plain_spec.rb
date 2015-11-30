@@ -22,6 +22,24 @@ describe Hieracles::Formats::Plain do
     end
   end
 
+  describe ".facts" do
+    let(:expected) {
+      "Node   fqdn\n" +
+      "Farm   farm\n"
+    }
+    before {
+      allow(node).to receive(:facts).and_return(
+        {
+          'Node' => 'fqdn',
+          'Farm' => 'farm'
+        }
+      )
+    }
+    it "outputs proper text" do
+      expect(plain_format.facts nil).to eq expected
+    end
+  end
+
   describe ".files" do
     let(:expected) { "path1\npath2\n" }
     before {

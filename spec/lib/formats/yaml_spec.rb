@@ -17,6 +17,19 @@ describe Hieracles::Formats::Yaml do
     it { expect(yaml_format.info nil).to eq expected }
   end
 
+  describe ".facts" do
+    let(:expected) {"---\nNode: fqdn\nFarm: farm\n"}
+    before {
+      allow(node).to receive(:facts).and_return(
+        {
+          'Node' => 'fqdn',
+          'Farm' => 'farm'
+        }
+      )
+    }
+    it { expect(yaml_format.facts nil).to eq expected }
+  end
+
   describe ".files" do
     let(:expected) { "---\n- path1\n- path2\n" }
     before {
