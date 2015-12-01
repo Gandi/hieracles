@@ -14,7 +14,8 @@ module Hieracles
         "\e[36m%s\e[0m",
         "\e[37m%s\e[0m",
         "\e[38m%s\e[0m",
-        "\e[97m%s\e[0m"
+        "\e[97m%s\e[0m",
+        "\e[35;1m%s\e[0m"
       ]
 
       def initialize(node)
@@ -23,20 +24,30 @@ module Hieracles
       end
 
       def info(_)
-        build_list(@node.info)
+        build_list(@node.info, @node.notifications)
       end
 
       def facts(_)
-        build_list(@node.facts)
+        build_list(@node.facts, @node.notifications)
       end
 
-      def build_list(hash)
+      def build_list(hash, notifications)
         back = ''
+        back << build_notifications(notifications) if notifications
         length = max_key_length(hash) + 2
         title = format(COLORS[8], "%-#{length}s")
         hash.each do |k, v|
           back << format("#{title} %s\n", k, v)
         end
+        back
+      end
+
+      def build_notifications(notifications)
+        back = "\n"
+        notifications.each do |v|
+          back << format("#{COLORS[9]}\n", "*** #{v.source}: #{v.message} ***")
+        end
+        back << "\n"
         back
       end
 

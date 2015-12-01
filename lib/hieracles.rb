@@ -1,3 +1,4 @@
+require 'hieracles/notification'
 require 'hieracles/interpolate'
 require 'hieracles/optparse'
 require 'hieracles/config'

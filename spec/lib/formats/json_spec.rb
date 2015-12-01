@@ -13,6 +13,7 @@ describe Hieracles::Formats::Json do
           'Farm' => 'farm'
         }
       )
+      allow(node).to receive(:notifications).and_return([])
     }
     it { expect(json_format.info nil).to eq expected }
   end

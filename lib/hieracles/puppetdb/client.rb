@@ -27,13 +27,6 @@ module Hieracles
           '/v' + @version.to_s())
       end
 
-      def raise_if_error(response)
-        if response.code.to_s() =~ /^[4|5]/
-          # raise APIError.new(response)
-          puts response
-        end
-      end
-
       def request(endpoint, query = nil, opts = {})
         path = "/" + endpoint
         if query
@@ -54,15 +47,17 @@ module Hieracles
           ret = self.class.get(path)
         end
 
-        raise_if_error(ret)
+        if ret.code.to_s() =~ /^[4|5]/ or ret.parsed_response.length < 1
+          notifications = [ Hieracles::Notification.new('puppetdb', 'No match.', 'error') ]
+          Response.new({}, 0, notifications)
+        else
+          total = ret.headers['X-Records']
+          if total.nil?
+            total = ret.parsed_response.length
+          end
 
-        total = ret.headers['X-Records']
-        if total.nil?
-          total = ret.parsed_response.length
+          Response.new(ret.parsed_response, total)
         end
-
-
-        Response.new(ret.parsed_response, total)
       end
 
     end

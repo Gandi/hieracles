@@ -8,7 +8,7 @@ module Hieracles
     include Hieracles::Utils
     include Hieracles::Interpolate
 
-    attr_reader :hiera_params, :hiera, :facts
+    attr_reader :hiera_params, :hiera, :facts, :notifications
 
     def initialize(fqdn, options)
       @fqdn = fqdn
@@ -136,13 +136,14 @@ module Hieracles
     def puppet_facts
       if Config.usedb
         resp = puppetdb.request("nodes/#{@fqdn}/facts")
+        @notifications = resp.notifications
         if resp.total_records > 0
           resp.data.reduce({}) do |a, v|
             a[v['name'].to_sym] = v['value']
             a
           end
         else
-          puts "not found in puppetdb."
+          error "not found in puppetdb."
           {}
         end
       else
@@ -183,6 +184,14 @@ module Hieracles
         end
       else
         value
+      end
+    end
+
+    def error(message)
+      if @notifications
+        @notifications << Notification.new('node', message, 'error')
+      else
+        @notifications = [ Notification.new('node', message, 'error') ]
       end
     end
 
