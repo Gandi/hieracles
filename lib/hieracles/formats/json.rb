@@ -8,12 +8,11 @@ module Hieracles
       def info(_)
         if @node.notifications.count > 0
           payload = @node.info
-          payload['notifications'] = @node.notifications.map(&:to_hash)
+          payload['alerts'] = @node.notifications.map(&:to_hash)
         else
           payload = @node.info
         end
         payload.to_json
-        @node.info.to_json
       end
 
       def facts(_)

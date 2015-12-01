@@ -16,6 +16,7 @@ describe Hieracles::Formats::Plain do
           'Farm' => 'farm'
         }
       )
+      allow(node).to receive(:notifications).and_return(nil)
     }
     it "outputs proper text" do
       expect(plain_format.info nil).to eq expected
@@ -34,6 +35,7 @@ describe Hieracles::Formats::Plain do
           'Farm' => 'farm'
         }
       )
+      allow(node).to receive(:notifications).and_return(nil)
     }
     it "outputs proper text" do
       expect(plain_format.facts nil).to eq expected

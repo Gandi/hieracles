@@ -16,7 +16,7 @@ describe Hieracles::Formats::Console do
           'Farm' => 'farm'
         }
       )
-      allow(node).to receive(:notifications)
+      allow(node).to receive(:notifications).and_return(nil)
     }
     it "outputs proper text" do
       expect(console_format.info nil).to eq expected
@@ -35,7 +35,7 @@ describe Hieracles::Formats::Console do
           'Farm' => 'farm'
         }
       )
-      allow(node).to receive(:notifications)
+      allow(node).to receive(:notifications).and_return(nil)
     }
     it "outputs proper text" do
       expect(console_format.facts nil).to eq expected
