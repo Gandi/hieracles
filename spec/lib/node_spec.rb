@@ -223,22 +223,27 @@ describe Hieracles::Node do
       datacenter: 'equinix',
       country: 'fr',
       farm: 'dev',
-      name: 'value'
+      catalog_timestamp: '2015-12-01T23:09:41.540Z'
     } }
-    let(:resp) {
-      Hieracles::Puppetdb::Response.new([{ 'name' => 'name', 'value' => 'value' }], 1)
+    let(:resp_info) {
+      Hieracles::Puppetdb::Response.new({ catalog_timestamp: '2015-12-01T23:09:41.540Z'}, 1)
     }
-    let(:puppetdb) {
-      double('Hieracles::Puppetdb::Client')
+    let(:resp_facts) {
+      Hieracles::Puppetdb::Response.new([{ 'name' => 'datacenter', 'value' => 'tahiti' }], 1)
     }
     let(:node) { Hieracles::Node.new 'server.example.com', options }
     before {
-      allow(node.puppetdb).to receive(:puppetdb).and_return(puppetdb)
-      allow(puppetdb).to receive(:request).and_return(resp)
+      allow_any_instance_of(Hieracles::Puppetdb::Client).
+        to receive(:request).
+        with("nodes/server.example.com").
+        and_return(resp_info)
+      allow_any_instance_of(Hieracles::Puppetdb::Client).
+        to receive(:request).
+        with("nodes/server.example.com/facts").
+        and_return(resp_facts)
     }
-    #it { expect(node.info).to eq expected }
+    it { expect(node.info).to eq expected }
   end
-
 
   context "when parameters include double-column variables" do
     let(:options) {
