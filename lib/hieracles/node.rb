@@ -102,6 +102,7 @@ module Hieracles
       if Config.usedb
         extra = puppetdb_info
       end
+      puts extra.inspect
       @hiera_params.merge extra
     end
 
@@ -138,6 +139,7 @@ module Hieracles
         resp = puppetdb.request("nodes/#{@fqdn}/facts")
         @notifications = resp.notifications
         if resp.total_records > 0
+          puts resp.data.inspect
           resp.data.reduce({}) do |a, v|
             a[v['name'].to_sym] = v['value']
             a

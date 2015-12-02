@@ -194,18 +194,51 @@ describe Hieracles::Node do
       end
 
       describe '.info' do
-        let(:expected) { {
-          classes: ['dev'],
-          fqdn: 'server.example.com',
-          datacenter: 'equinix',
-          country: 'fr',
-          farm: 'dev'
-        } }
-        it { expect(node.info).to eq expected }
+        context "without calling puppetd" do
+          let(:expected) { {
+            classes: ['dev'],
+            fqdn: 'server.example.com',
+            datacenter: 'equinix',
+            country: 'fr',
+            farm: 'dev'
+          } }
+          it { expect(node.info).to eq expected }
+        end
       end
-
     end
   end
+
+  context "with calling puppetd" do
+    let(:options) {
+      { 
+        config: 'spec/files/config_withdb.yml',
+        hierafile: 'hiera.yaml',
+        encpath: 'enc',
+        basepath: 'spec/files'
+      }
+    }
+    let(:expected) { {
+      classes: ['dev'],
+      fqdn: 'server.example.com',
+      datacenter: 'equinix',
+      country: 'fr',
+      farm: 'dev',
+      name: 'value'
+    } }
+    let(:resp) {
+      Hieracles::Puppetdb::Response.new([{ 'name' => 'name', 'value' => 'value' }], 1)
+    }
+    let(:puppetdb) {
+      double('Hieracles::Puppetdb::Client')
+    }
+    let(:node) { Hieracles::Node.new 'server.example.com', options }
+    before {
+      allow(node.puppetdb).to receive(:puppetdb).and_return(puppetdb)
+      allow(puppetdb).to receive(:request).and_return(resp)
+    }
+    #it { expect(node.info).to eq expected }
+  end
+
 
   context "when parameters include double-column variables" do
     let(:options) {
