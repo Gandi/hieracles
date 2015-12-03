@@ -14,16 +14,18 @@ module Hieracles
       @fqdn = fqdn
       Config.load(options)
       @hiera = Hieracles::Hiera.new
-      @hiera_params = { fqdn: fqdn }.
-        merge(get_hiera_params(fqdn)).
+      @hiera_params = { fqdn: @fqdn }.
+        merge(get_hiera_params(@fqdn)).
         merge(Config.extraparams)
-      @facts = @hiera_params.
+      @facts = Config.extraparams.
+        merge(puppet_facts).
         merge(Config.scope).
-        merge(puppet_facts)
+        merge(get_hiera_params(@fqdn)).
+        merge({ fqdn: @fqdn })
     end
 
     def get_hiera_params(fqdn)
-      if File.exist?(File.join(Config.path('encpath'), "#{fqdn}.yaml"))
+      @__hiera_params ||= if File.exist?(File.join(Config.path('encpath'), "#{fqdn}.yaml"))
         load = YAML.load_file(File.join(Config.path('encpath'), "#{fqdn}.yaml"))
         sym_keys(load['parameters']).merge({ classes: load['classes']})
       else

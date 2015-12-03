@@ -217,32 +217,34 @@ describe Hieracles::Node do
         basepath: 'spec/files'
       }
     }
-    let(:expected) { {
-      classes: ['dev'],
-      fqdn: 'server.example.com',
-      datacenter: 'equinix',
-      country: 'fr',
-      farm: 'dev',
-      catalog_timestamp: '2015-12-01T23:09:41.540Z'
-    } }
-    let(:resp_info) {
-      Hieracles::Puppetdb::Response.new({ catalog_timestamp: '2015-12-01T23:09:41.540Z'}, 1)
-    }
-    let(:resp_facts) {
-      Hieracles::Puppetdb::Response.new([{ 'name' => 'datacenter', 'value' => 'tahiti' }], 1)
-    }
-    let(:node) { Hieracles::Node.new 'server.example.com', options }
-    before {
-      allow_any_instance_of(Hieracles::Puppetdb::Client).
-        to receive(:request).
-        with("nodes/server.example.com").
-        and_return(resp_info)
-      allow_any_instance_of(Hieracles::Puppetdb::Client).
-        to receive(:request).
-        with("nodes/server.example.com/facts").
-        and_return(resp_facts)
-    }
-    it { expect(node.info).to eq expected }
+    describe '.info' do
+      let(:expected) { {
+        classes: ['dev'],
+        fqdn: 'server.example.com',
+        datacenter: 'equinix',
+        country: 'fr',
+        farm: 'dev',
+        catalog_timestamp: '2015-12-01T23:09:41.540Z'
+      } }
+      let(:resp_info) {
+        Hieracles::Puppetdb::Response.new({ catalog_timestamp: '2015-12-01T23:09:41.540Z'}, 1)
+      }
+      let(:resp_facts) {
+        Hieracles::Puppetdb::Response.new([{ 'name' => 'datacenter', 'value' => 'tahiti' }], 1)
+      }
+      let(:node) { Hieracles::Node.new 'server.example.com', options }
+      before {
+        allow_any_instance_of(Hieracles::Puppetdb::Client).
+          to receive(:request).
+          with("nodes/server.example.com").
+          and_return(resp_info)
+        allow_any_instance_of(Hieracles::Puppetdb::Client).
+          to receive(:request).
+          with("nodes/server.example.com/facts").
+          and_return(resp_facts)
+      }
+      it { expect(node.info).to eq expected }
+    end
   end
 
   context "when parameters include double-column variables" do
