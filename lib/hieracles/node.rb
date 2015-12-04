@@ -14,6 +14,7 @@ module Hieracles
       @fqdn = fqdn
       Config.load(options)
       @hiera = Hieracles::Hiera.new
+
       @hiera_params = { fqdn: @fqdn }.
         merge(get_hiera_params(@fqdn)).
         merge(Config.extraparams)
@@ -131,13 +132,13 @@ module Hieracles
     end
 
     def puppetdb_info
-      resp = puppetdb.get_info(@fqdn)
+      resp = request_db.info(@fqdn)
       resp.data
     end
 
     def puppet_facts
       if Config.usedb
-        resp = puppetdb.get_facts(@fqdn)
+        resp = request_db.facts(@fqdn)
         @notifications = resp.notifications
         if resp.total_records > 0
           resp.data.reduce({}) do |a, v|
@@ -153,8 +154,9 @@ module Hieracles
       end
     end
 
-    def puppetdb
+    def request_db
       @_puppetdb ||= Hieracles::Puppetdb::Client.new Config.puppetdb
+      @_request ||= Hieracles::Puppetdb::Request.new @_puppetdb
     end
 
     def merge_trees(left, right)
