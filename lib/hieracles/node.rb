@@ -14,13 +14,12 @@ module Hieracles
       @fqdn = fqdn
       Config.load(options)
       @hiera = Hieracles::Hiera.new
-
       @hiera_params = { fqdn: @fqdn }.
         merge(get_hiera_params(@fqdn)).
         merge(Config.extraparams)
-      @facts = @hiera_params.
+      @facts = deep_sort(@hiera_params.
         merge(Config.scope).
-        merge(puppet_facts)
+        merge(puppet_facts))
     end
 
     def get_hiera_params(fqdn)

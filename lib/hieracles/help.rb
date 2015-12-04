@@ -9,8 +9,14 @@ module Hieracles
       Available commands:
         info        provides the farm, datacenter, country
                     associated to the given fqdn
+                    An extra param can be added for filtering
+                    eg. hc <fqdn> info timestamp
+                    eg. hc <fqdn> info farm
         facts       lists facts, either provided as a fact file
-                    or grabbed from puppetdb
+                    or grabbed from puppetdb.
+                    An extra param can be added for filtering
+                    eg. hc <fqdn> facts architecture
+                    eg. hc <fqdn> facts 'memory.*mb'
         files       list all files containing params affecting this fqdn
                     (in more than commons)
         paths       list all file paths for files with params

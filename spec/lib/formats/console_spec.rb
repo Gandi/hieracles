@@ -19,7 +19,7 @@ describe Hieracles::Formats::Console do
       allow(node).to receive(:notifications).and_return(nil)
     }
     it "outputs proper text" do
-      expect(console_format.info nil).to eq expected
+      expect(console_format.info []).to eq expected
     end
   end
 
@@ -38,7 +38,7 @@ describe Hieracles::Formats::Console do
       allow(node).to receive(:notifications).and_return(nil)
     }
     it "outputs proper text" do
-      expect(console_format.facts nil).to eq expected
+      expect(console_format.facts []).to eq expected
     end
   end
 
@@ -49,7 +49,7 @@ describe Hieracles::Formats::Console do
       allow(node).to receive(:files).and_return(['path1', 'path2'])
     }
     it "outputs proper text" do
-      expect(console_format.files nil).to eq expected
+      expect(console_format.files []).to eq expected
     end
   end
 
@@ -59,7 +59,7 @@ describe Hieracles::Formats::Console do
       allow(node).to receive(:paths).and_return(['path1', 'path2'])
     }
     it "outputs proper text" do
-      expect(console_format.paths nil).to eq expected
+      expect(console_format.paths []).to eq expected
     end
   end
 

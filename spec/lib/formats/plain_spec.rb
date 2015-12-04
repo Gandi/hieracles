@@ -19,7 +19,7 @@ describe Hieracles::Formats::Plain do
       allow(node).to receive(:notifications).and_return(nil)
     }
     it "outputs proper text" do
-      expect(plain_format.info nil).to eq expected
+      expect(plain_format.info []).to eq expected
     end
   end
 
@@ -38,7 +38,7 @@ describe Hieracles::Formats::Plain do
       allow(node).to receive(:notifications).and_return(nil)
     }
     it "outputs proper text" do
-      expect(plain_format.facts nil).to eq expected
+      expect(plain_format.facts []).to eq expected
     end
   end
 
@@ -48,7 +48,7 @@ describe Hieracles::Formats::Plain do
       allow(node).to receive(:files).and_return(['path1', 'path2'])
     }
     it "outputs proper text" do
-      expect(plain_format.files nil).to eq expected
+      expect(plain_format.files []).to eq expected
     end
   end
 
@@ -58,7 +58,7 @@ describe Hieracles::Formats::Plain do
       allow(node).to receive(:paths).and_return(['path1', 'path2'])
     }
     it "outputs proper text" do
-      expect(plain_format.paths nil).to eq expected
+      expect(plain_format.paths []).to eq expected
     end
   end
 

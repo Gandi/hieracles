@@ -10,17 +10,20 @@ module Hieracles
         super(node)
       end
 
-      def info(_)
-        build_list(@node.info, @node.notifications)
+      def info(filter)
+        build_list(@node.info, @node.notifications, filter)
       end
 
-      def facts(_)
-        build_list(@node.facts, @node.notifications)
+      def facts(filter)
+        build_list(@node.facts, @node.notifications, filter)
       end
 
-      def build_list(hash, notifications)
+      def build_list(hash, notifications, filter)
         back = ''
         back << build_notifications(notifications) if notifications
+        if filter[0]
+          hash.select! { |k, v| Regexp.new(filter[0]).match(k) }
+        end
         length = max_key_length(hash) + 2
         hash.each do |k, v|
           back << format("%-#{length}s %s\n", k, v)

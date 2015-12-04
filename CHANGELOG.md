@@ -6,6 +6,7 @@ Hieracles Changelog
 - make puppetdb calls fill up the facts for the node queried
 - add a `facts` command to display the facts, provided locally 
   or from puppetdb directly
+- add optional filtering on `info` and `facts` commands
 
 ### 0.2.0 - 2015-11-24
 - fix merging for unsorted arrays

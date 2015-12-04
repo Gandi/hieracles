@@ -33,9 +33,22 @@ the action needs to be one of the following
 
 .IP info 10
 provides the farm, datacenter, country associated to the given fqdn.
+An extra filter can be added to limit the list.
+Use ruby regexp without the enclosing slashes.
+.RS
+eg. hc <fqdn> info timestamps
+.RE
 
 .IP facts 10
 lists facts for a given fqdn, from puppetdb or local facts (see configuration).
+An extra filter can be added to limit the list.
+use ruby regexp without the enclosing slashes.
+.RS
+eg. hc <fqdn> facts architecture
+.RE
+.RS
+eg. hc <fqdn> facts 'memory.*mb'
+.RE
 
 .IP files
 list all files containing params affecting this fqdn 
@@ -49,8 +62,8 @@ list modules included in the farm where the node is.
 
 .IP params
 list params for the node matching the fqdn.
-An extra filter string can be added to limit the list
-use ruby regexp without the enclosing slashes
+An extra filter can be added to limit the list.
+Use ruby regexp without the enclosing slashes.
 .RS
 eg. hc <fqdn> params postfix.*version
 .RE
@@ -60,7 +73,8 @@ eg. hc <fqdn> params '^postfix'
 .RS
 eg. hc <fqdn> params 'version$'
 .RE
-.IP all
+
+.IP allparams
 same as params but including the common.yaml params (huge)
 Also accepts a search string
 .RE
