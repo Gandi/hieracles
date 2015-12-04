@@ -71,22 +71,28 @@ module Hieracles
       def build_params_line(key, value, filter)
         output = ''
         if !filter || Regexp.new(filter).match(key)
-          first = value.pop
-          filecolor_index = @colors[first[:file]]
-          filecolor = COLORS[filecolor_index]
-          if is_merged? first
-            output << format("%s #{COLORS[5]} %s\n", "[-]", key, sanitize(first[:merged]) )
-            output << format("    #{COLORS[8]}\n", "[#{filecolor_index}] #{key} #{sanitize(first[:value])}" )
-          else
-            output << format("#{filecolor} #{COLORS[5]} %s\n", "[#{filecolor_index}]", key, sanitize(first[:value]) )
-          end
+          output << build_first(key, value.pop)
           while value.count > 0
-            overriden = value.pop
-            filecolor_index = @colors[overriden[:file]]
-            output << format("    #{COLORS[8]}\n", "[#{filecolor_index}] #{key} #{overriden[:value]}")
+            output << build_next(key, value.pop)
           end
         end
         output
+      end
+
+      def build_first(key, first)
+        filecolor_index = @colors[first[:file]]
+        filecolor = COLORS[filecolor_index]
+        if is_merged? first
+          format("%s #{COLORS[5]} %s\n", "[-]", key, sanitize(first[:merged]) ) +
+          format("    #{COLORS[8]}\n", "[#{filecolor_index}] #{key} #{sanitize(first[:value])}" )
+        else
+          format("#{filecolor} #{COLORS[5]} %s\n", "[#{filecolor_index}]", key, sanitize(first[:value]) )
+        end
+      end
+
+      def build_next(key, overriden)
+        filecolor_index = @colors[overriden[:file]]
+        format("    #{COLORS[8]}\n", "[#{filecolor_index}] #{key} #{overriden[:value]}")
       end
 
       def build_modules_line(key, value)
