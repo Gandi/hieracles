@@ -6,11 +6,11 @@ module Hieracles
         @client = Hieracles::Puppetdb::Client.new options
       end
 
-      def info(fqdn)
+      def node_info(fqdn)
         @client.request "nodes/#{fqdn}"
       end
 
-      def facts(fqdn)
+      def node_facts(fqdn)
         @client.request "nodes/#{fqdn}/facts"
       end
 

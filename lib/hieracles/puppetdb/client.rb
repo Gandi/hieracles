@@ -60,14 +60,6 @@ module Hieracles
         end
       end
 
-      def get_info(fqdn)
-        request("nodes/#{fqdn}")
-      end
-
-      def get_facts(fqdn)
-        request("nodes/#{fqdn}/facts")
-      end
-
     end
   end
 end

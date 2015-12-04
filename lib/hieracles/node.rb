@@ -132,13 +132,13 @@ module Hieracles
     end
 
     def puppetdb_info
-      resp = request_db.info(@fqdn)
+      resp = request_db.node_info(@fqdn)
       resp.data
     end
 
     def puppet_facts
       if Config.usedb
-        resp = request_db.facts(@fqdn)
+        resp = request_db.node_facts(@fqdn)
         @notifications = resp.notifications
         if resp.total_records > 0
           resp.data.reduce({}) do |a, v|
