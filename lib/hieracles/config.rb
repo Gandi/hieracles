@@ -14,26 +14,31 @@ module Hieracles
 
     def load(options)
       @options = options
-      @optionfile = options[:config] || defaultconfig
+      @optionfile = @options[:config] || defaultconfig
       @extraparams = extract_params(options[:params])
-      values = get_config(@optionfile)
-      @server = values['server']
-      @usedb = if options[:db]
+      @values = get_config(@optionfile)
+      @server = @values['server']
+      @usedb = if @options[:db]
         true
-      elsif options[:nodb]
+      elsif @options[:nodb]
         false
       else
-        values['usedb']
+        @values['usedb']
       end
-      @puppetdb = values['puppetdb']
-      @basepath = File.expand_path(options[:basepath] || values['basepath'] || values['localpath'] || '.')
-      @classpath = build_path(values['classpath'])
-      @modulepath = resolve_path(values['modulepath'] || 'modules')
-      @encpath = resolve_path(options[:encpath] || values['encpath'] || 'enc')
-      @hierafile = resolve_path(options[:hierafile] || values['hierafile'] || 'hiera.yaml')
-      @format = (options[:format] || values['format'] || 'console').capitalize
-      @scope = load_scope(values)
-      @interactive = options[:interactive] || values['interactive']
+      @puppetdb = @values['puppetdb']
+      @values['basepath'] ||= @values['localpath']
+      @basepath = File.expand_path(pick_first(:basepath, '.'))
+      @classpath = build_path(@values['classpath'])
+      @modulepath = resolve_path(pick_first(:modulepath, 'modules'))
+      @encpath = resolve_path(pick_first(:encpath, 'enc'))
+      @hierafile = resolve_path(pick_first(:hierafile, 'hiera.yaml'))
+      @format = pick_first(:format, 'console').capitalize
+      @scope = load_scope(@values)
+      @interactive = pick_first(:interactive, false)
+    end
+
+    def pick_first(label, default)
+      @options[label] || @values[label.to_s] || default
     end
 
     def get_config(file)
