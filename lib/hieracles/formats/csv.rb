@@ -34,18 +34,14 @@ module Hieracles
         if !filter || Regexp.new(filter).match(key)
           first = value.pop
           if is_merged? first
-            output << make_csv(in_what_file('-') +
-                     [key, first[:merged].to_s, '0'])
-            output << make_csv(in_what_file(first[:file]) +
-                     [key, first[:value].to_s, '1'])
+            output << build_line('-', key, first[:merged])
+            output << build_line(first[:file], key, first[:value], '1')
           else
-            output << make_csv(in_what_file(first[:file]) +
-                     [key, first[:value].to_s, '0'])
+            output << build_line(first[:file], key, first[:value])
           end
           while value.count > 0
             overriden = value.pop
-            output << make_csv(in_what_file(overriden[:file]) +
-                     [key, overriden[:value].to_s, '1'])
+            output << build_line(overriden[:file], key, overriden[:value], '1')
           end
         end
         output
@@ -59,6 +55,10 @@ module Hieracles
 
       def make_csv(array)
         array.join(CVS_DELIM) + "\n"
+      end
+
+      def build_line(whatfile, key, value, overriden = '0')
+        make_csv(in_what_file(whatfile) + [key, value.to_s, overriden])
       end
 
       def in_what_file(file)
