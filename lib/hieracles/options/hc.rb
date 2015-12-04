@@ -1,3 +1,5 @@
+require 'hieracles/optparse'
+
 module Hieracles
   module Options
     class Hc < Hieracles::Optparse

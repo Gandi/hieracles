@@ -1,6 +1,5 @@
 require 'hieracles/notification'
 require 'hieracles/interpolate'
-require 'hieracles/optparse'
 require 'hieracles/options/hc'
 require 'hieracles/config'
 require 'hieracles/hiera'

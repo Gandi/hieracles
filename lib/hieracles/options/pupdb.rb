@@ -1,3 +1,5 @@
+require 'hieracles/optparse'
+
 module Hieracles
   module Options
     class Pupdb < Hieracles::Optparse
