@@ -53,12 +53,12 @@ module Hieracles
 
     private
 
-      def make_csv(array)
-        array.join(CVS_DELIM) + "\n"
-      end
-
       def build_line(whatfile, key, value, overriden = '0')
         make_csv(in_what_file(whatfile) + [key, value.to_s, overriden])
+      end
+
+      def make_csv(array)
+        array.join(CVS_DELIM) + "\n"
       end
 
       def in_what_file(file)
