@@ -45,8 +45,6 @@ module Hieracles
       FileUtils.mkdir_p(File.dirname(file))
       File.open(file, 'w') do |f|
         f.puts '---'
-        f.puts '# uncomment if you use the CGI method for discovery'
-        f.puts '# server: puppetserver.example.com'
         f.puts 'classpath: manifests/classes/%s.pp'
         f.puts 'modulepath: modules'
         f.puts 'encpath: enc'

@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path("../../lib", __FILE__)
+
+require 'hieracles'
+
+opt = Hieracles::Options::Pupdb.new(ARGV)
+
+if opt.options.has_key? :version
+  puts Hieracles.version
+  exit(0)
+end
+
+command = opt.payload[0]
+args = opt.payload[2..-1]
+

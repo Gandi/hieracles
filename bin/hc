@@ -4,7 +4,7 @@ $LOAD_PATH << File.expand_path("../../lib", __FILE__)
 
 require 'hieracles'
 
-opt = Hieracles::Optparse.new(ARGV)
+opt = Hieracles::Options::Hc.new(ARGV)
 
 if opt.options.has_key? :version
   puts Hieracles.version

@@ -1,0 +1,21 @@
+export PUPPET_PATH=$(grep "\(local\|base\)path" $HOME/.config/hieracles/config.yml | cut -d' ' -f2 | sed -e "s/\\\"//g")
+
+! test -z $PUPPET_PATH || export PUPPET_PATH=.
+
+if [ -d "$PUPPET_PATH/enc" ]
+then
+  _hc() {
+      local cmd prev list
+      cmd="${COMP_WORDS[COMP_CWORD]}"
+      prev="${COMP_WORDS[COMP_CWORD-1]}"
+      if (( COMP_CWORD == 2 ))
+      then
+        list="${$(find $PUPPET_PATH/enc -print | xargs -- basename -s | sed -e 's~\.yaml~~')}"
+        COMPREPLY=( $(compgen -W "${list}" -- ${cmd}) )
+      elif (( COMP_CWORD == 3 ))
+        COMPREPLY=( $(compgen -W "info files paths modules params allparams" -- ${cmd}) )
+      fi
+  }
+
+  complete -F _hc hc 'bundle exec hc' './bin/hc'
+fi
