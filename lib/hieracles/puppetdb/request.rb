@@ -2,8 +2,8 @@ module Hieracles
   module Puppetdb
     class Request
 
-      def initialize(client)
-        @client = client
+      def initialize(options)
+        @client = Hieracles::Puppetdb::Client.new options
       end
 
       def info(fqdn)

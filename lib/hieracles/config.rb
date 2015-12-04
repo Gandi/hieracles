@@ -65,10 +65,6 @@ module Hieracles
       end
     end
 
-    def path(what)
-      send(what.to_sym)
-    end
-
     def load_scope(values)
       facts_file = @options[:yaml_facts] || @options[:json_facts]
       facts_format = @options[:json_facts] ? :json : :yaml

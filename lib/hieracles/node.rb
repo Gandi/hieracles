@@ -26,8 +26,8 @@ module Hieracles
     end
 
     def get_hiera_params(fqdn)
-      @__hiera_params ||= if File.exist?(File.join(Config.path('encpath'), "#{fqdn}.yaml"))
-        load = YAML.load_file(File.join(Config.path('encpath'), "#{fqdn}.yaml"))
+      @__hiera_params ||= if File.exist?(File.join(Config.encpath, "#{fqdn}.yaml"))
+        load = YAML.load_file(File.join(Config.encpath, "#{fqdn}.yaml"))
         sym_keys(load['parameters']).merge({ classes: load['classes']})
       else
         raise "Node not found"
@@ -110,7 +110,7 @@ module Hieracles
 
     def classfiles
       @hiera_params[:classes].map do |cl|
-        format(Config.path('classpath'), cl)
+        format(Config.classpath, cl)
       end
     end
 
@@ -155,8 +155,7 @@ module Hieracles
     end
 
     def request_db
-      @_puppetdb ||= Hieracles::Puppetdb::Client.new Config.puppetdb
-      @_request ||= Hieracles::Puppetdb::Request.new @_puppetdb
+      @_request ||= Hieracles::Puppetdb::Request.new Config.puppetdb
     end
 
     def merge_trees(left, right)
