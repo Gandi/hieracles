@@ -18,11 +18,9 @@ module Hieracles
       @hiera_params = { fqdn: @fqdn }.
         merge(get_hiera_params(@fqdn)).
         merge(Config.extraparams)
-      @facts = Config.extraparams.
-        merge(puppet_facts).
+      @facts = @hiera_params.
         merge(Config.scope).
-        merge(get_hiera_params(@fqdn)).
-        merge({ fqdn: @fqdn })
+        merge(puppet_facts)
     end
 
     def get_hiera_params(fqdn)
