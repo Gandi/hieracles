@@ -6,39 +6,42 @@ module Hieracles
     class Json < Hieracles::Format
 
       def info(_)
-        if @node.notifications.count > 0
-          payload = @node.info
-          payload['alerts'] = @node.notifications.map(&:to_hash)
-        else
-          payload = @node.info
-        end
-        payload.to_json
+        @node.info.merge(alerts).to_json
       end
 
       def facts(_)
-        @node.facts.to_json
+        @node.facts.merge(alerts).to_json
       end
 
       def files(_)
-        @node.files.to_json
+        { 'files' => @node.files }.merge(alerts).to_json
       end
 
       def paths(_)
-        @node.paths.to_json
+        { 'paths' => @node.paths }.merge(alerts).to_json
       end
 
       def modules(_)
-        @node.modules.to_json
+        @node.modules.merge(alerts).to_json
       end
 
       def params(args)
-        @node.params(true).to_json
+        @node.params(true).merge(alerts).to_json
       end
 
       def allparams(args)
-        @node.params(false).to_json
+        @node.params(false).merge(alerts).to_json
       end
 
+    private
+
+      def alerts
+        if @node.notifications.count > 0
+          { 'alerts': @node.notifications.map(&:to_hash) }
+        else
+          {}
+        end
+      end
     end
   end
 end

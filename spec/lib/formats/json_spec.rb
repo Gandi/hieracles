@@ -27,22 +27,25 @@ describe Hieracles::Formats::Json do
           'Farm' => 'farm'
         }
       )
+      allow(node).to receive(:notifications).and_return([])
     }
     it { expect(json_format.facts nil).to eq expected }
   end
 
   describe ".files" do
-    let(:expected) { '["path1","path2"]' }
+    let(:expected) { '{"files":["path1","path2"]}' }
     before {
       allow(node).to receive(:files).and_return(['path1', 'path2'])
+      allow(node).to receive(:notifications).and_return([])
     }
     it { expect(json_format.files nil).to eq expected }
   end
 
   describe ".paths" do
-    let(:expected) { '["path1","path2"]' }
+    let(:expected) { '{"paths":["path1","path2"]}' }
     before {
       allow(node).to receive(:paths).and_return(['path1', 'path2'])
+      allow(node).to receive(:notifications).and_return([])
     }
     it { expect(json_format.paths nil).to eq expected }
   end
@@ -57,6 +60,7 @@ describe Hieracles::Formats::Json do
           'longmodule2' => "not found"
         }
       )
+      allow(node).to receive(:notifications).and_return([])
     }
     it { expect(json_format.modules nil).to eq expected }
   end
@@ -73,6 +77,7 @@ describe Hieracles::Formats::Json do
           }
         }
       )
+      allow(node).to receive(:notifications).and_return([])
     }
     it { expect(json_format.params nil).to eq expected }
   end
@@ -89,6 +94,7 @@ describe Hieracles::Formats::Json do
           }
         }
       )
+      allow(node).to receive(:notifications).and_return([])
     }
     it { expect(json_format.allparams nil).to eq expected }
   end
