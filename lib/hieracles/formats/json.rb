@@ -37,7 +37,7 @@ module Hieracles
 
       def alerts
         if @node.notifications.count > 0
-          { 'alerts': @node.notifications.map(&:to_hash) }
+          { 'alerts' => @node.notifications.map(&:to_hash) }
         else
           {}
         end
