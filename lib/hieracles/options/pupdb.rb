@@ -16,7 +16,7 @@ module Hieracles
       def self.usage
         return <<-END
 
-Usage: pupdb <command> [extra_args]
+Usage: pupdb <endpoint> <command> [extra_args]
 
 Available commands:
   node info <fqdn>

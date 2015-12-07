@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'deep_merge'
   spec.add_dependency 'httparty'
+  spec.add_dependency 'awesome_print'
   spec.add_dependency 'mime-types', [ '>= 2.6.2', '< 3' ]
 
   spec.add_development_dependency "bundler", "~> 1.7"

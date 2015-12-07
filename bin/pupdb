@@ -12,8 +12,8 @@ if opt.options.has_key? :version
   exit(0)
 end
 
-command = opt.payload[0]
-args = opt.payload[2..-1]
+command = "#{opt.payload[0]}_#{opt.payload[1]}"
+args = opt.payload[2..-1] || []
 
 unless command
   puts Hieracles::Options::Pupdb.usage
@@ -23,7 +23,17 @@ end
 Hieracles::Config.load opt.options
 
 if Hieracles::Puppetdb::Request.method_defined? command
-
+  req = Hieracles::Puppetdb::Request.new Hieracles::Config.puppetdb
+  meth = req.method(command.to_sym)
+  if args.length < meth.arity
+    args = req.method(command.to_sym).parameters.map { |arg| arg[1] }.join(', ')
+    puts "*** The #{command} method requires arguments: #{args}"
+    exit(1)
+  else
+    format = Hieracles::Formats::Console.new(nil)
+    resp = meth.call(*args)
+    puts format.build_list(resp.data, resp.notifications, [])
+  end
 else
   puts "*** Unknown command: #{command}"
   puts Hieracles::Options::Pupdb.usage

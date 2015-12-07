@@ -1,3 +1,5 @@
+require 'awesome_print'
+
 module Hieracles
   module Formats
     # format accepting colors
@@ -40,6 +42,9 @@ module Hieracles
         length = max_key_length(hash) + 2
         title = format(COLORS[8], "%-#{length}s")
         hash.each do |k, v|
+          if v.class.name == 'Hash' || v.class.name == 'Array'
+            v = v.ai({ indent: 10, raw: true}).strip
+          end
           back << format("#{title} %s\n", k, v)
         end
         back

@@ -129,8 +129,7 @@ module Hieracles
     end
 
     def puppetdb_info
-      resp = request_db.node_info(@fqdn)
-      resp.data
+      request_db.node_info(@fqdn).data
     end
 
     def puppet_facts
@@ -138,10 +137,7 @@ module Hieracles
         resp = request_db.node_facts(@fqdn)
         @notifications = resp.notifications
         if resp.total_records > 0
-          resp.data.reduce({}) do |a, v|
-            a[v['name'].to_sym] = v['value']
-            a
-          end
+          resp.data
         else
           error "not found in puppetdb."
           {}

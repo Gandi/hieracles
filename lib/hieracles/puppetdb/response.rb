@@ -2,6 +2,7 @@ module Hieracles
   module Puppetdb
     class Response
       attr_reader :data, :total_records, :notifications
+      attr_writer :data
 
       def initialize(data, total_records = nil, notifications = nil)
         @data = data

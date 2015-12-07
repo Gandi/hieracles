@@ -25,35 +25,37 @@ describe Hieracles::Puppetdb::Request do
 
   describe '.node_facts' do
     let(:request) { Hieracles::Puppetdb::Request.new({}) }
-    let(:expected) {
-      [{
-        'some' => 'info'
-      }]
-    }
+    let(:response) { Hieracles::Puppetdb::Response.new([{'name' => 'some', 'value' => 'info'}], 1, []) }
+    let(:expected_response) { Hieracles::Puppetdb::Response.new({some: 'info'}, 1, []) }
     before {
       allow_any_instance_of(Hieracles::Puppetdb::Client).
         to receive(:request).
         with('nodes/some.host/facts').
-        and_return([{'some' => 'info'}])
+        and_return(response)
     }
-    it { expect(request.node_facts 'some.host').to eq expected }
+    it { expect(request.node_facts('some.host').data).to eq expected_response.data }
   end
 
 
   describe '.node_resources' do
     let(:request) { Hieracles::Puppetdb::Request.new({}) }
+    let(:response) { Hieracles::Puppetdb::Response.new([{'name' => 'some', 'value' => 'info', 'title' => 'title'}], 1, []) }
     let(:expected) {
-      [{
-        'some' => 'info'
-      }]
+      {
+        'title' => {
+          'name' => 'some',
+          'value' => 'info',
+          'title' => 'title'
+        }
+      }
     }
     before {
       allow_any_instance_of(Hieracles::Puppetdb::Client).
         to receive(:request).
         with('nodes/some.host/resources').
-        and_return([{'some' => 'info'}])
+        and_return(response)
     }
-    it { expect(request.node_resources 'some.host').to eq expected }
+    it { expect(request.node_resources('some.host').data).to eq expected }
   end
 
 end
