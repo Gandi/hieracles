@@ -13,6 +13,18 @@ module Hieracles
         }
       end
 
+      def usage
+        return <<-END
+
+        Usage: pupdb <command> [extra_args]
+
+        Available commands:
+
+        ... wip ...
+        
+        END
+      end
+
     end
   end
 end

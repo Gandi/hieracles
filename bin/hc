@@ -3,6 +3,7 @@
 $LOAD_PATH << File.expand_path("../../lib", __FILE__)
 
 require 'hieracles'
+require 'hieracles/options/hc'
 
 opt = Hieracles::Options::Hc.new(ARGV)
 
@@ -16,7 +17,7 @@ command = opt.payload[1]
 args = opt.payload[2..-1]
 
 unless fqdn && command
-  puts Hieracles::Help.usage
+  puts opt.usage
   exit(1)
 end
  

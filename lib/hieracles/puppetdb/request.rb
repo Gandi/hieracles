@@ -14,6 +14,10 @@ module Hieracles
         @client.request "nodes/#{fqdn}/facts"
       end
 
+      def node_resources(fqdn)
+        @client.request "nodes/#{fqdn}/resources"
+      end
+
     end
   end
 end

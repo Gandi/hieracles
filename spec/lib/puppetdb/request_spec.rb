@@ -39,4 +39,21 @@ describe Hieracles::Puppetdb::Request do
     it { expect(request.node_facts 'some.host').to eq expected }
   end
 
+
+  describe '.node_resources' do
+    let(:request) { Hieracles::Puppetdb::Request.new({}) }
+    let(:expected) {
+      [{
+        'some' => 'info'
+      }]
+    }
+    before {
+      allow_any_instance_of(Hieracles::Puppetdb::Client).
+        to receive(:request).
+        with('nodes/some.host/resources').
+        and_return([{'some' => 'info'}])
+    }
+    it { expect(request.node_resources 'some.host').to eq expected }
+  end
+
 end

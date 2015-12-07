@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'hieracles/options/hc'
 
 describe Hieracles::Options::Hc do
   describe '.initialize' do

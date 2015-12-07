@@ -3,6 +3,7 @@
 $LOAD_PATH << File.expand_path("../../lib", __FILE__)
 
 require 'hieracles'
+require 'hieracles/options/pupdb'
 
 opt = Hieracles::Options::Pupdb.new(ARGV)
 
@@ -14,3 +15,7 @@ end
 command = opt.payload[0]
 args = opt.payload[2..-1]
 
+unless command
+  puts opt.usage
+  exit(1)
+end
