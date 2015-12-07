@@ -11,8 +11,8 @@ describe Hieracles::Puppetdb::FixSSLConnectionAdapter do
       context "not found" do
         let(:options) {
           {
-            'cert_file' => File.expand_path('spec/files/ssl/no-cert.crt'),
-            'key_file' => File.expand_path('spec/files/ssl/key.pem'),
+            'cert' => File.expand_path('spec/files/ssl/no-cert.crt'),
+            'key' => File.expand_path('spec/files/ssl/key.pem'),
             'ca_file' => File.expand_path('spec/files/ssl/ca.crt')
           }
         }
@@ -21,8 +21,8 @@ describe Hieracles::Puppetdb::FixSSLConnectionAdapter do
       context "badly formatted" do
         let(:options) {
           {
-            'cert_file' => File.expand_path('spec/files/ssl/bad-cert.crt'),
-            'key_file' => File.expand_path('spec/files/ssl/key.pem'),
+            'cert' => File.expand_path('spec/files/ssl/bad-cert.crt'),
+            'key' => File.expand_path('spec/files/ssl/key.pem'),
             'ca_file' => File.expand_path('spec/files/ssl/ca.crt')
           }
         }
@@ -34,8 +34,8 @@ describe Hieracles::Puppetdb::FixSSLConnectionAdapter do
       context "not found" do
         let(:options) {
           {
-            'cert_file' => File.expand_path('spec/files/ssl/cert.crt'),
-            'key_file' => File.expand_path('spec/files/ssl/no-key.pem'),
+            'cert' => File.expand_path('spec/files/ssl/cert.crt'),
+            'key' => File.expand_path('spec/files/ssl/no-key.pem'),
             'ca_file' => File.expand_path('spec/files/ssl/ca.crt')
           }
         }
@@ -44,8 +44,8 @@ describe Hieracles::Puppetdb::FixSSLConnectionAdapter do
       context "badly formatted" do
         let(:options) {
           {
-            'cert_file' => File.expand_path('spec/files/ssl/cert.crt'),
-            'key_file' => File.expand_path('spec/files/ssl/bad-key.pem'),
+            'cert' => File.expand_path('spec/files/ssl/cert.crt'),
+            'key' => File.expand_path('spec/files/ssl/bad-key.pem'),
             'ca_file' => File.expand_path('spec/files/ssl/ca.crt')
           }
         }
@@ -55,8 +55,8 @@ describe Hieracles::Puppetdb::FixSSLConnectionAdapter do
         context "correct" do
           let(:options) {
             {
-              'cert_file' => File.expand_path('spec/files/ssl/cert.crt'),
-              'key_file' => File.expand_path('spec/files/ssl/key-pass.pem'),
+              'cert' => File.expand_path('spec/files/ssl/cert.crt'),
+              'key' => File.expand_path('spec/files/ssl/key-pass.pem'),
               'key_password' => 'good-toto',
               'ca_file' => File.expand_path('spec/files/ssl/ca.crt')
             }
@@ -66,8 +66,8 @@ describe Hieracles::Puppetdb::FixSSLConnectionAdapter do
         context "incorrect" do
           let(:options) {
             {
-              'cert_file' => File.expand_path('spec/files/ssl/cert.crt'),
-              'key_file' => File.expand_path('spec/files/ssl/key-pass.pem'),
+              'cert' => File.expand_path('spec/files/ssl/cert.crt'),
+              'key' => File.expand_path('spec/files/ssl/key-pass.pem'),
               'key_password' => 'bad-toto',
               'ca_file' => File.expand_path('spec/files/ssl/ca.crt')
             }
@@ -81,8 +81,8 @@ describe Hieracles::Puppetdb::FixSSLConnectionAdapter do
       context "not found" do
         let(:options) {
           {
-            'cert_file' => File.expand_path('spec/files/ssl/cert.crt'),
-            'key_file' => File.expand_path('spec/files/ssl/key.pem'),
+            'cert' => File.expand_path('spec/files/ssl/cert.crt'),
+            'key' => File.expand_path('spec/files/ssl/key.pem'),
             'ca_file' => File.expand_path('spec/files/ssl/no-ca.crt')
           }
         }
@@ -93,8 +93,8 @@ describe Hieracles::Puppetdb::FixSSLConnectionAdapter do
     context "all correct" do
       let(:options) {
         {
-          'cert_file' => File.expand_path('spec/files/ssl/cert.crt'),
-          'key_file' => File.expand_path('spec/files/ssl/key.pem'),
+          'cert' => File.expand_path('spec/files/ssl/cert.crt'),
+          'key' => File.expand_path('spec/files/ssl/key.pem'),
           'ca_file' => File.expand_path('spec/files/ssl/ca.crt'),
           'verify_peer' => '1'
         }

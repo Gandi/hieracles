@@ -19,13 +19,6 @@ module Hieracles
 
       def setup_if_ssl(options)
         if options['usessl']
-          %w('key', 'cert', 'ca_file').each do |k|
-            if ! options.has_key? k
-              raise 'Configuration error: #{k} is missing.'
-            elsif ! File.exists(options[k])
-              raise 'Configuration error: #{k} file not found.'
-            end
-          end
           self.class.default_options = {:options => options}
           self.class.connection_adapter(FixSSLConnectionAdapter)
         end

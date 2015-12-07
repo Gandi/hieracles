@@ -163,9 +163,9 @@ or for a ssl setup:
       usessl: true
       host: puppetdb.example.com
       port: 8081
-      key_file: path/to/key
+      key: path/to/key
       key_password: somepassword
-      cert_file: path/to/cert
+      cert: path/to/cert
       ca_file: path/to/ca_file
       verify_peer: false
 
