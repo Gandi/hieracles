@@ -31,7 +31,7 @@ module Hieracles
                     Also accepts a search string
 
       Extra args:
-        -f <plain|console|csv|yaml|rawyaml> default console
+        -f <plain|console|csv|yaml|rawyaml|json> default console
         -p extraparam=what;anotherparam=this 
         -c <configfile>
         -h <hierafile>
@@ -40,6 +40,9 @@ module Hieracles
         -y <fact_file> - facts in yaml format
         -j <fact_file> - facts in json format
         -v just displays the version of Hieracles
+        -i - interactive mode
+        -db - query puppetdb
+        -nodb - do not query puppetdb
       END
     end
   end
