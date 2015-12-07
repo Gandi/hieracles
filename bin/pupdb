@@ -16,6 +16,16 @@ command = opt.payload[0]
 args = opt.payload[2..-1]
 
 unless command
-  puts opt.usage
+  puts Hieracles::Options::Pupdb.usage
+  exit(1)
+end
+
+Hieracles::Config.load opt.options
+
+if Hieracles::Puppetdb::Request.method_defined? command
+
+else
+  puts "*** Unknown command: #{command}"
+  puts Hieracles::Options::Pupdb.usage
   exit(1)
 end

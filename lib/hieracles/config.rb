@@ -43,7 +43,7 @@ module Hieracles
 
     def get_config(file)
       initconfig(file) unless File.exist? file
-      values = YAML.load_file(file)
+      YAML.load_file(file)
     end
 
     def initconfig(file)

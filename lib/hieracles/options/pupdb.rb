@@ -13,15 +13,16 @@ module Hieracles
         }
       end
 
-      def usage
+      def self.usage
         return <<-END
 
-        Usage: pupdb <command> [extra_args]
+Usage: pupdb <command> [extra_args]
 
-        Available commands:
+Available commands:
+  node info <fqdn>
+  node facts <fqdn>
+  node resources <fqdn>
 
-        ... wip ...
-        
         END
       end
 

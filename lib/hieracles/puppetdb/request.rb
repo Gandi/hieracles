@@ -17,6 +17,7 @@ module Hieracles
       def node_resources(fqdn)
         @client.request "nodes/#{fqdn}/resources"
       end
+      alias_method :node_res, :node_resources
 
     end
   end

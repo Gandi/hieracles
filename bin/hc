@@ -17,7 +17,7 @@ command = opt.payload[1]
 args = opt.payload[2..-1]
 
 unless fqdn && command
-  puts opt.usage
+  puts Hieracles::Options::Hc.usage
   exit(1)
 end
  
@@ -25,19 +25,19 @@ if Hieracles::Format.method_defined? command
   begin
     node = Hieracles::Node.new fqdn, opt.options
   rescue Exception => e
-    puts "  Error: #{e.message}"
+    puts "*** Error: #{e.message}"
     exit(1)
   end
   begin
     formatter = Object.const_get("Hieracles::Formats::#{Hieracles::Config.format}")
   rescue
-    puts "  Unknown format #{Hieracles::Config.format}"
+    puts "*** Unknown format #{Hieracles::Config.format}"
     exit(1)
   end
   dispatch = formatter.new node
   puts dispatch.send(command.to_sym, args)
 else
-  puts "  Unknown command: #{command}"
-  Hieracles::Help.usage
+  puts "*** Unknown command: #{command}"
+  Hieracles::Options::Hc.usage
   exit(1)
 end
