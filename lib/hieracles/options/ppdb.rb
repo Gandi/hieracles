@@ -2,7 +2,7 @@ require 'hieracles/optparse'
 
 module Hieracles
   module Options
-    class Pupdb < Hieracles::Optparse
+    class Ppdb < Hieracles::Optparse
 
       def available_options
         {
@@ -16,7 +16,7 @@ module Hieracles
       def self.usage
         return <<-END
 
-Usage: pupdb <endpoint> <command> [extra_args]
+Usage: ppdb <endpoint> <command> [extra_args]
 
 Available commands:
   node info <fqdn>

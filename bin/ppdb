@@ -3,9 +3,9 @@
 $LOAD_PATH << File.expand_path("../../lib", __FILE__)
 
 require 'hieracles'
-require 'hieracles/options/pupdb'
+require 'hieracles/options/ppdb'
 
-opt = Hieracles::Options::Pupdb.new(ARGV)
+opt = Hieracles::Options::Ppdb.new(ARGV)
 
 if opt.options.has_key? :version
   puts Hieracles.version
@@ -16,7 +16,7 @@ command = "#{opt.payload[0]}_#{opt.payload[1]}"
 args = opt.payload[2..-1] || []
 
 unless command
-  puts Hieracles::Options::Pupdb.usage
+  puts Hieracles::Options::Ppdb.usage
   exit(1)
 end
 
@@ -37,6 +37,6 @@ if Hieracles::Puppetdb::Request.method_defined? command
   end
 else
   puts "*** Unknown command: #{command}"
-  puts Hieracles::Options::Pupdb.usage
+  puts Hieracles::Options::Ppdb.usage
   exit(1)
 end

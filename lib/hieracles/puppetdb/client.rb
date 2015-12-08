@@ -51,9 +51,7 @@ module Hieracles
               filtered_opts[k.to_s.sub("_", "-")] = v
             end
           end
-          # puts path
-          # puts filtered_opts
-          # return
+          puts path ; puts filtered_opts ; exit(0)
           self.class.get(path, query: filtered_opts)
         else
           self.class.get(path)
