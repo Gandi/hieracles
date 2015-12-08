@@ -6,12 +6,12 @@ module Hieracles
         @client = Hieracles::Puppetdb::Client.new options
       end
 
-      def node_info(fqdn)
+      def node_info(fqdn, *args)
         @client.request("nodes/#{fqdn}")
       end
       alias_method :node_infos, :node_info
 
-      def node_facts(fqdn)
+      def node_facts(fqdn, *args)
         resp = @client.request("nodes/#{fqdn}/facts")
         resp.data = resp.data.reduce({}) do |a, d|
           a[d['name'].to_sym] = d['value']
@@ -21,7 +21,7 @@ module Hieracles
       end
       alias_method :node_fact, :node_facts
 
-      def node_resources(fqdn)
+      def node_resources(fqdn, *args)
         resp = @client.request "nodes/#{fqdn}/resources"
         resp.data = resp.data.reduce({})  do |a, d|
           a[d['title']] = d

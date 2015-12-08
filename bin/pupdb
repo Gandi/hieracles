@@ -23,10 +23,11 @@ end
 Hieracles::Config.load opt.options
 
 if Hieracles::Puppetdb::Request.method_defined? command
-  req = Hieracles::Puppetdb::Request.new Hieracles::Config.puppetdb
-  meth = req.method(command.to_sym)
-  if args.length < meth.arity
-    args = req.method(command.to_sym).parameters.map { |arg| arg[1] }.join(', ')
+  request = Hieracles::Puppetdb::Request.new Hieracles::Config.puppetdb
+  meth = request.method(command.to_sym)
+  required = request.method(command.to_sym).parameters.select { |arg| arg[0] == :req }.map { |arg| arg[1] }
+  if args.length < required.length
+    args = required.join(', ')
     puts "*** The #{command} method requires arguments: #{args}"
     exit(1)
   else
