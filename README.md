@@ -112,8 +112,6 @@ Usage
 About facts aka. scope
 ------------------------
 
-_(work in progress)_
-
 Like with Hiera CLI you can use hieracles with defined top-scope variables. Those top-scope vars can be defined with:
 
 - `-p extraparam=what;anotherparam=this`
@@ -143,8 +141,6 @@ An option, `-i` enables the `interactive mode` in which you are prompted to fill
 
 Optionnaly connecting to a puppetDB
 --------------------------------------
-
-*experimental*
 
 #### Configuration
 
@@ -186,18 +182,19 @@ There is a simple zsh completion file in `tools/completion`.
 
 If you use [oh-my-zsh][omz] put it in `~/.oh-my-zsh/completions`
 
-    wget -O ~/.oh-my-zsh/completions/_hc https://raw.githubusercontent.com/Gandi/hieracles/master/tools/completion/_hc
+    wget -O ~/.oh-my-zsh/completions/_hc https://raw.githubusercontent.com/Gandi/hieracles/master/tools/completion/zsh/_hc
     echo 'compdef _hc hc "bundle exec hc"' >> ~/.zshrc
     echo 'autoload -U _hc' >> ~/.zshrc
     
 Otherwise 
 
     mkdir ~/.zsh-completions
-    wget -O ~/.zsh-completions/_hc https://raw.githubusercontent.com/Gandi/hieracles/master/tools/completion/_hc
+    wget -O ~/.zsh-completions/_hc https://raw.githubusercontent.com/Gandi/hieracles/master/tools/completion/zsh/_hc
     echo 'fpath=(~/.zsh-completions $fpath)' >> ~/.zshrc
     echo 'compdef _hc hc "bundle exec hc"' >> ~/.zshrc
     echo 'autoload -U _hc' >> ~/.zshrc
 
+Note: `ppdb` also has a completion file https://raw.githubusercontent.com/Gandi/hieracles/master/tools/completion/zsh/_ppdb
 
 Debian packaging
 --------------------
