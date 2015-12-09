@@ -5,7 +5,7 @@ Hieracles
 [![Downloads](http://img.shields.io/gem/dt/hieracles.svg)](https://rubygems.org/gems/hieracles)
 [![Build Status](https://img.shields.io/travis/Gandi/hieracles.svg)](https://travis-ci.org/Gandi/hieracles)
 [![Coverage Status](https://img.shields.io/coveralls/Gandi/hieracles.svg)](https://coveralls.io/github/Gandi/hieracles?branch=master)
-[![Dependency Status](https://img.shields.io/gemnasium/Gandi/hieracles.svg)](https://gemnasium.com/Gandi/hieracles)
+[![Dependency Status](https://gemnasium.com/Gandi/hieracles.svg)](https://gemnasium.com/Gandi/hieracles)
 [![Code Climate](https://img.shields.io/codeclimate/github/Gandi/hieracles.svg)](https://codeclimate.com/github/Gandi/hieracles)
 
 Hieracles is a command-line tool for analysis and deep examination of [Hiera][hiera] parameters in a [Puppet][puppet] setup. It can be used to quickly visualize, from a local puppet (typically on a developers environment), all the Hiera params related to a specific node.
