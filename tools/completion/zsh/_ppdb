@@ -1,0 +1,58 @@
+#compdef ppdb
+
+! test -z $PUPPET_PATH || export PUPPET_PATH=$(grep "\(local\|base\)path" $HOME/.config/hieracles/config.yml | cut -d' ' -f2 | sed -e "s/\\\"//g")
+
+! test -z $PUPPET_PATH || export PUPPET_PATH=.
+
+if [ -d "$PUPPET_PATH/enc" ]
+then
+  _ppdb() {
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+    _arguments -C \
+      ':command:->command' \
+      '*::options:->options'
+    case $state in
+      (command)
+        local -a endpoints
+        endpoints=(
+          'node:query information about given node.'
+        )
+        _describe -t commands 'ppdb' endpoints
+      ;;
+      (options)
+        case $line[1] in
+          (node)
+            __ppdb-node
+          ;;
+        esac
+      ;;
+    esac
+  }
+  __ppdb-node () {
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+    _arguments -C \
+      ':command:->command' \
+      ':nodes:->nodes'
+    case $state in
+      (command)
+        local -a subcommands
+        subcommands=(
+          'info:gives node information.'
+          'facts:lists facts for the node.'
+          'resources:list resoruces recorded for the node.'
+        )
+        _describe -t commands 'ppdb node' subcommands
+      ;;
+      (nodes)
+        local expl
+        declare -a nodes
+        nodes=(${$(find $PUPPET_PATH/enc -print | xargs -- basename -s | sed -e 's~\.yaml~~')})
+        _wanted nodes expl 'nodes' compadd $nodes
+      ;;
+    esac
+  }
+
+  _ppdb
+fi

@@ -1,6 +1,6 @@
 #compdef hc
 
-export PUPPET_PATH=$(grep "\(local\|base\)path" $HOME/.config/hieracles/config.yml | cut -d' ' -f2 | sed -e "s/\\\"//g")
+! test -z $PUPPET_PATH || export PUPPET_PATH=$(grep "\(local\|base\)path" $HOME/.config/hieracles/config.yml | cut -d' ' -f2 | sed -e "s/\\\"//g")
 
 ! test -z $PUPPET_PATH || export PUPPET_PATH=.
 
@@ -11,7 +11,8 @@ then
       if (( CURRENT == 2 ))
       then
         _values -C 'fqdn' ${$(find $PUPPET_PATH/enc -print | xargs -- basename -s | sed -e 's~\.yaml~~')}
-      else if (( CURRENT == 3 ))
+      elif (( CURRENT == 3 ))
+      then
         _values -C 'command' info files paths modules params allparams
       fi
   }

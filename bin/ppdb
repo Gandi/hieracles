@@ -12,13 +12,13 @@ if opt.options.has_key? :version
   exit(0)
 end
 
-command = "#{opt.payload[0]}_#{opt.payload[1]}"
-args = opt.payload[2..-1] || []
-
-unless command
+unless opt.payload[1]
   puts Hieracles::Options::Ppdb.usage
   exit(1)
 end
+
+command = "#{opt.payload[0]}_#{opt.payload[1]}"
+args = opt.payload[2..-1] || []
 
 Hieracles::Config.load opt.options
 
