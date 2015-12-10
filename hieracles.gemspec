@@ -14,13 +14,13 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
 
   spec.files         = Dir.glob("{bin,lib}/**/*") + 
-                       %w(CHANGELOG.md Gemfile LICENSE README.md hc.1)
-  spec.executables   = ['hc']
+                       %w(CHANGELOG.md Gemfile LICENSE README.md hc.1 ppdb.1)
+  spec.executables   = ['hc','ppdb']
   spec.test_files    = Dir.glob("spec/**/*")
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'deep_merge'
   spec.add_dependency 'httparty'
+  spec.add_dependency 'deep_merge'
   spec.add_dependency 'awesome_print'
   spec.add_dependency 'mime-types', [ '>= 2.6.2', '< 3' ]
 
