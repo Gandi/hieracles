@@ -1,0 +1,114 @@
+.TH ppdb 1 "2015-12-05" "version 0.2.1" "Hieracles command manual"
+
+.SH NAME
+ppdb \- Command line tool to query puppetdb
+.SH SYNOPSIS
+.B ppdb 
+.I object
+.I command
+.B [
+.I options
+.B ]
+
+.SH DESCRIPTION
+.PP
+This tool is part of the Hieracles tools suite.
+.PP
+PuppetDB stores information gathered by Puppet when nodes run 
+the puppet client. It exposes a very neat REST interface, but 
+its query system can be a little complicated.
+.PP
+The purpose of 
+.B ppdb
+is to overlay the calls to the REST API and propose a more
+user-friendly way to query the Puppet Database (puppetdb).
+.PP
+Note that this tool is designed to work fine with the version 3 
+of the PuppetDB API.
+.PP
+Ref http://docs.puppetlabs.com/puppetdb/2.3/api/
+.PP
+.B ppdb
+takes at minimum 2 arguments, an object (or endpoint)
+and a subcommand, plus extra parameters depending the subcommand.
+.PP
+The object is like the endpoint in PuppetDB API, but we extend it 
+to a different list of possible objects:
+
+.IP node 10
+Uses the nodes endpoint. It accepts the subcommands:
+.RS
+
+.IP info 10
+will display the equivalent of 
+.I "GET /v3/nodes/<NODE>"
+and takes the node 
+.B certname
+as an argument. 
+.RS 10
+Optionaly, you can add a filter to limit what fields are displayed.
+.TP
+eg. ppdb node info <fqdn>
+.RS
+will display all the fields from the API response
+.RE
+eg. ppdb node info <fqdn> time
+.RS
+will only display the fields containing 
+.I time
+in their label.
+.RE
+.RE
+
+.IP facts 10
+
+.IP resources 10
+
+.SH OPTIONS
+
+.TP
+.PD 0
+.B \-v
+.TP
+.PD
+.B \-\-version
+outputs version.
+
+
+.SH FILES
+.I ~/.config/hieracles/config.yaml
+.RS
+ppdb uses the same configuration file as hieracles, and relies on
+its information to find the url of the PuppetDB
+
+.SH EXAMPLES
+A typical config file would contain, at minimum:
+.PP
+.RS
+---
+.RE
+.RS
+puppetdb:
+.RS
+  usessl: false
+.RE
+.RS
+  host: localhost
+.RE
+.RS
+  port: 8080
+.RE
+.RE
+
+.SH SEE ALSO
+hiera(1), puppet(8), hc(1)
+
+.SH BUGS
+Please report any bug to https://github.com/Gandi/hieracles/issues
+
+.SH AUTHORS
+Copyright (c) 2015 gandi.net https://gandi.net
+.LP
+Hieracles is written by mose@gandi.net
+.LP
+https://github.com/Gandi/hieracles
