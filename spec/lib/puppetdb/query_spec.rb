@@ -29,9 +29,25 @@ describe Hieracles::Puppetdb::Query do
     end
     context 'with 2 arguments matching an assignment' do
       let(:elements) { [ 'something=value', 'another=else' ] }
-      let(:expected) { [['=', 'something', 'value'], ['=', 'another', 'else']] }
+      let(:expected) { [[['=', 'something', 'value'], ['=', 'another', 'else']]] }
       let(:query) { Hieracles::Puppetdb::Query.new elements }
-      #it { expect(query.instance_variable_get(:@elements)).to eq expected }
+      it { expect(query.instance_variable_get(:@elements)).to eq expected }
+    end
+    context 'with 2 arguments separated by a or' do
+      let(:elements) { [ 'something=value', 'or', 'another=else' ] }
+      let(:expected) { [[['=', 'something', 'value']], [['=', 'another', 'else']]] }
+      let(:query) { Hieracles::Puppetdb::Query.new elements }
+      it { expect(query.instance_variable_get(:@elements)).to eq expected }
+    end
+    context 'with 3 arguments including a or' do
+      let(:elements) { [ 'something=value', 'or', 'another=else', 'more=ever' ] }
+      let(:expected) { 
+        [
+          [['=', 'something', 'value']], 
+          [['=', 'another', 'else'], ['=', 'more', 'ever']]] 
+      }
+      let(:query) { Hieracles::Puppetdb::Query.new elements }
+      it { expect(query.instance_variable_get(:@elements)).to eq expected }
     end
 
   end

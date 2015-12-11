@@ -7,24 +7,19 @@ module Hieracles
       end
 
       def parse(elements)
-        items = []
+        items = Array.new
         index = 0
         if elements.length > 1
           elements.each do |e|
-            puts items.inspect
             if e == 'or'
-              index++
-              continue
-            end
-            if /(.*)(>|<|=|!=|~)(.*)/.match e
-              items[index] ||= []
+              index += 1
+            elsif /(.*)(>|<|=|!=|~)(.*)/.match e
+              items[index] ||= Array.new
               items[index] << [$2, $1, $3]
             end
           end
-        else
-          if /(.*)(>|<|=|!=|~)(.*)/.match elements[0]
-            items = [$2, $1, $3]
-          end
+        elsif /(.*)(>|<|=|!=|~)(.*)/.match elements[0]
+          items = [$2, $1, $3]
         end
         items
       end
