@@ -2,10 +2,10 @@ Hieracles Changelog
 =======================
 
 ### 0.2.1 - 2015-12-11
-- add configuration variables for connection to puppetdb
-- make puppetdb calls fill up the facts for the node queried
+- add configuration variables for connection to PuppetDB
+- make PuppetDB calls fill up the facts for the node queried
 - add a `facts` command to display the facts, provided locally 
-  or from puppetdb directly
+  or from PuppetDB directly
 - make a new CLI tool named ppdb for direct calls to PuppetDB
 - add optional filtering on ppdb commands
 - add a man page for ppdb

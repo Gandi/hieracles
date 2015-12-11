@@ -55,7 +55,7 @@ Configuration variables are:
 - encpath  
   where to read information about each nodes
 - hierafile  
-  where to find a hierafile customised for your local puppet installation
+  where to find a hierafile customized for your local puppet installation
 - format  
   can be plain, console, csv, yaml, rawyaml, json
 - defaultscope  

@@ -1,10 +1,10 @@
 ruby-hieracles (0.2.1.0) unstable; urgency=medium
 
   * upstream 0.2.1
-  * add configuration variables for connection to puppetdb
-  * make puppetdb calls fill up the facts for the node queried
+  * add configuration variables for connection to PuppetDB
+  * make PuppetDB calls fill up the facts for the node queried
   * add a `facts` command to display the facts, provided locally 
-    or from puppetdb directly
+    or from PuppetDB directly
   * make a new CLI tool named ppdb for direct calls to PuppetDB
   * add optional filtering on ppdb commands
   * add a man page for ppdb
@@ -24,7 +24,7 @@ ruby-hieracles (0.2.0.0) unstable; urgency=medium
 ruby-hieracles (0.1.7.0) unstable; urgency=medium
 
   * upstream 0.1.7
-  * various fixes on display for marged values
+  * various fixes on display for merged values
 
  -- mose <mose@gandi.net>  Mon, 23 Nov 2015 16:20:00 +0800
 
@@ -43,7 +43,7 @@ ruby-hieracles (0.1.5.0) unstable; urgency=medium
 
   * upstream 0.1.5
   * add `interactive` new option `-i` for having 
-    CLI user promtped to fill up missing scope vars
+    CLI user prompted to fill up missing scope vars
   * implement interpolation adapted from the code of hiera
   * fixed the single option parsing for `-i`
 
