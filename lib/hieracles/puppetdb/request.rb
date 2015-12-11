@@ -25,12 +25,10 @@ module Hieracles
       alias_method :node_fact, :node_facts
 
       def node_resources(fqdn, *args)
-        resp = @client.request "nodes/#{fqdn}/resources"
+        resp = @client.request("nodes/#{fqdn}/resources")
         field = args.shift
         resp.data = resp.data.reduce({})  do |a, d|
-          if !field || 
-            (field[/=/] && Regexp.new(field[/(?:=).*/]).match(d['name'])) ||
-            Regexp.new(field).match(d['name'])
+          if !field || Regexp.new(field).match(d['title'])
             a[d['title']] = d
           end
           a
@@ -38,6 +36,8 @@ module Hieracles
         resp
       end
       alias_method :node_res, :node_resources
+
+
 
     end
   end
