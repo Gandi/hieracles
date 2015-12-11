@@ -175,6 +175,10 @@ If you set `usedb: true` the `hc` command will query the puppetdb by default and
 
 When usedb is true, a call to puppetdb will be made for all commands to retrieve facts if they are present for the queried node.
 
+#### Extra commandline tool: ppdb
+
+When hieracles is configured with parameters to connect to PuppetDB, you also can use the ppdb commandline to send direct queries to the database. Check `man ppdb` for more information.
+
 
 Completion
 -------------

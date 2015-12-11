@@ -1,6 +1,10 @@
 Hieracles Changelog
 =======================
 
+### 0.2.2 - 2015-12-11
+- remove support for ruby 1.9.3
+  because of the mime-type gem
+
 ### 0.2.1 - 2015-12-11
 - add configuration variables for connection to PuppetDB
 - make PuppetDB calls fill up the facts for the node queried
