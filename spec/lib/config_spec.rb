@@ -54,7 +54,7 @@ describe Hieracles::Config do
           }
         end
         before { Hieracles::Config.load options }
-        it { expect(Hieracles::Config.usedb).to be_truthy }
+        it { expect(Hieracles::Config.usedb).to be true }
       end
       context 'with nodb passed as param' do
         let(:options) do
@@ -64,7 +64,7 @@ describe Hieracles::Config do
           }
         end
         before { Hieracles::Config.load options }
-        it { expect(Hieracles::Config.usedb).to be_falsey }
+        it { expect(Hieracles::Config.usedb).to be false }
       end
     end
 
@@ -77,7 +77,7 @@ describe Hieracles::Config do
           }
         end
         before { Hieracles::Config.load options }
-        it { expect(Hieracles::Config.usedb).to be_truthy }
+        it { expect(Hieracles::Config.usedb).to be true }
       end
     end
 
