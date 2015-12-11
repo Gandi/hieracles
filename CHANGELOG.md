@@ -1,12 +1,15 @@
 Hieracles Changelog
 =======================
 
-### 0.2.1 - wip
+### 0.2.1 - 2015-12-11
 - add configuration variables for connection to puppetdb
 - make puppetdb calls fill up the facts for the node queried
 - add a `facts` command to display the facts, provided locally 
   or from puppetdb directly
-- add optional filtering on `info` and `facts` commands
+- make a new CLI tool named ppdb for direct calls to PuppetDB
+- add optional filtering on ppdb commands
+- add a man page for ppdb
+- add zsh completion for ppdb
 
 ### 0.2.0 - 2015-11-24
 - fix merging for unsorted arrays

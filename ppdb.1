@@ -61,8 +61,52 @@ in their label.
 .RE
 
 .IP facts 10
+will display the equivalent of 
+.I "GET /v3/nodes/<NODE>/facts"
+and takes the node 
+.B certname
+as an argument. 
+.RS 10
+As the result can be verbose, you can add a filter to limit what 
+fields are displayed.
+.TP
+eg. ppdb node facts <fqdn>
+.RS
+will display all the fields from the API response
+.RE
+eg. ppdb node facts <fqdn> memory
+.RS
+will only display the fields containing 
+.I memory
+in their label.
+.RE
+.RE
 
 .IP resources 10
+will display the equivalent of 
+.I "GET /v3/nodes/<NODE>/resources"
+and takes the node 
+.B certname
+as an argument. You can use 
+.I res
+instead of 
+.I resources
+for shorter.
+.RS 10
+As the result can be verbose, you can add a filter to limit what 
+resources are displayed.
+.TP
+eg. ppdb node res <fqdn>
+.RS
+will display all the fields from the API response
+.RE
+eg. ppdb node res <fqdn> nagios
+.RS
+will only display the fields containing 
+.I nagios
+in their label.
+.RE
+.RE
 
 .SH OPTIONS
 

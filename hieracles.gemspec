@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.version       = File.read(File.expand_path('../CHANGELOG.md', __FILE__))[/([0-9]+\.[0-9]+\.[0-9]+)/]
   spec.authors       = ["mose"]
   spec.email         = ["mose@gandi.net"]
-  spec.summary       = %q{CLI tool for Hiera parameters visualisation.}
-  spec.description   = %q{CLI tool for Hiera parameters visualisation and analysis.}
+  spec.summary       = %q{CLI tool for Hiera parameters visualization.}
+  spec.description   = %q{CLI tool for Hiera parameters visualization and analysis.}
   spec.homepage      = "https://github.com/Gandi/hieracles"
   spec.metadata      = { "changelog" => "https://github.com/Gandi/hieracles/blob/master/CHANGELOG.md" }
   spec.license       = "MIT"

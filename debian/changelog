@@ -1,3 +1,17 @@
+ruby-hieracles (0.2.1.0) unstable; urgency=medium
+
+  * upstream 0.2.1
+  * add configuration variables for connection to puppetdb
+  * make puppetdb calls fill up the facts for the node queried
+  * add a `facts` command to display the facts, provided locally 
+    or from puppetdb directly
+  * make a new CLI tool named ppdb for direct calls to PuppetDB
+  * add optional filtering on ppdb commands
+  * add a man page for ppdb
+  * add zsh completion for ppdb
+
+ -- mose <mose@gandi.net>  Fri, 11 Dec 2015 08:05:00 +0800
+
 ruby-hieracles (0.2.0.0) unstable; urgency=medium
 
   * upstream 0.2.0

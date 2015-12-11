@@ -3,7 +3,7 @@ Section: ruby
 Priority: optional
 Maintainer: mose <mose@gandi.net>
 Uploaders: mose <mose@gandi.net>
-Build-Depends: debhelper (>= 7.0.50~), gem2deb (>= 0.6.1~), ruby-rspec (>= 2.10.0~), ruby-deep-merge (>= 1.0.1~)
+Build-Depends: debhelper (>= 7.0.50~), gem2deb (>= 0.6.1~), ruby-rspec (>= 2.10.0~), ruby-deep-merge (>= 1.0.1~), ruby-httparty (>= 0.13~), ruby-awesome-print
 Standards-Version: 3.9.4
 Homepage: https://github.com/Gandi/hieracles
 XS-Ruby-Versions: all
@@ -11,7 +11,7 @@ XS-Ruby-Versions: all
 Package: ruby-hieracles
 Architecture: all
 XB-Ruby-Versions: ${ruby:Versions}
-Depends: ${shlibs:Depends}, ${misc:Depends}, ruby | ruby-interpreter, ruby-deep-merge
+Depends: ${shlibs:Depends}, ${misc:Depends}, ruby | ruby-interpreter, ruby-deep-merge, ruby-httparty, ruby-awesome-print
 Description: CLI tool for Hiera parameters visualization and analysis.
   Hieracles is a command-line tool for analysis and deep examination 
   of Hiera parameters in a Puppet setup. It can be used to quickly 
