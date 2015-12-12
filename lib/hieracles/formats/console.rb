@@ -35,17 +35,23 @@ module Hieracles
 
       def build_list(hash, notifications, filter)
         back = ''
-        back << build_notifications(notifications) if notifications
-        if filter[0]
-          hash.select! { |k, v| Regexp.new(filter[0]).match(k.to_s) }
-        end
-        length = max_key_length(hash) + 2
-        title = format(COLORS[8], "%-#{length}s")
-        hash.each do |k, v|
-          if v.class.name == 'Hash' || v.class.name == 'Array'
-            v = v.ai({ indent: 10, raw: true}).strip
+        if hash.class.name == 'Array'
+          hash.each do |v|
+            back << "#{v}\n"
           end
-          back << format("#{title} %s\n", k, v)
+        else
+          back << build_notifications(notifications) if notifications
+          if filter[0]
+            hash.select! { |k, v| Regexp.new(filter[0]).match(k.to_s) }
+          end
+          length = max_key_length(hash) + 2
+          title = format(COLORS[8], "%-#{length}s")
+          hash.each do |k, v|
+            if v.class.name == 'Hash' || v.class.name == 'Array'
+              v = v.ai({ indent: 10, raw: true}).strip
+            end
+            back << format("#{title} %s\n", k, v)
+          end
         end
         back
       end

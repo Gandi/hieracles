@@ -37,6 +37,17 @@ module Hieracles
       end
       alias_method :node_res, :node_resources
 
+      def facts_farm(farm)
+        resp = @client.request("facts/farm/#{farm}")
+        resp.data = resp.data.reduce([])  do |a, d|
+          a << d['certname']
+          a
+        end
+        resp
+      end
+
+      def facts_samefarmas(fqdn)
+      end
 
 
     end
