@@ -17,26 +17,31 @@ unless opt.payload[1]
   exit(1)
 end
 
-command = "#{opt.payload[0]}_#{opt.payload[1]}"
-args = opt.payload[2..-1] || []
+endpoint = opt.payload[0]
 
-Hieracles::Config.load opt.options
-
-if Hieracles::Puppetdb::Request.method_defined? command
-  request = Hieracles::Puppetdb::Request.new Hieracles::Config.puppetdb
-  meth = request.method(command.to_sym)
-  required = request.method(command.to_sym).parameters.select { |arg| arg[0] == :req }.map { |arg| arg[1] }
-  if args.length < required.length
-    args = required.join(', ')
-    puts "*** The #{command} method requires arguments: #{args}"
-    exit(1)
-  else
-    format = Hieracles::Formats::Console.new(nil)
-    resp = meth.call(*args)
-    puts format.build_list(resp.data, resp.notifications, [])
-  end
+if Hieracles::Puppetdb::Request.method_defined? endpoint
+  command = endpoint
+  args = opt.payload[1..-1] || []
+elsif Hieracles::Puppetdb::Request.method_defined? "#{opt.payload[0]}_#{opt.payload[1]}"
+  command = "#{opt.payload[0]}_#{opt.payload[1]}"
+  args = opt.payload[2..-1] || []
 else
   puts "*** Unknown command: #{command}"
   puts Hieracles::Options::Ppdb.usage
   exit(1)
+end
+  
+Hieracles::Config.load opt.options
+
+request = Hieracles::Puppetdb::Request.new Hieracles::Config.puppetdb
+meth = request.method(command.to_sym)
+required = request.method(command.to_sym).parameters.select { |arg| arg[0] == :req }.map { |arg| arg[1] }
+if args.length < required.length
+  args = required.join(', ')
+  puts "*** The #{command} method requires arguments: #{args}"
+  exit(1)
+else
+  format = Hieracles::Formats::Console.new(nil)
+  resp = meth.call(*args)
+  puts format.build_list(resp.data, resp.notifications, [])
 end

@@ -37,12 +37,12 @@ module Hieracles
       end
       alias_method :node_res, :node_resources
 
-      def facts_farm(farm)
-        resp = @client.request("facts/farm/#{farm}")
+      def facts(label,value)
+        resp = @client.request("facts/#{label}/#{value}")
         resp.data = resp.data.reduce([])  do |a, d|
           a << d['certname']
           a
-        end
+        end.sort
         resp
       end
 
