@@ -37,18 +37,31 @@ module Hieracles
       end
       alias_method :node_res, :node_resources
 
-      def facts(label,value)
+      def facts(label, value)
         resp = @client.request("facts/#{label}/#{value}")
+        extract_names resp
+      end
+
+      def same(name, fqdn)
+        r = @client.request("nodes/#{fqdn}/facts/#{name}")
+        if r.data.length > 0
+          value = r.data[0]['value']
+          facts name, value
+        else
+          r
+        end
+      end
+
+
+    private
+
+      def extract_names(resp)
         resp.data = resp.data.reduce([])  do |a, d|
           a << d['certname']
           a
         end.sort
         resp
       end
-
-      def facts_samefarmas(fqdn)
-      end
-
 
     end
   end
