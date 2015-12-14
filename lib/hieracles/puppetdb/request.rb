@@ -52,6 +52,11 @@ module Hieracles
         end
       end
 
+      def factnames()
+        resp = @client.request("fact-names")
+        resp
+      end
+
 
     private
 

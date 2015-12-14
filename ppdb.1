@@ -4,7 +4,6 @@
 ppdb \- Command line tool to query puppetdb
 .SH SYNOPSIS
 .B ppdb 
-.I object
 .I command
 .B [
 .I options
@@ -29,17 +28,11 @@ of the PuppetDB API.
 Ref http://docs.puppetlabs.com/puppetdb/2.3/api/
 .PP
 .B ppdb
-takes at minimum 2 arguments, an object (or endpoint)
-and a subcommand, plus extra parameters depending the subcommand.
-.PP
-The object is like the endpoint in PuppetDB API, but we extend it 
-to a different list of possible objects:
+takes a command, plus extra parameters depending the command.
 
-.IP node 10
-Uses the nodes endpoint. It accepts the subcommands:
-.RS
-
-.IP info 10
+.TP
+.PD 0
+.B node info \fR<fqdn>
 will display the equivalent of 
 .I "GET /v3/nodes/<NODE>"
 and takes the node 
@@ -60,7 +53,9 @@ in their label.
 .RE
 .RE
 
-.IP facts 10
+.TP
+.PD 0
+.B node facts \fR<fqdn>
 will display the equivalent of 
 .I "GET /v3/nodes/<NODE>/facts"
 and takes the node 
@@ -82,7 +77,9 @@ in their label.
 .RE
 .RE
 
-.IP resources 10
+.TP
+.PD 0
+.B node resources \fR<fqdn>
 will display the equivalent of 
 .I "GET /v3/nodes/<NODE>/resources"
 and takes the node 
@@ -106,6 +103,26 @@ will only display the fields containing
 .I nagios
 in their label.
 .RE
+.RE
+
+.RE
+
+.TP
+.PD 0
+.B facts <name> <value>
+will list all fqdn (aka. certnames) of the nodes having the <name> 
+fact set to <value>.
+.RS
+eq. ppdb facts puppet_environment dev
+.RE
+
+.TP
+.PD 0
+.B same <name> <fqdn>
+will list all the fqdn having the same value for the fact <name> as
+<fqdn> has.
+.RS
+eq. ppdb same farm node32.example.com
 .RE
 
 .SH OPTIONS

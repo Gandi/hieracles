@@ -12,7 +12,7 @@ if opt.options.has_key? :version
   exit(0)
 end
 
-unless opt.payload[1]
+unless opt.payload[0]
   puts Hieracles::Options::Ppdb.usage
   exit(1)
 end
