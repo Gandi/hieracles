@@ -7,66 +7,72 @@ module Hieracles
       end
 
       def parse(elements)
+        if number_or(elements) > 0
+          elements = build_or(elements)
+        end
+        build_and elements
+      end
+
+      def oldparse(elements)
         items = Array.new
         index = 0
-        if elements.length > 1
-          elements.each do |e|
-            if e == 'or'
-              index += 1
-            elsif /(.*)(>|<|=|!=|~)(.*)/.match e
-              items[index] ||= Array.new
-              items[index] << [$2, $1, $3]
-            end
+        elements.each do |e|
+          if e == 'or'
+            index += 1
+          elsif /(.*)(>|<|=|~)(.*)/.match e
+            items[index] ||= Array.new
+            items[index] << [$2, $1, $3]
           end
-        elsif /(.*)(>|<|=|!=|~)(.*)/.match elements[0]
-          items = [$2, $1, $3]
         end
         items
       end
 
-      def output
-        back = []
-        if @elements.length > 1
-          back << 'or' 
-          @elements.each do |e|
-            back << build_and(e)
+      def build_and(arrays)
+        back = arrays.reduce([]) do |a, v|
+          if v.class.name == 'Array'
+            if v.length > 1
+              a << ['and'] + v.map { |e| expression(e) }
+            else
+              e = expression(v[0])
+              a << e if e
+            end
+          elsif v == 'or'
+            a << 'or'
+          else
+            e = expression(v)
+            a << e if e
           end
-        else
-          @elements.each do |e|
-            back << build_and(e)
-          end
+          a
+        end
+        if back.length == 1 and back[0].class.name == 'Array'
+          back = back[0]
+        elsif back[0].class.name == 'Array' and back.length > 1
+          back.unshift('and')
         end
         back
       end
 
-      def build_and(arrays)
-        if arrays.length > 1
-          ['and', arrays]
-        else
-          arrays
+      def build_or(arrays)
+        back = ['or']
+        (0..number_or(arrays)-1).each do |a|
+          back << arrays.slice!(0..arrays.index('or')-1)
+          arrays.shift
         end
+        back << arrays
       end
 
-      def defined?
-        @elements.count > 0
-      end
-
-      def match(item)
-        @elements.each do |e|
-          matched = false
-          e.each do |a|
-            case a[0]
-            when '='
-
-            when '!='
-            when '<'
-            when '>'
-            when '!'
-            else
-            end
+      def expression(e)
+        if /([^!]*)(!)?(>|<|=|~)(.*)/.match e
+          if $2
+            ['not', [$3, $1, $4]]
+          else
+            [$3, $1, $4]
           end
-          return true if matched
         end
+      end
+
+      def number_or(a)
+        a.select { |i| i == 'or' }.length
       end
 
     end

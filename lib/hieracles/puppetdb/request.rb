@@ -53,8 +53,12 @@ module Hieracles
       end
 
       def factnames()
-        resp = @client.request("fact-names")
-        resp
+        @client.request("fact-names")
+      end
+
+      def resources(*args)
+        query = Query.new args
+        puts query.output.inspect
       end
 
 
