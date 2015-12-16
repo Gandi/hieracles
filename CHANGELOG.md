@@ -10,6 +10,7 @@ Hieracles Changelog
 - updated manpage for ppdb with proper documentation
 - prepare a queries transformation class to 
   match puppetdb weird query language with a more human one
+- updated ppdb zsh completion
 
 ### 0.2.2 - 2015-12-11
 - remove support for ruby 1.9.3

@@ -1,3 +1,18 @@
+ruby-hieracles (0.3.0.0) unstable; urgency=medium
+
+  * upstream 0.3.0
+  * added json output as an option to ppdb
+  * added some more ppdb commands
+    - ppdb resources <queries>
+    - ppdb same
+    - ppdb factnames
+  * updated manpage for ppdb with proper documentation
+  * prepare a queries transformation class to 
+    match puppetdb weird query language with a more human one
+  * updated ppdb zsh completion
+
+ -- mose <mose@gandi.net>  Wed, 16 Dec 2015 11:00:00 +0800
+
 ruby-hieracles (0.2.2.0) unstable; urgency=medium
 
   * upstream 0.2.2
