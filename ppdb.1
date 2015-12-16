@@ -125,6 +125,45 @@ will list all the fqdn having the same value for the fact <name> as
 eq. ppdb same farm node32.example.com
 .RE
 
+.TP
+.PD 0
+.B resources <queries>
+.TP
+.PD
+.B res <queries>
+will list the resources matching a given set of queries. 
+Queries are a combination of statements, with a label, an operator
+and a value. You can use 
+.I or
+to separate one or several statements. If there is no
+.I or
+indicated, the statements follow an
+.I and 
+logic. All statements that don't contain an operator or match the 
+.I or
+keyword are purely ignored (which makes possible to use the 
+.I and
+keyword for mental stability purpose).
+
+.RS
+Operators can be >, <, =, ~ and can be prefixed by a ! to negate them.
+.RS
+eq. ppdb res type=Nagios_ghost and tag~api
+.RE
+.RS
+eq. ppdb res tag~api title!~dev
+.RE
+.RS
+eq. ppdb res tag~api or certname~api or title~api
+.RE
+.RE
+
+.TP
+.PD 0
+.B factnames
+will list all the factnames puppetdb knows about.
+This may be a long list.
+
 .SH OPTIONS
 
 .TP
@@ -134,6 +173,15 @@ eq. ppdb same farm node32.example.com
 .PD
 .B \-\-version
 outputs version.
+
+.TP
+.PD 0
+.B \-f \fRformat
+.TP
+.PD
+.B \-\-format \fRformat
+outputs in the selected format. For now only the json format
+is available as an alternative to the default console format.
 
 
 .SH FILES

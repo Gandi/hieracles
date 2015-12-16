@@ -33,6 +33,13 @@ module Hieracles
         @node.params(false).merge(alerts).to_json
       end
 
+      def build_list(hash, notifications, filter)
+        {
+          'notifications' => notifications,
+          'payload' => hash
+        }.to_json
+      end
+
     private
 
       def alerts

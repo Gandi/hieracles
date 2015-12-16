@@ -17,6 +17,9 @@ then
         local -a endpoints
         endpoints=(
           'node:query information about given node.'
+          'facts:query facts about given node.'
+          'same:find node that have the same value for a given fact than a given node.'
+          'resources:query information about resources.'
         )
         _describe -t commands 'ppdb' endpoints
       ;;
@@ -24,6 +27,16 @@ then
         case $line[1] in
           (node)
             __ppdb-node
+          ;;
+          (facts)
+            __ppdb-facts
+          ;;
+          (same)
+            __ppdb-same
+          ;;
+          (factnames)
+          ;;
+          (resources)
           ;;
         esac
       ;;
@@ -53,6 +66,20 @@ then
       ;;
     esac
   }
-
+  __ppdb-same() {
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+    _arguments -C \
+      ':name:->name' \
+      ':nodes:->nodes'
+    case $state in
+      (nodes)
+        local expl
+        declare -a nodes
+        nodes=(${$(find $PUPPET_PATH/enc -print | xargs -- basename -s | sed -e 's~\.yaml~~')})
+        _wanted nodes expl 'nodes' compadd $nodes
+      ;;
+    esac
+  }
   _ppdb
 fi

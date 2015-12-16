@@ -24,7 +24,7 @@ module Hieracles
         end
       end
 
-      def request(endpoint, method = 'get', query = nil, opts = {})
+      def request(endpoint, query = nil, method = 'get', opts = {})
         ret = send("#{method}_request".to_sym, endpoint, query, opts)
         if ret.code.to_s() =~ /^[4|5]/ or ret.parsed_response.length < 1
           notifications = [ Hieracles::Notification.new('puppetdb', 'No match.', 'error') ]
@@ -34,7 +34,6 @@ module Hieracles
           if total.nil?
             total = ret.parsed_response.length
           end
-
           Response.new(ret.parsed_response, total)
         end
       end
@@ -51,7 +50,7 @@ module Hieracles
               filtered_opts[k.to_s.sub("_", "-")] = v
             end
           end
-          puts path ; puts filtered_opts ; exit(0)
+          #puts path ; puts filtered_opts ; exit(0)
           self.class.get(path, query: filtered_opts)
         else
           self.class.get(path)

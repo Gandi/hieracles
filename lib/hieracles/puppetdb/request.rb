@@ -27,13 +27,7 @@ module Hieracles
       def node_resources(fqdn, *args)
         resp = @client.request("nodes/#{fqdn}/resources")
         field = args.shift
-        resp.data = resp.data.reduce({})  do |a, d|
-          if !field || Regexp.new(field).match(d['title'])
-            a[d['title']] = d
-          end
-          a
-        end
-        resp
+        make_hashed resp
       end
       alias_method :node_res, :node_resources
 
@@ -58,17 +52,27 @@ module Hieracles
 
       def resources(*args)
         query = Query.new args
-        puts query.output.inspect
+        make_hashed @client.request("resources", query.elements)
       end
-
+      alias_method :res, :resources
 
     private
 
-      def extract_names(resp)
-        resp.data = resp.data.reduce([])  do |a, d|
-          a << d['certname']
+      def extract_names(resp, label = 'certname')
+        resp.data = resp.data.reduce([]) do |a, d|
+          a << d[label]
           a
         end.sort
+        resp
+      end
+
+      def make_hashed(resp, label = 'title', filter = nil)
+        resp.data = resp.data.reduce({}) do |a, d|
+          if !filter || Regexp.new(filter).match(d[label])
+            a[d[label]] = d
+          end
+          a
+        end
         resp
       end
 

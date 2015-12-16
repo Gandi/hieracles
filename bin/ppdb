@@ -41,7 +41,11 @@ if args.length < required.length
   puts "*** The #{command} method requires arguments: #{args}"
   exit(1)
 else
-  format = Hieracles::Formats::Console.new(nil)
+  if Hieracles::Config.format == 'Json'
+    format = Hieracles::Formats::Json.new(nil)
+  else
+    format = Hieracles::Formats::Console.new(nil)
+  end
   resp = meth.call(*args)
   puts format.build_list(resp.data, resp.notifications, [])
 end

@@ -9,6 +9,10 @@ module Hieracles
           version: {
             has_arg: false,
             aliases: ['v', 'version']
+          },
+          format: {
+            has_arg: true,
+            aliases: ['f', 'format']
           }
         }
       end
@@ -16,16 +20,20 @@ module Hieracles
       def self.usage
         return <<-END
 
-Usage: ppdb<command> [extra_args]
+Usage: ppdb <command> [extra_args]
 
 Available commands:
   node info <fqdn>
   node facts <fqdn>
   node resources <fqdn>
-  factnames
   facts <name> <value>
   same <name> <fqdn>
-
+  factnames
+  res[ources] <query>
+              query following the form:
+              type=sometype title=what
+              type=sometype or type=another
+              type~someregexp type!~excluded
         END
       end
 

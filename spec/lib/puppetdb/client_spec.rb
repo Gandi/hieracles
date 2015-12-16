@@ -26,7 +26,7 @@ describe Hieracles::Puppetdb::Client do
   describe '.request' do
     context 'with a GET request' do
       let(:client) { Hieracles::Puppetdb::Client.new Hash.new }
-      let(:request) { client.request('endpoint', 'get')}
+      let(:request) { client.request('endpoint')}
       let(:response) { Hieracles::Puppetdb::Response.new(Hash.new, 0, Array.new) }
       before {
         resp = double
@@ -49,7 +49,7 @@ describe Hieracles::Puppetdb::Client do
   describe '.get_request' do
     let(:client) { Hieracles::Puppetdb::Client.new Hash.new }
     context 'without query' do
-      let(:request) { client.request('endpoint', 'get')}
+      let(:request) { client.request('endpoint')}
       before {
         allow(client.class).
           to receive(:get).

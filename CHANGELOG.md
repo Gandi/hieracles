@@ -1,6 +1,16 @@
 Hieracles Changelog
 =======================
 
+### 0.3.0 - 2015-12-16
+- added json output as an option to ppdb
+- added some more ppdb commands
+  - ppdb resources <queries>
+  - ppdb same
+  - ppdb factnames
+- updated manpage for ppdb with proper documentation
+- prepare a queries transformation class to 
+  match puppetdb weird query language with a more human one
+
 ### 0.2.2 - 2015-12-11
 - remove support for ruby 1.9.3
   because of the mime-type gem

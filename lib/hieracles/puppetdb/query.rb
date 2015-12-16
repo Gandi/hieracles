@@ -2,6 +2,8 @@ module Hieracles
   module Puppetdb
     class Query
 
+      attr_reader :elements
+
       def initialize(elements)
         @elements = parse(elements)
       end
@@ -11,20 +13,6 @@ module Hieracles
           elements = build_or(elements)
         end
         build_and elements
-      end
-
-      def oldparse(elements)
-        items = Array.new
-        index = 0
-        elements.each do |e|
-          if e == 'or'
-            index += 1
-          elsif /(.*)(>|<|=|~)(.*)/.match e
-            items[index] ||= Array.new
-            items[index] << [$2, $1, $3]
-          end
-        end
-        items
       end
 
       def build_and(arrays)
