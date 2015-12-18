@@ -10,21 +10,21 @@ module Hieracles
 
     attr_reader :hiera_params, :hiera, :facts, :notifications
 
-    def initialize(fqdn, options)
+    def initialize(fqdn, config)
       @fqdn = fqdn
-      Config.load(options)
-      @hiera = Hieracles::Hiera.new
+      @config = config
+      @hiera = Hieracles::Hiera.new @config
       @hiera_params = { fqdn: @fqdn }.
         merge(get_hiera_params(@fqdn)).
-        merge(Config.extraparams)
+        merge(@config.extraparams)
       @facts = deep_sort(@hiera_params.
-        merge(Config.scope).
+        merge(@config.scope).
         merge(puppet_facts))
     end
 
     def get_hiera_params(fqdn)
-      @__hiera_params ||= if File.exist?(File.join(Config.encpath, "#{fqdn}.yaml"))
-        load = YAML.load_file(File.join(Config.encpath, "#{fqdn}.yaml"))
+      @__hiera_params ||= if File.exist?(File.join(@config.encpath, "#{fqdn}.yaml"))
+        load = YAML.load_file(File.join(@config.encpath, "#{fqdn}.yaml"))
         sym_keys(load['parameters']).merge({ classes: load['classes']})
       else
         raise "Node not found"
@@ -33,7 +33,7 @@ module Hieracles
 
     def files(without_common = true)
       @__files ||= @hiera.hierarchy.reduce([]) do |a, f|
-        file = parse("#{f}.yaml", @facts, Config.interactive)
+        file = parse("#{f}.yaml", @facts, @config.interactive)
         if file && 
            File.exist?(File.join(@hiera.datapath, file)) &&
            (!without_common ||
@@ -45,13 +45,13 @@ module Hieracles
     end
 
     def paths(without_common = true)
-      files(without_common).map { |p| File.join(Config.basepath, p) }
+      files(without_common).map { |p| File.join(@config.basepath, p) }
     end
 
     def params(without_common = true)
       params = {}
       files(without_common).reverse.each do |f|
-        data = YAML.load_file(File.join(Config.basepath, f))
+        data = YAML.load_file(File.join(@config.basepath, f))
         if data
           s = to_shallow_hash(data)
           s.each do |k,v|
@@ -99,7 +99,7 @@ module Hieracles
 
     def _get_info
       extra = {}
-      if Config.usedb
+      if @config.usedb
         extra = puppetdb_info
       end
       @hiera_params.merge extra
@@ -107,12 +107,12 @@ module Hieracles
 
     def classfiles
       @hiera_params[:classes].map do |cl|
-        format(Config.classpath, cl)
+        format(@config.classpath, cl)
       end
     end
 
     def modulepath(path)
-      File.join(Config.modulepath, path)
+      File.join(@config.modulepath, path)
     end
 
     def add_modules(line, modules)
@@ -120,7 +120,7 @@ module Hieracles
         mod = $1
         mainmod = mod[/^[^:]*/]
         if Dir.exists? modulepath(mainmod)
-          modules[mod] = File.join(Config.modulepath, mainmod)
+          modules[mod] = File.join(@config.modulepath, mainmod)
         else
           modules[mod] = nil
         end
@@ -133,7 +133,7 @@ module Hieracles
     end
 
     def puppet_facts
-      if Config.usedb
+      if @config.usedb
         resp = request_db.node_facts(@fqdn)
         @notifications = resp.notifications
         if resp.total_records > 0
@@ -148,7 +148,7 @@ module Hieracles
     end
 
     def request_db
-      @_request ||= Hieracles::Puppetdb::Request.new Config.puppetdb
+      @_request ||= Hieracles::Puppetdb::Request.new @config.puppetdb
     end
 
     def merge_trees(left, right)

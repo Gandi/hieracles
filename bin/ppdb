@@ -31,9 +31,9 @@ else
   exit(1)
 end
   
-Hieracles::Config.load opt.options
+config = Hieracles::Config.new opt.options
 
-request = Hieracles::Puppetdb::Request.new Hieracles::Config.puppetdb
+request = Hieracles::Puppetdb::Request.new config.puppetdb
 meth = request.method(command.to_sym)
 required = request.method(command.to_sym).parameters.select { |arg| arg[0] == :req }.map { |arg| arg[1] }
 if args.length < required.length

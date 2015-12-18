@@ -1,6 +1,9 @@
 Hieracles Changelog
 =======================
 
+### 0.3.1 - wip
+- moved Config singleton to a proper class for modularity sake
+
 ### 0.3.0 - 2015-12-16
 - added json output as an option to ppdb
 - added some more ppdb commands

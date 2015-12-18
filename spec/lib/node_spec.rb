@@ -17,7 +17,8 @@ describe Hieracles::Node do
         let(:extraoptions) {
           options.merge({ params: 'key1=value1;key2=value2' })
         }
-        let(:node) { Hieracles::Node.new 'server.example.com', extraoptions }
+        let(:config) { Hieracles::Config.new extraoptions }
+        let(:node) { Hieracles::Node.new 'server.example.com', config }
         let(:expected) {
           { 
             classes: ['dev'],
@@ -35,12 +36,14 @@ describe Hieracles::Node do
     end
 
     context "when parameters are not valid" do
-      let(:node) { Hieracles::Node.new 'server_not_there.example.com', options }
+      let(:config) { Hieracles::Config.new options }
+      let(:node) { Hieracles::Node.new 'server_not_there.example.com', config }
       it { expect{ node }.to raise_error(RuntimeError) }
     end
 
     context "when parameters are valid" do
-      let(:node) { Hieracles::Node.new 'server.example.com', options }
+      let(:config) { Hieracles::Config.new options }
+      let(:node) { Hieracles::Node.new 'server.example.com', config }
 
       describe '.new' do
         let(:expected) {
@@ -164,7 +167,7 @@ describe Hieracles::Node do
           it { expect(node.modules).to eq expected }
         end
         context "one unfound modules" do
-          let(:node) { Hieracles::Node.new 'server2.example.com', options }
+          let(:node) { Hieracles::Node.new 'server2.example.com', config }
           let(:expected) {
             {
               "fake_module" => File.expand_path("spec/files/modules/fake_module"),
@@ -175,11 +178,11 @@ describe Hieracles::Node do
           it { expect(node.modules).to eq expected }
         end
         context "no farm file found" do
-          let(:node) { Hieracles::Node.new 'server3.example.com', options }
+          let(:node) { Hieracles::Node.new 'server3.example.com', config }
           it { expect { node.modules }.to raise_error(RuntimeError) }
         end
         context "multiple classes included" do
-          let(:node) { Hieracles::Node.new 'server4.example.com', options }
+          let(:node) { Hieracles::Node.new 'server4.example.com', config }
           let(:expected) {
             {
               "fake_module" => File.expand_path("spec/files/modules/fake_module"),
@@ -232,7 +235,8 @@ describe Hieracles::Node do
       let(:resp_facts) {
         Hieracles::Puppetdb::Response.new([{ 'name' => 'datacenter', 'value' => 'tahiti' }], 1)
       }
-      let(:node) { Hieracles::Node.new 'server.example.com', options }
+      let(:config) { Hieracles::Config.new options }
+      let(:node) { Hieracles::Node.new 'server.example.com', config }
       before {
         allow_any_instance_of(Hieracles::Puppetdb::Client).
           to receive(:request).
@@ -256,7 +260,8 @@ describe Hieracles::Node do
         basepath: 'spec/files'
       }
     }
-    let(:node) { Hieracles::Node.new 'server.example.com', options }
+    let(:config) { Hieracles::Config.new options }
+    let(:node) { Hieracles::Node.new 'server.example.com', config }
 
     describe '.files' do
       let(:expected) {
@@ -279,7 +284,8 @@ describe Hieracles::Node do
         basepath: 'spec/files'
       }
     }
-    let(:node) { Hieracles::Node.new 'server.example.com', options }
+    let(:config) { Hieracles::Config.new options }
+    let(:node) { Hieracles::Node.new 'server.example.com', config }
 
     describe '.params' do
       let(:expected) {
@@ -369,7 +375,8 @@ describe Hieracles::Node do
         basepath: 'spec/files'
       }
     }
-    let(:node) { Hieracles::Node.new 'server.example.com', options }
+    let(:config) { Hieracles::Config.new options }
+    let(:node) { Hieracles::Node.new 'server.example.com', config }
 
     describe '.params' do
       let(:expected) {

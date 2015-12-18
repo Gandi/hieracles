@@ -23,15 +23,16 @@ end
  
 if Hieracles::Format.method_defined? command
   begin
-    node = Hieracles::Node.new fqdn, opt.options
+    config = Hieracles::Config.new opt.options
+    node = Hieracles::Node.new fqdn, config
   rescue Exception => e
     puts "*** Error: #{e.message}"
     exit(1)
   end
   begin
-    formatter = Object.const_get("Hieracles::Formats::#{Hieracles::Config.format}")
+    formatter = Object.const_get("Hieracles::Formats::#{config.format}")
   rescue
-    puts "*** Unknown format #{Hieracles::Config.format}"
+    puts "*** Unknown format #{config.format}"
     exit(1)
   end
   dispatch = formatter.new node

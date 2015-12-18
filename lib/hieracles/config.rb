@@ -4,15 +4,13 @@ require 'yaml'
 require 'hieracles/utils'
 
 module Hieracles
-  # configuration singleton
-  module Config
+  class Config
     include Hieracles::Utils
-    extend self
 
     attr_reader :extraparams, :server, :classpath, :scope, :puppetdb, :usedb,
       :modulepath, :hierafile, :basepath, :encpath, :format, :interactive
 
-    def load(options)
+    def initialize(options)
       @options = options
       @optionfile = @options[:config] || defaultconfig
       @extraparams = extract_params(options[:params])

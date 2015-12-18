@@ -10,13 +10,13 @@ describe Hieracles::Registry do
         basepath: 'spec/files'
       }
     end
+    let(:config) { Hieracles::Config.new options }
     let(:expected) { [
-    		File.join(Hieracles::Config.basepath, 'farm_modules', 'dev.pp'),
-    		File.join(Hieracles::Config.basepath, 'farm_modules', 'dev2.pp'),
-    		File.join(Hieracles::Config.basepath, 'farm_modules', 'dev4.pp')
-  	] }
-    before { Hieracles::Config.load options}
-    it { expect(Hieracles::Registry.farms Hieracles::Config).to eq expected }
+        File.join(config.basepath, 'farm_modules', 'dev.pp'),
+        File.join(config.basepath, 'farm_modules', 'dev2.pp'),
+        File.join(config.basepath, 'farm_modules', 'dev4.pp')
+    ] }
+    it { expect(Hieracles::Registry.farms config).to eq expected }
   end
 
   describe '.nodes' do
@@ -32,8 +32,8 @@ describe Hieracles::Registry do
     		'server3.example.com',
     		'server4.example.com'
   	] }
-    before { Hieracles::Config.load options}
-    it { expect(Hieracles::Registry.nodes Hieracles::Config).to eq expected }
+    let(:config) { Hieracles::Config.new options }
+    it { expect(Hieracles::Registry.nodes config).to eq expected }
   end
 
   describe '.modules' do
@@ -50,8 +50,8 @@ describe Hieracles::Registry do
     		'faux_module1',
     		'faux_module2'
   	] }
-    before { Hieracles::Config.load options}
-    it { expect(Hieracles::Registry.modules Hieracles::Config).to eq expected }
+    let(:config) { Hieracles::Config.new options }
+    it { expect(Hieracles::Registry.modules config).to eq expected }
   end
 
 end
