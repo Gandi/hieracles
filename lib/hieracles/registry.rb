@@ -4,7 +4,10 @@ module Hieracles
   	extend self
 
   	def farms(config)
-  		Dir.glob(format(config.classpath, '*')).sort
+  		Dir.glob(format(config.classpath, '*')).sort.map do |f|
+        sub = Regexp.new(".*#{config.classpath.sub(/%s/,'([^/]*)')}")
+        f.sub(sub, "\\1")
+      end
   	end
 
   	def nodes(config)
