@@ -103,25 +103,25 @@ describe Hieracles::Config do
     end
   end
 
-  describe '.defaultconfig' do
-    let(:config) { Hieracles::Config.new Hash.new }
-    before {
-      allow(config).
-        to receive(:defaultconfig).
-        and_return(File.expand_path('spec/files/config.yml'))
-    }
-    it { expect(config.defaultconfig).not_to eq nil }
-  end
+  # describe '.defaultconfig' do
+  #   let(:config) { Hieracles::Config.new Hash.new }
+  #   before {
+  #     allow(config).
+  #       to receive(:defaultconfig).
+  #       and_return('spec/files/config.yml')
+  #   }
+  #   it { expect(config.defaultconfig).not_to eq nil }
+  # end
 
   describe '.extract_params' do
+      let(:options) do
+        { 
+          config: 'spec/files/config.yml'
+        }
+      end
     let(:str)  { 'bla=blu;one=two' }
     let(:expected) { { bla: 'blu', one: 'two' } }
-    let(:config) { Hieracles::Config.new Hash.new }
-    before {
-      allow(config).
-        to receive(:defaultconfig).
-        and_return(File.expand_path('spec/files/config.yml'))
-    }
+    let(:config) { Hieracles::Config.new options }
     it { expect(config.extract_params(str)).to eq expected }
   end
 
@@ -153,12 +153,12 @@ describe Hieracles::Config do
   end
 
   describe '.resolve_path' do
-    let(:config) { Hieracles::Config.new Hash.new }
-    before {
-      allow(config).
-        to receive(:defaultconfig).
-        and_return(File.expand_path('spec/files/config.yml'))
-    }
+    let(:options) do
+      { 
+        config: 'spec/files/config.yml'
+      }
+    end
+    let(:config) { Hieracles::Config.new options }
     context "when path is found" do
       let(:path) { 'README.md' }
       let(:expected) { File.expand_path('README.md') }
