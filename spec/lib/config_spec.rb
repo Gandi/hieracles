@@ -108,7 +108,7 @@ describe Hieracles::Config do
     before {
       allow(config).
         to receive(:defaultconfig).
-        and_return('spec/files/config.yml')
+        and_return(File.expand_path('spec/files/config.yml'))
     }
     it { expect(config.defaultconfig).not_to eq nil }
   end
@@ -120,7 +120,7 @@ describe Hieracles::Config do
     before {
       allow(config).
         to receive(:defaultconfig).
-        and_return('spec/files/config.yml')
+        and_return(File.expand_path('spec/files/config.yml'))
     }
     it { expect(config.extract_params(str)).to eq expected }
   end
@@ -157,7 +157,7 @@ describe Hieracles::Config do
     before {
       allow(config).
         to receive(:defaultconfig).
-        and_return('spec/files/config.yml')
+        and_return(File.expand_path('spec/files/config.yml'))
     }
     context "when path is found" do
       let(:path) { 'README.md' }
