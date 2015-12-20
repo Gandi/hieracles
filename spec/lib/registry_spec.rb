@@ -12,9 +12,9 @@ describe Hieracles::Registry do
     end
     let(:config) { Hieracles::Config.new options }
     let(:expected) { [
-        File.join(config.basepath, 'farm_modules', 'dev.pp'),
-        File.join(config.basepath, 'farm_modules', 'dev2.pp'),
-        File.join(config.basepath, 'farm_modules', 'dev4.pp')
+        'dev',
+        'dev2',
+        'dev4'
     ] }
     it { expect(Hieracles::Registry.farms config).to eq expected }
   end
