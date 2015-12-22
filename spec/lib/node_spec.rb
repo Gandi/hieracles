@@ -138,15 +138,14 @@ describe Hieracles::Node do
 
       describe '.params2' do
         let(:expected) {
-          [
-            { "another.more_sublevel" => 
+          { 
+            "another.more_sublevel" => 
               {
                 value: "something",
                 file: 'params/farm/dev.yaml',
                 overrides: []
-              }
-            },
-            { "another.sublevel.array" => 
+              },
+            "another.sublevel.array" => 
               {
                 value: ["four", "five"],
                 file: 'params/nodes/server.example.com.yaml',
@@ -156,15 +155,14 @@ describe Hieracles::Node do
                     file: 'params/farm/dev.yaml'
                   }
                 ]
-              }
-            },
-            { "another.sublevel.thing" =>
+              },
+            "another.sublevel.thing" =>
               {
                 value: "always",
                 file: 'params/nodes/server.example.com.yaml',
-              }
-            },
-            { "common_param.subparam" => 
+                overrides: []
+              },
+            "common_param.subparam" => 
               {
                 value: "overriden", 
                 file: 'params/nodes/server.example.com.yaml',
@@ -174,16 +172,15 @@ describe Hieracles::Node do
                     file: 'params/farm/dev.yaml'
                   },
                 ]
-              }
-            }, 
-            { "somefarmparam" =>
+              },
+            "somefarmparam" =>
               {
                 value: false,
-                file: 'params/farm/dev.yaml'
+                file: 'params/farm/dev.yaml',
+                overrides: []
               }
             }
-          ]
-        }
+          }
         it { expect(node.params2).to eq expected }
       end
 
@@ -393,6 +390,59 @@ describe Hieracles::Node do
         ]
       }
       it { expect(node.params).to eq expected }
+    end
+
+
+    describe '.params2' do
+      let(:expected) {
+        { 
+          "another.more_sublevel" => 
+            {
+              value: "something",
+              file: 'params/farm/dev.yaml',
+              overrides: []
+            },
+          "another.sublevel.array" => 
+            {
+              value: ["one", "two", "three", "four", "five"],
+              file: '-',
+              overrides: [
+                {
+                  value: ["four", "five"],
+                  file: 'params/nodes/server.example.com.yaml'
+                },
+                {
+                  value: ["one", "two", "three"],
+                  file: 'params/farm/dev.yaml'
+                }
+              ]
+            },
+          "another.sublevel.thing" =>
+            {
+              value: "always",
+              file: 'params/nodes/server.example.com.yaml',
+              overrides: []
+            },
+          "common_param.subparam" => 
+            {
+              value: "overriden", 
+              file: 'params/nodes/server.example.com.yaml',
+              overrides: [
+                {
+                  value: "override-me", 
+                  file: 'params/farm/dev.yaml'
+                },
+              ]
+            },
+          "somefarmparam" =>
+            {
+              value: false,
+              file: 'params/farm/dev.yaml',
+              overrides: []
+            }
+          }
+        }
+      it { expect(node.params2).to eq expected }
     end
 
     describe '.params_tree' do

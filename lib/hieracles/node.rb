@@ -69,9 +69,29 @@ module Hieracles
         data = YAML.load_file(File.join(@config.basepath, f))
         if data
           s = to_shallow_hash(data)
+          s.each do |k,v|
+            if params[k]
+              case @hiera.merge_behavior
+              when :deeper
+                params[k] = params[k].deep_merge!({ value: v })
+              when :deep
+                params[k] = params[k].deep_merge({ value: v })
+              else
+                params[k] = local_merge!(params[k], { value: v })
+              end
+              params[k][:file] = '-'
+              params[k][:overrides] << { value: v, file: f }
+            else
+              params[k] = {
+                value: v,
+                file: f,
+                overrides: []
+              }
+            end
+          end
         end
       end
-      params.sort
+      params.sort.to_h
     end
 
     def params_tree(without_common = true)
