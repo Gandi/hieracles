@@ -29,6 +29,11 @@ module Hieracles
       hash1.merge!(hash2, &merger)
     end
 
+    def local_merge(hash1, hash2)
+      merger = proc { |key, v1, v2| v1.is_a?(Hash) && v2.is_a?(Hash) ? v1.merge(v2, &merger) : v2 }
+      hash1.merge(hash2, &merger)
+    end
+
     def deep_sort(object)
       if object.is_a?(Hash)
         res = {}

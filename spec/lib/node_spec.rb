@@ -143,13 +143,22 @@ describe Hieracles::Node do
               {
                 value: "something",
                 file: 'params/farm/dev.yaml',
-                overrides: []
+                overriden: false,
+                found_in: [
+                  value: "something",
+                  file: 'params/farm/dev.yaml',
+                ]
               },
             "another.sublevel.array" => 
               {
                 value: ["four", "five"],
-                file: 'params/nodes/server.example.com.yaml',
-                overrides: [
+                file: '-',
+                overriden: true,
+                found_in: [
+                  {
+                    value: ["four", "five"],
+                    file: 'params/nodes/server.example.com.yaml'
+                  },
                   {
                     value: ["one", "two", "three"],
                     file: 'params/farm/dev.yaml'
@@ -160,13 +169,22 @@ describe Hieracles::Node do
               {
                 value: "always",
                 file: 'params/nodes/server.example.com.yaml',
-                overrides: []
+                overriden: false,
+                found_in: [
+                  value: "always",
+                  file: 'params/nodes/server.example.com.yaml',
+                ]
               },
             "common_param.subparam" => 
               {
                 value: "overriden", 
-                file: 'params/nodes/server.example.com.yaml',
-                overrides: [
+                file: '-',
+                overriden: true,
+                found_in: [
+                  {
+                    value: "overriden", 
+                    file: 'params/nodes/server.example.com.yaml'
+                  },
                   {
                     value: "override-me", 
                     file: 'params/farm/dev.yaml'
@@ -177,7 +195,11 @@ describe Hieracles::Node do
               {
                 value: false,
                 file: 'params/farm/dev.yaml',
-                overrides: []
+                overriden: false,
+                found_in: [
+                  value: false,
+                  file: 'params/farm/dev.yaml',
+                ]
               }
             }
           }
@@ -400,13 +422,18 @@ describe Hieracles::Node do
             {
               value: "something",
               file: 'params/farm/dev.yaml',
-              overrides: []
+              overriden: false,
+              found_in: [
+                value: "something",
+                file: 'params/farm/dev.yaml'
+              ]
             },
           "another.sublevel.array" => 
             {
-              value: ["one", "two", "three", "four", "five"],
+              value: ["four", "five", "one", "two", "three"],
               file: '-',
-              overrides: [
+              overriden: true,
+              found_in: [
                 {
                   value: ["four", "five"],
                   file: 'params/nodes/server.example.com.yaml'
@@ -421,13 +448,22 @@ describe Hieracles::Node do
             {
               value: "always",
               file: 'params/nodes/server.example.com.yaml',
-              overrides: []
+              overriden: false,
+              found_in: [
+                value: "always",
+                file: 'params/nodes/server.example.com.yaml'
+              ]
             },
           "common_param.subparam" => 
             {
               value: "overriden", 
-              file: 'params/nodes/server.example.com.yaml',
-              overrides: [
+              file: '-',
+              overriden: true,
+              found_in: [
+                {
+                  value: "overriden", 
+                  file: 'params/nodes/server.example.com.yaml'
+                },
                 {
                   value: "override-me", 
                   file: 'params/farm/dev.yaml'
@@ -438,7 +474,11 @@ describe Hieracles::Node do
             {
               value: false,
               file: 'params/farm/dev.yaml',
-              overrides: []
+              overriden: false,
+              found_in: [
+                value: false,
+                file: 'params/farm/dev.yaml',
+              ]
             }
           }
         }

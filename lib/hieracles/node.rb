@@ -73,20 +73,21 @@ module Hieracles
             if params[k]
               case @hiera.merge_behavior
               when :deeper
-                params[k] = params[k].deep_merge!({ value: v })
+                params[k].deep_merge!({ value: v })
               when :deep
-                params[k] = params[k].deep_merge({ value: v })
-              else
-                params[k] = local_merge!(params[k], { value: v })
+                params[k].deep_merge({ value: v })
               end
               params[k][:file] = '-'
-              params[k][:overrides] << { value: v, file: f }
+              params[k][:overriden] = true
+              params[k][:found_in].push({ value: v, file: f })
             else
               params[k] = {
                 value: v,
                 file: f,
-                overrides: []
+                overriden: false,
+                found_in: [{ value: v, file: f }]
               }
+
             end
           end
         end
