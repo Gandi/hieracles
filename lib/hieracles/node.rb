@@ -63,6 +63,17 @@ module Hieracles
       params.sort
     end
 
+    def params2(without_common = true)
+      params = {}
+      files(without_common).each do |f|
+        data = YAML.load_file(File.join(@config.basepath, f))
+        if data
+          s = to_shallow_hash(data)
+        end
+      end
+      params.sort
+    end
+
     def params_tree(without_common = true)
       params = {}
       paths(without_common).reverse.each do |f|

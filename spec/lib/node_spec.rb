@@ -136,6 +136,57 @@ describe Hieracles::Node do
         it { expect(node.params).to eq expected }
       end
 
+      describe '.params2' do
+        let(:expected) {
+          [
+            { "another.more_sublevel" => 
+              {
+                value: "something",
+                file: 'params/farm/dev.yaml',
+                overrides: []
+              }
+            },
+            { "another.sublevel.array" => 
+              {
+                value: ["four", "five"],
+                file: 'params/nodes/server.example.com.yaml',
+                overrides: [
+                  {
+                    value: ["one", "two", "three"],
+                    file: 'params/farm/dev.yaml'
+                  }
+                ]
+              }
+            },
+            { "another.sublevel.thing" =>
+              {
+                value: "always",
+                file: 'params/nodes/server.example.com.yaml',
+              }
+            },
+            { "common_param.subparam" => 
+              {
+                value: "overriden", 
+                file: 'params/nodes/server.example.com.yaml',
+                overrides: [
+                  {
+                    value: "override-me", 
+                    file: 'params/farm/dev.yaml'
+                  },
+                ]
+              }
+            }, 
+            { "somefarmparam" =>
+              {
+                value: false,
+                file: 'params/farm/dev.yaml'
+              }
+            }
+          ]
+        }
+        it { expect(node.params2).to eq expected }
+      end
+
       describe '.params_tree' do
         let(:expected) {
           {
