@@ -39,7 +39,7 @@ module Hieracles
 
       def commented_yaml_tree(filter, without_common = true)
         tree = @node.params_tree(without_common)
-        params = Hash[@node.params(without_common)]
+        params = @node.params(without_common)
         mergetree('---', [], tree, params)
       end
 
@@ -61,13 +61,8 @@ module Hieracles
         aryaml = yaml.each_line.map do |l|
           indent + l
         end
-        if @node.hiera.merge_behavior == :deep ||
-           @node.hiera.merge_behavior == :deeper 
-          params[key.join('.')].each do |f|
-            output += "\n" + indent + "# " + f[:file]
-          end
-        else
-          output += "\n" + indent + "# " + params[key.join('.')].last[:file]
+        params[key.join('.')][:found_in].each do |k|
+          output += "\n" + indent + "# " + k[:file]
         end
         output += "\n" + aryaml.join().chomp
         output        
@@ -101,12 +96,10 @@ module Hieracles
 
       def added(output, key, leaf, params)
         output += leaf.to_s
-        if params["#{key.join('.')}"]
-          params["#{key.join('.')}"].each do |k|
-            if k[:value].to_s == leaf.to_s
-              output += " # " + k[:file]
-              break
-            end
+        k = params["#{key.join('.')}"]
+        if k
+          k[:found_in].each do |i|
+            output += " # " + i[:file]
           end
         end
         output

@@ -71,7 +71,7 @@ module Hieracles
           build_overriden(key, value[:found_in])
         else
           filecolor_index = @index[value[:file]]
-          output << "[#{filecolor_index}] #{key} #{value[:value]}\n"
+          "[#{filecolor_index}] #{key} #{value[:value]}\n"
         end
       end
 

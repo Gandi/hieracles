@@ -32,16 +32,13 @@ module Hieracles
       def build_params_line(key, value, filter)
         output = ''
         if !filter || Regexp.new(filter).match(key)
-          first = value.pop
-          if is_merged? first
-            output << build_line('-', key, first[:merged])
-            output << build_line(first[:file], key, first[:value], '1')
+          if value[:overriden]
+            output << build_line('-', key, value[:value])
+            value[:found_in].each do |v|
+              output << build_line(v[:file], key, v[:value], '1')
+            end
           else
-            output << build_line(first[:file], key, first[:value])
-          end
-          while value.count > 0
-            overriden = value.pop
-            output << build_line(overriden[:file], key, overriden[:value], '1')
+            output << build_line(value[:file], key, value[:value])
           end
         end
         output

@@ -70,10 +70,14 @@ describe Hieracles::Formats::Yaml do
       before {
         allow(node).to receive(:params).with(true).and_return(
           { 
-            'params.this.var' => [{
-              file: 'some/file',
-              value: 'value1'
-            }]
+            'params.this.var' => {
+              file: 'some/file', 
+              value: 'value1', 
+              overriden: false, 
+              found_in: [
+                { file: 'some/file', value: 'value1' }
+              ]
+            }
           }
         )
         allow(node).to receive(:params_tree).with(true).and_return(
@@ -98,10 +102,14 @@ describe Hieracles::Formats::Yaml do
       before {
         allow(node).to receive(:params).and_return(
           { 
-            'params.this.var' => [{
-              file: 'some/file',
-              value: 'value1'
-            }]
+            'params.this.var' => {
+              file: 'some/file', 
+              value: 'value1', 
+              overriden: false, 
+              found_in: [
+                { file: 'some/file', value: 'value1' }
+              ]
+            }
           }
         )
         allow(node).to receive(:params_tree).and_return(
@@ -129,10 +137,14 @@ describe Hieracles::Formats::Yaml do
       before {
         allow(node).to receive(:params).and_return(
           { 
-            'params.this.var' => [{
-              file: 'some/file',
-              value: 'value1'
-            }]
+            'params.this.var' => {
+              file: 'some/file', 
+              value: 'value1', 
+              overriden: false, 
+              found_in: [
+                { file: 'some/file', value: 'value1' }
+              ]
+            }
           }
         )
         allow(node).to receive(:params_tree).and_return(
@@ -157,10 +169,14 @@ describe Hieracles::Formats::Yaml do
       before {
         allow(node).to receive(:params).with(false).and_return(
           { 
-            'params.this.var' => [{
-              file: 'some/file',
-              value: 'value1'
-            }]
+            'params.this.var' => {
+              file: 'some/file', 
+              value: 'value1', 
+              overriden: false, 
+              found_in: [
+                { file: 'some/file', value: 'value1' }
+              ]
+            }
           }
         )
         allow(node).to receive(:params_tree).with(false).and_return(
@@ -181,10 +197,14 @@ describe Hieracles::Formats::Yaml do
     context "with a simple string key-value" do
       let(:params) {
         { 
-          'key' => [{
-            file: 'what/file',
-            value: 'value'
-          }]
+          'key' => {
+            file: 'what/file', 
+            value: 'value', 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file', value: 'value1' }
+            ]
+          }
         }
       }
       let(:input) {
@@ -198,10 +218,14 @@ describe Hieracles::Formats::Yaml do
     context "with various boolean type of key-values (true)" do
       let(:params) {
         { 
-          'key' => [{
-            file: 'what/file',
-            value: 'true'
-          }]
+          'key' => {
+            file: 'what/file', 
+            value: true, 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file', value: true }
+            ]
+          }
         }
       }
       let(:input) {
@@ -215,10 +239,14 @@ describe Hieracles::Formats::Yaml do
     context "with various null type of key-values (nil)" do
       let(:params) {
         { 
-          'key' => [{
-            file: 'what/file',
-            value: nil
-          }]
+          'key' => {
+            file: 'what/file', 
+            value: nil, 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file', value: nil }
+            ]
+          }
         }
       }
       let(:input) {
@@ -232,10 +260,14 @@ describe Hieracles::Formats::Yaml do
     context "with various boolean type of key-values (false)" do
       let(:params) {
         { 
-          'key' => [{
-            file: 'what/file',
-            value: 'false'
-          }]
+          'key' => {
+            file: 'what/file', 
+            value: 'false', 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file', value: 'false' }
+            ]
+          }
         }
       }
       let(:input) {
@@ -249,10 +281,14 @@ describe Hieracles::Formats::Yaml do
     context "with various fixnum type of key-values" do
       let(:params) {
         { 
-          'key' => [{
-            file: 'what/file',
-            value: '3'
-          }]
+          'key' => {
+            file: 'what/file', 
+            value: '3', 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file', value: '3' }
+            ]
+          }
         }
       }
       let(:input) {
@@ -266,10 +302,14 @@ describe Hieracles::Formats::Yaml do
     context "with various float type of key-values" do
       let(:params) {
         { 
-          'key' => [{
-            file: 'what/file',
-            value: '0.3'
-          }]
+          'key' => {
+            file: 'what/file', 
+            value: '0.3', 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file', value: '0.3' }
+            ]
+          }
         }
       }
       let(:input) {
@@ -283,10 +323,14 @@ describe Hieracles::Formats::Yaml do
     context "with a simple array key-value" do
       let(:params) {
         { 
-          'key' => [{
-            file: 'what/file',
-            value: ['value1', 'value2']
-          }]
+          'key' => {
+            file: 'what/file', 
+            value: ['value1', 'value2'], 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file', value: ['value1', 'value2'] }
+            ]
+          }
         }
       }
       let(:input) {
@@ -306,18 +350,15 @@ describe Hieracles::Formats::Yaml do
     context "with a double array key-value" do
       let(:params) {
         { 
-          'key' => [
-            {
-              file: 'what/file',
-              value: ['value1', 'value2'],
-              merged: ['value1', 'value2']
-            },
-            {
-              file: 'what/other-file',
-              value: ['value3'],
-              merged: ['value1', 'value2', 'value3']
-            }
-          ]
+          'key' => {
+            file: '-', 
+            value: ['value3'], 
+            overriden: true, 
+            found_in: [
+              { file: 'what/file', value: ['value3'] },
+              { file: 'what/other-file', value: ['value1', 'value2'] }
+            ]
+          }
         }
       }
       let(:hiera) { Struct.new( :merge_behavior ) }
@@ -326,7 +367,7 @@ describe Hieracles::Formats::Yaml do
           { 'key' => ['value3'] }
         }
         let(:expected) {
-          "\nkey: \n  # what/other-file\n  - value3"
+          "\nkey: \n  # what/file\n  # what/other-file\n  - value3"
         }
         before {
           allow(node).to receive(:hiera).and_return(
@@ -353,10 +394,14 @@ describe Hieracles::Formats::Yaml do
     context "with a 2-levels string key-value" do
       let(:params) {
         { 
-          'key.sublevel' => [{
-            file: 'what/file',
-            value: 'value'
-          }]
+          'key.sublevel' => {
+            file: 'what/file', 
+            value: 'value', 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file', value: 'value' }
+            ]
+          }
         }
       }
       let(:input) {
@@ -374,14 +419,22 @@ describe Hieracles::Formats::Yaml do
     context "with 2 2-levels string key-value" do
       let(:params) {
         { 
-          'key.sublevel' => [{
-            file: 'what/file',
-            value: 'value'
-          }],
-          'key.sublevel2' => [{
-            file: 'what/file2',
-            value: 'value2'
-          }]
+          'key.sublevel' => {
+            file: 'what/file', 
+            value: 'value', 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file', value: 'value' }
+            ]
+          },
+          'key.sublevel2' => {
+            file: 'what/file2', 
+            value: 'value2', 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file2', value: 'value2' }
+            ]
+          }
         }
       }
       let(:input) {
@@ -400,10 +453,14 @@ describe Hieracles::Formats::Yaml do
     context "with a 3-levels string key-value" do
       let(:params) {
         { 
-          'key.sublevel.subsublevel' => [{
-            file: 'what/file',
-            value: 'value'
-          }]
+          'key.sublevel.subsublevel' => {
+            file: 'what/file', 
+            value: 'value', 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file', value: 'value' }
+            ]
+          }
         }
       }
       let(:input) {
@@ -423,14 +480,22 @@ describe Hieracles::Formats::Yaml do
     context "with a 3-levels double string key-value" do
       let(:params) {
         { 
-          'key.sublevel.subsublevel' => [{
-            file: 'what/file',
-            value: 'value'
-          }],
-          'key2.sublevel' => [{
-            file: 'what/file2',
-            value: 'value'
-          }]
+          'key.sublevel.subsublevel' => {
+            file: 'what/file', 
+            value: 'value', 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file', value: 'value' }
+            ]
+          },
+          'key2.sublevel' => {
+            file: 'what/file2', 
+            value: 'value', 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file2', value: 'value' }
+            ]
+          }
         }
       }
       let(:input) {
@@ -454,20 +519,23 @@ describe Hieracles::Formats::Yaml do
     context "with a 3-levels double string key-value and override" do
       let(:params) {
         { 
-          'key.sublevel.subsublevel' => [{
-            file: 'what/file',
-            value: 'value'
-          }],
-          'key2.sublevel' => [
-            {
-              file: 'what/file2',
-              value: 'value'
-            },
-            {
-              file: 'what/file1',
-              value: 'value2'
-            }
-          ]
+          'key.sublevel.subsublevel' => {
+            file: 'what/file', 
+            value: 'value', 
+            overriden: false, 
+            found_in: [
+              { file: 'what/file', value: 'value' }
+            ]
+          },
+          'key2.sublevel' => {
+            file: '-', 
+            value: 'value', 
+            overriden: true, 
+            found_in: [
+              { file: 'what/file2', value: 'value' },
+              { file: 'what/file1', value: 'value2' }
+            ]
+          }
         }
       }
       let(:input) {
@@ -484,7 +552,7 @@ describe Hieracles::Formats::Yaml do
       }
       let(:expected) {
         "\nkey: \n  sublevel: \n    subsublevel: value # what/file" +
-        "\nkey2: \n  sublevel: value2 # what/file1"
+        "\nkey2: \n  sublevel: value2 # what/file2 # what/file1"
       }
       it { expect(yaml_format.mergetree('', [], input, params)).to eq expected }
     end
