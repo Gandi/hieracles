@@ -48,7 +48,7 @@ module Hieracles
       files(without_common).map { |p| File.join(@config.basepath, p) }
     end
 
-    def params(without_common = true)
+    def params_old(without_common = true)
       params = {}
       files(without_common).reverse.each do |f|
         data = YAML.load_file(File.join(@config.basepath, f))
@@ -63,7 +63,7 @@ module Hieracles
       params.sort
     end
 
-    def params2(without_common = true)
+    def params(without_common = true)
       params = {}
       files(without_common).each do |f|
         data = YAML.load_file(File.join(@config.basepath, f))
@@ -73,7 +73,7 @@ module Hieracles
             if params[k]
               case @hiera.merge_behavior
               when :deeper
-                params[k].deep_merge!({ value: v })
+                params[k] = { value: v }.deep_merge!(params[k])
               when :deep
                 params[k].deep_merge({ value: v })
               end

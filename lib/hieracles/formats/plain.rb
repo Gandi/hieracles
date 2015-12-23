@@ -60,22 +60,30 @@ module Hieracles
       def build_params_line(key, value, filter)
         output = ''
         if !filter || Regexp.new(filter).match(key)
-          first = value.pop
-          filecolor_index = @index[first[:file]]
-          if is_merged? first
-            output << "[-] #{key} #{first[:merged]}\n"
-            output << "    [#{filecolor_index}] #{key} #{first[:value]}\n"
-          else
-            output << "[#{filecolor_index}] #{key} #{first[:value]}\n"
-          end
-          while value.count > 0
-            overriden = value.pop
-            filecolor_index = @index[overriden[:file]]
-            output << "    [#{filecolor_index}] #{key} #{overriden[:value]}\n"
-          end
+          output << build_line_item(key, value)
         end
         output
       end
+
+      def build_line_item(key, value)
+        if value[:overriden]
+          "[-] #{key} #{value[:value]}\n" +
+          build_overriden(key, value[:found_in])
+        else
+          filecolor_index = @index[value[:file]]
+          output << "[#{filecolor_index}] #{key} #{value[:value]}\n"
+        end
+      end
+
+      def build_overriden(key, found_in)
+        back = ''
+        found_in.each do |v|
+          filecolor_index = @index[v[:file]]
+          back << "    [#{filecolor_index}] #{key} #{v[:value]}\n"
+        end
+        back
+      end
+
 
       def build_modules_line(key, value)
         length = max_key_length(@node.modules) + 3

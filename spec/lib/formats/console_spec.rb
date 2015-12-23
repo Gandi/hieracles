@@ -76,14 +76,20 @@ describe Hieracles::Formats::Console do
   describe ".build_params_line" do
     context "when not merged" do
       let(:expected) { 
-         "\e[32m[1]\e[0m \e[36mparams.this.var\e[0m value2\n"+
-         "    \e[97m[0] params.this.var value1\e[0m\n"
+         "[-] \e[36mparams.this.var\e[0m value1\n" +
+         "    \e[97m[0] params.this.var value1\e[0m\n" +
+         "    \e[97m[1] params.this.var value2\e[0m\n"
       }
       let(:params) {
-        [
-          { file: 'path1', value: 'value1', merged: 'value1'},
-          { file: 'path2', value: 'value2', merged: 'value2'},
-        ] 
+        {
+          file: '-', 
+          value: 'value1', 
+          overriden: true, 
+          found_in: [
+            { file: 'path1', value: 'value1' },
+            { file: 'path2', value: 'value2' }
+          ]
+        } 
       }
       before {
         console_format.instance_variable_set(:@colors,
@@ -100,14 +106,19 @@ describe Hieracles::Formats::Console do
     context "when merged" do
       let(:expected) { 
          "[-] \e[36mparams.this.var\e[0m [\"value1\", \"value2\"]\n"+
-         "    \e[97m[1] params.this.var [\"value2\"]\e[0m\n"+
-         "    \e[97m[0] params.this.var [\"value1\"]\e[0m\n"
+         "    \e[97m[0] params.this.var [\"value1\"]\e[0m\n"+
+         "    \e[97m[1] params.this.var [\"value2\"]\e[0m\n"
       }
       let(:params) {
-        [
-          { file: 'path1', value: ['value1'], merged: ['value1'] },
-          { file: 'path2', value: ['value2'], merged: ['value1','value2'] }
-        ] 
+        {
+          file: '-', 
+          value: ['value1','value2'], 
+          overriden: true, 
+          found_in: [
+            { file: 'path1', value: ['value1'] },
+            { file: 'path2', value: ['value2'] }
+          ]
+        } 
       }
       before {
         console_format.instance_variable_set(:@colors,

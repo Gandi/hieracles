@@ -75,14 +75,20 @@ describe Hieracles::Formats::Plain do
   describe ".build_params_line" do
     context "when not merged" do
       let(:expected) { 
-         "[1] params.this.var value2\n"+
-         "    [0] params.this.var value1\n"
+         "[-] params.this.var value1\n" +
+         "    [0] params.this.var value1\n" +
+         "    [1] params.this.var value2\n"
       }
       let(:params) {
-        [
-          { file: 'path1', value: 'value1', merged: 'value1'},
-          { file: 'path2', value: 'value2', merged: 'value2'},
-        ] 
+        {
+          file: '-', 
+          value: 'value1', 
+          overriden: true, 
+          found_in: [
+            { file: 'path1', value: 'value1' },
+            { file: 'path2', value: 'value2' }
+          ]
+        } 
       }
       before {
         plain_format.instance_variable_set(:@index,
@@ -99,14 +105,19 @@ describe Hieracles::Formats::Plain do
     context "when merged" do
       let(:expected) { 
          "[-] params.this.var [\"value1\", \"value2\"]\n"+
-         "    [1] params.this.var [\"value2\"]\n"+
-         "    [0] params.this.var [\"value1\"]\n"
+         "    [0] params.this.var [\"value1\"]\n"+
+         "    [1] params.this.var [\"value2\"]\n"
       }
       let(:params) {
-        [
-          { file: 'path1', value: ['value1'], merged: ['value1'] },
-          { file: 'path2', value: ['value2'], merged: ['value1','value2'] },
-        ] 
+        {
+          file: '-', 
+          value: ['value1','value2'], 
+          overriden: true, 
+          found_in: [
+            { file: 'path1', value: ['value1'] },
+            { file: 'path2', value: ['value2'] }
+          ]
+        } 
       }
       before {
         plain_format.instance_variable_set(:@index,

@@ -13,9 +13,9 @@ module Hieracles
         "\e[33m%s\e[0m",
         "\e[34m%s\e[0m",
         "\e[35m%s\e[0m",
-        "\e[36m%s\e[0m",
         "\e[37m%s\e[0m",
         "\e[38m%s\e[0m",
+        "\e[36m%s\e[0m",
         "\e[97m%s\e[0m",
         "\e[35;1m%s\e[0m"
       ]
@@ -85,28 +85,29 @@ module Hieracles
       def build_params_line(key, value, filter)
         output = ''
         if !filter || Regexp.new(filter).match(key)
-          output << build_first(key, value.pop)
-          while value.count > 0
-            output << build_next(key, value.pop)
-          end
+          output << build_line_item(key, value)
         end
         output
       end
 
-      def build_first(key, first)
-        filecolor_index = @colors[first[:file]]
-        filecolor = COLORS[filecolor_index]
-        if is_merged? first
-          format("%s #{COLORS[5]} %s\n", "[-]", key, sanitize(first[:merged]) ) +
-          format("    #{COLORS[8]}\n", "[#{filecolor_index}] #{key} #{sanitize(first[:value])}" )
+      def build_line_item(key, value)
+        if value[:overriden]
+          format("%s #{COLORS[7]} %s\n", "[-]", key, sanitize(value[:value]) ) +
+          build_overriden(key, value[:found_in])
         else
-          format("#{filecolor} #{COLORS[5]} %s\n", "[#{filecolor_index}]", key, sanitize(first[:value]) )
+          filecolor_index = @colors[value[:file]]
+          filecolor = COLORS[filecolor_index]
+          format("#{filecolor} #{COLORS[7]} %s\n", "[#{filecolor_index}]", key, sanitize(value[:value]) )
         end
       end
 
-      def build_next(key, overriden)
-        filecolor_index = @colors[overriden[:file]]
-        format("    #{COLORS[8]}\n", "[#{filecolor_index}] #{key} #{overriden[:value]}")
+      def build_overriden(key, found_in)
+        back = ''
+        found_in.each do |v|
+          filecolor_index = @colors[v[:file]]
+          back << format("    #{COLORS[8]}\n", "[#{filecolor_index}] #{key} #{v[:value]}")
+        end
+        back
       end
 
       def build_modules_line(key, value)
