@@ -1,7 +1,9 @@
 Hieracles Changelog
 =======================
 
-### 0.3.1 - wip
+### 0.3.1 - 2015-12-28
+- added some relevance to the registry class
+- changed the internal way to store the nodes information
 - moved Config singleton to a proper class for modularity sake
 
 ### 0.3.0 - 2015-12-16
