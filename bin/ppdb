@@ -41,7 +41,7 @@ if args.length < required.length
   puts "*** The #{command} method requires arguments: #{args}"
   exit(1)
 else
-  if Hieracles::Config.format == 'Json'
+  if config.format == 'Json'
     format = Hieracles::Formats::Json.new(nil)
   else
     format = Hieracles::Formats::Console.new(nil)

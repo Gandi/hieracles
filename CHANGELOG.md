@@ -1,6 +1,9 @@
 Hieracles Changelog
 =======================
 
+### 0.3.2 - 2015-12-30
+- fix ppdb that suffered a regression
+
 ### 0.3.1 - 2015-12-28
 - added some relevance to the registry class
 - changed the internal way to store the nodes information
