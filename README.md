@@ -165,6 +165,8 @@ or for a ssl setup:
       ca_file: path/to/ca_file
       verify_peer: false
 
+Note: the SSL config was not tested yet.
+
 #### Usage
 
 If you set `usedb: false` the `hc` commands will not query the puppetdb unless you pass the `-db` options.
