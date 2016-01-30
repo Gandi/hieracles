@@ -2,13 +2,20 @@ module Hieracles
   module Interpolate
 
     def parse(data, values, interactive = false)
-      data.gsub(/%\{(?:(scope|hiera|literal|alias)\(['"])?(?:::)?([^\}"']*)(?:["']\))?\}/) do |match|
+      data.gsub(regex) do |match|
         if interactive && !values[$2.to_sym]
           values[$2.to_sym] = ask_about($2)
           values[$2.to_sym]
         else
           values[$2.to_sym]
         end
+      end
+    end
+
+    def extract(data)
+      data.scan(regex).reduce([]) do |a, m|
+        a << m[1] unless a.include?(m[1])
+        a
       end
     end
 
@@ -26,6 +33,10 @@ module Hieracles
     def setio(input=STDIN, output=STDOUT)
       @@input = input
       @@output = output
+    end
+
+    def regex
+      /%\{(?:(scope|hiera|literal|alias)\(['"])?(?:::)?([^\}"']*)(?:["']\))?\}/
     end
 
   end

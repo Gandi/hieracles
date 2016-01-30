@@ -43,6 +43,24 @@ describe Hieracles::Interpolate do
     end
   end
 
+  describe '.extract' do
+    context 'with a single var' do
+      let(:data) { 'something_%{a_var}' }
+      let(:expected) { [ 'a_var' ] }
+      it { expect(extract data).to eq expected }
+    end
+    context 'with a 2 vars' do
+      let(:data) { "something_%{a_var}\nanother %{one}" }
+      let(:expected) { [ 'a_var', 'one' ] }
+      it { expect(extract data).to eq expected }
+    end
+    context 'with a 2 identical vars' do
+      let(:data) { "something_%{a_var}\nanother %{a_var}" }
+      let(:expected) { [ 'a_var' ] }
+      it { expect(extract data).to eq expected }
+    end
+  end
+
   describe ".ask_about" do
   end
 
