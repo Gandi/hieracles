@@ -48,21 +48,6 @@ module Hieracles
       files(without_common).map { |p| File.join(@config.basepath, p) }
     end
 
-    def params_old(without_common = true)
-      params = {}
-      files(without_common).reverse.each do |f|
-        data = YAML.load_file(File.join(@config.basepath, f))
-        if data
-          s = to_shallow_hash(data)
-          s.each do |k,v|
-            params[k] ||= []
-            params[k] << { value: v, file: f }.merge(merge_value(params[k], v))
-          end
-        end
-      end
-      params.sort
-    end
-
     def params(without_common = true)
       params = {}
       files(without_common).each do |f|
@@ -87,7 +72,6 @@ module Hieracles
                 overriden: false,
                 found_in: [{ value: v, file: f }]
               }
-
             end
           end
         end

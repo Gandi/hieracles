@@ -22,5 +22,9 @@ module Hieracles
   		end
   	end
 
+    def vars(config)
+      
+    end
+
 	end
 end

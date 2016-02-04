@@ -54,4 +54,22 @@ describe Hieracles::Registry do
     it { expect(Hieracles::Registry.modules config).to eq expected }
   end
 
+  describe '.vars' do
+    let(:options) do
+      {
+        config: 'spec/files/config.yml',
+        basepath: 'spec/files'
+      }
+    end
+    let(:expected) { [
+        'fake_module',
+        'fake_module2',
+        'fake_module3',
+        'faux_module1',
+        'faux_module2'
+    ] }
+    let(:config) { Hieracles::Config.new options }
+    it { expect(Hieracles::Registry.vars config).to eq expected }
+  end
+
 end
