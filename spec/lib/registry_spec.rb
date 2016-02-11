@@ -54,22 +54,39 @@ describe Hieracles::Registry do
     it { expect(Hieracles::Registry.modules config).to eq expected }
   end
 
-  describe '.vars' do
+  describe '.nodes_data' do
     let(:options) do
       {
         config: 'spec/files/config.yml',
         basepath: 'spec/files'
       }
     end
-    let(:expected) { [
-        'fake_module',
-        'fake_module2',
-        'fake_module3',
-        'faux_module1',
-        'faux_module2'
-    ] }
+    let(:expected) {
+      {
+        'server.example.com' => {
+          'country' => 'fr',
+          'datacenter' => 'equinix',
+          'farm' => 'dev'
+        },
+        'server2.example.com' => {
+          'country' => 'fr',
+          'datacenter' => 'equinix',
+          'farm' => 'dev2'
+        },
+        'server3.example.com' => {
+          'country' => 'fr',
+          'datacenter' => 'equinix',
+          'farm' => 'dev3'
+        },
+        'server4.example.com' => {
+          'country' => 'fr',
+          'datacenter' => 'equinix',
+          'farm' => 'dev2'
+        }
+      }
+    }
     let(:config) { Hieracles::Config.new options }
-    it { expect(Hieracles::Registry.vars config).to eq expected }
+    it { expect(Hieracles::Registry.nodes_data config).to eq expected }
   end
 
 end

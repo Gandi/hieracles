@@ -22,9 +22,16 @@ module Hieracles
   		end
   	end
 
-    def vars(config)
-      
+    def nodes_data(config, env = 'production', reload = false)
+      @_nodes_data = {} if reload || !@_nodes_data
+      @_nodes_data[env] ||= Dir.glob(File.join(config.encpath, '*.yaml')).sort.reduce({}) do |a, f|
+        fqdn = File.basename(f, '.yaml')
+        a[fqdn] = YAML.load_file(f)['parameters']
+        a
+      end
     end
+
+
 
 	end
 end

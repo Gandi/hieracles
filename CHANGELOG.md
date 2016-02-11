@@ -3,6 +3,7 @@ Hieracles Changelog
 
 ### 0.3.3 - wip
 - add some convenience methods for usage as a lib
+- add a nodes_data in registry module to get all info for all nodes.
 
 ### 0.3.2 - 2015-12-30
 - fix ppdb that suffered a regression
