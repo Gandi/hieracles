@@ -1,7 +1,7 @@
 Hieracles Changelog
 =======================
 
-### 0.3.3 - wip
+### 0.3.3 - 2016-02-11
 - add some convenience methods for usage as a lib
 - add a nodes_data in registry module to get all info for all nodes.
 
