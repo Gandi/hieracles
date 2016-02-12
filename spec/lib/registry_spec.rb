@@ -2,14 +2,14 @@ require 'spec_helper'
 
 describe Hieracles::Registry do
 	let(:base) { File.expand_path('../../../', __FILE__)}
+  let(:options) do
+    { 
+      config: 'spec/files/config.yml', 
+      basepath: 'spec/files'
+    }
+  end
 
   describe '.farms' do
-    let(:options) do
-      { 
-        config: 'spec/files/config.yml', 
-        basepath: 'spec/files'
-      }
-    end
     let(:config) { Hieracles::Config.new options }
     let(:expected) { [
         'dev',
@@ -20,12 +20,6 @@ describe Hieracles::Registry do
   end
 
   describe '.nodes' do
-    let(:options) do
-      { 
-        config: 'spec/files/config.yml',
-        basepath: 'spec/files'
-      }
-    end
     let(:expected) { [
     		'server.example.com',
     		'server2.example.com',
@@ -37,12 +31,6 @@ describe Hieracles::Registry do
   end
 
   describe '.modules' do
-    let(:options) do
-      {
-        config: 'spec/files/config.yml',
-        basepath: 'spec/files'
-      }
-    end
     let(:expected) { [
     		'fake_module',
     		'fake_module2',
@@ -55,12 +43,6 @@ describe Hieracles::Registry do
   end
 
   describe '.nodes_data' do
-    let(:options) do
-      {
-        config: 'spec/files/config.yml',
-        basepath: 'spec/files'
-      }
-    end
     let(:expected) {
       {
         'server.example.com' => {
@@ -88,5 +70,18 @@ describe Hieracles::Registry do
     let(:config) { Hieracles::Config.new options }
     it { expect(Hieracles::Registry.nodes_data config).to eq expected }
   end
+
+  describe '.farms_counted' do
+    let(:expected) { 
+      {
+        'dev' => 1,
+        'dev2' => 2,
+        'dev4' => 0
+      }
+    }
+    let(:config) { Hieracles::Config.new options }
+    it { expect(Hieracles::Registry.farms_counted config).to eq expected }
+  end
+
 
 end
