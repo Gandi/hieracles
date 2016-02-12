@@ -31,7 +31,5 @@ module Hieracles
       end
     end
 
-
-
 	end
 end
