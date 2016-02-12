@@ -1,7 +1,7 @@
 Hieracles Changelog
 =======================
 
-### 0.3.4 - wip
+### 0.3.4 - 2016-02-12
 - add a farms_counted method to registry for a ponderated list of farms
 
 ### 0.3.3 - 2016-02-11
