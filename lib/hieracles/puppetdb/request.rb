@@ -56,6 +56,10 @@ module Hieracles
       end
       alias_method :res, :resources
 
+      def events
+        @client.request("events")
+      end
+
     private
 
       def extract_names(resp, label = 'certname')
