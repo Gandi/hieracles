@@ -62,7 +62,7 @@ module Hieracles
     # str is like: something=xxx;another=yyy  
     def extract_params(str)
       return {} unless str
-      str.split(';').reduce({}) do |a, k|
+      str.split(',').reduce({}) do |a, k|
         a["#{k[/^[^=]*/]}".to_sym] = k[/[^=]*$/]
         a
       end

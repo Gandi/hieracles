@@ -1,7 +1,9 @@
 Hieracles Changelog
 =======================
 
-### 0.3.5 - wip
+### 0.3.5 - 2016-02-17
+- change extraparams separator from ; to , to avoid having to quote argument
+- fix merge order for extraparams to override configuration and puppetdb values
 - add various puppetdb requests templates:
   - events
 

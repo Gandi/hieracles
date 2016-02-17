@@ -15,7 +15,7 @@ describe Hieracles::Node do
     context "when extra parameters are specified" do
       describe '.new' do
         let(:extraoptions) {
-          options.merge({ params: 'key1=value1;key2=value2' })
+          options.merge({ params: 'key1=value1,key2=value2' })
         }
         let(:config) { Hieracles::Config.new extraoptions }
         let(:node) { Hieracles::Node.new 'server.example.com', config }

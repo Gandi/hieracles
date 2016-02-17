@@ -17,9 +17,10 @@ module Hieracles
       @hiera_params = { fqdn: @fqdn }.
         merge(get_hiera_params(@fqdn)).
         merge(@config.extraparams)
-      @facts = deep_sort(@hiera_params.
-        merge(@config.scope).
-        merge(puppet_facts))
+      @facts = deep_sort(@config.scope.
+        merge(puppet_facts).
+        merge(@hiera_params)
+        )
     end
 
     def get_hiera_params(fqdn)

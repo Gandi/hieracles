@@ -119,7 +119,7 @@ describe Hieracles::Config do
           config: 'spec/files/config.yml'
         }
       end
-    let(:str)  { 'bla=blu;one=two' }
+    let(:str)  { 'bla=blu,one=two' }
     let(:expected) { { bla: 'blu', one: 'two' } }
     let(:config) { Hieracles::Config.new options }
     it { expect(config.extract_params(str)).to eq expected }
