@@ -1,3 +1,11 @@
+ruby-hieracles (0.3.5.0) unstable; urgency=medium
+
+  * upstream 0.3.5
+  * fix extraparams behavior
+  * change extraparams separator from ; to ,
+
+ -- mose <mose@gandi.net>  Wed, 177 Feb 2016 18:00:00 +0800
+
 ruby-hieracles (0.3.2.0) unstable; urgency=medium
 
   * upstream 0.3.2

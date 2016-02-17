@@ -4,8 +4,6 @@ Hieracles Changelog
 ### 0.3.5 - 2016-02-17
 - change extraparams separator from ; to , to avoid having to quote argument
 - fix merge order for extraparams to override configuration and puppetdb values
-- add various puppetdb requests templates:
-  - events
 
 ### 0.3.4 - 2016-02-12
 - add a farms_counted method to registry for a ponderated list of farms

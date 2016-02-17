@@ -88,7 +88,7 @@ Available commands:
 
 Extra args:
   -f <plain|console|csv|yaml|rawyaml|json> default console
-  -p extraparam=what;anotherparam=this 
+  -p extraparam=what,anotherparam=this 
   -c <configfile>
   -h <hierafile>
   -b <basepath> default ./
