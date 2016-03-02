@@ -24,7 +24,10 @@ end
 if Hieracles::Format.method_defined? command
   begin
     config = Hieracles::Config.new opt.options
-    node = Hieracles::Node.new fqdn, config
+    if fqdn[/\./]
+      node = Hieracles::Node.new fqdn, config
+    else
+    end
   rescue Exception => e
     puts "*** Error: #{e.message}"
     exit(1)
