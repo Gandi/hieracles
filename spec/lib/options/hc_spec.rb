@@ -79,4 +79,8 @@ describe Hieracles::Options::Hc do
     end
 
   end
+
+  describe '.usage' do
+    it { expect(Hieracles::Options::Hc.usage).to include('Usage')}
+  end
 end
