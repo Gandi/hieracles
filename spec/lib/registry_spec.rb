@@ -42,7 +42,7 @@ describe Hieracles::Registry do
     it { expect(Hieracles::Registry.modules config).to eq expected }
   end
 
-  describe '.nodes_data' do
+  describe '.nodes_parameters' do
     let(:expected) {
       {
         'server.example.com' => {
@@ -68,7 +68,7 @@ describe Hieracles::Registry do
       }
     }
     let(:config) { Hieracles::Config.new options }
-    it { expect(Hieracles::Registry.nodes_data config).to eq expected }
+    it { expect(Hieracles::Registry.nodes_parameters config).to eq expected }
   end
 
   describe '.farms_counted' do
