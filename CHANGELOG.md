@@ -1,6 +1,9 @@
 Hieracles Changelog
 =======================
 
+### 0.3.6 - 2016-04-27
+- avoid abusive caching for all farms information
+
 ### 0.3.5 - 2016-02-18
 - change extraparams separator from ; to , to avoid having to quote argument
 - fix merge order for extraparams to override configuration and puppetdb values

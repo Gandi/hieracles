@@ -22,8 +22,13 @@ module Hieracles
       end
     end
 
-    def nodes_parameters(config, env = 'production', reload = false)
-      @_nodes_parameters = {} if reload || !@_nodes_parameters
+    def reload_nodes()
+      @_nodes_parameters = {}
+      @_nodes_modules = {}
+    end
+
+    def nodes_parameters(config, env = 'production')
+      @_nodes_parameters ||= {}
       @_nodes_parameters[env] ||= Dir.glob(File.join(config.encpath, '*.yaml')).sort.reduce({}) do |a, f|
         fqdn = File.basename(f, '.yaml')
         a[fqdn] = YAML.load_file(f)['parameters']
@@ -31,8 +36,8 @@ module Hieracles
       end
     end
 
-    def nodes_modules(config, env = 'production', reload = false)
-      @_nodes_modules = {} if reload || !@_nodes_modules
+    def nodes_modules(config, env = 'production')
+      @_nodes_modules ||= {}
       @_nodes_modules[env] ||= Dir.glob(File.join(config.encpath, '*.yaml')).sort.reduce({}) do |a, f|
         YAML.load_file(f)['classes'].each do |cl|
 
@@ -43,7 +48,8 @@ module Hieracles
       end
     end
 
-    def farms_counted(config, env = 'production')
+    def farms_counted(config, env = 'production', reload = false)
+      reload_nodes if reload
       Dir.glob(format(config.classpath, '*')).sort.reduce({}) do |a, f|
         sub = Regexp.new(".*#{config.classpath.sub(/%s/,'([^/]*)')}")
         name = f.sub(sub, "\\1")
@@ -52,7 +58,8 @@ module Hieracles
       end
     end
 
-    def modules_counted(config, env = 'production')
+    def modules_counted(config, env = 'production', reload = false)
+      reload_nodes if reload
       Dir.glob(File.join(config.modulepath, '*')).sort.reduce({}) do |acc, mod|
         acc
       end
