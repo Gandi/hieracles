@@ -1,6 +1,8 @@
 Hieracles Changelog
 =======================
 
+### 0.3.7 - wip
+
 ### 0.3.6 - 2016-04-27
 - avoid abusive caching for all farms information
 
