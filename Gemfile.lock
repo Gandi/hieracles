@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hieracles (0.3.6)
+    hieracles (0.3.7)
       awesome_print
       deep_merge
       httparty
@@ -11,12 +11,12 @@ GEM
   specs:
     ast (2.3.0)
     awesome_print (1.7.0)
-    coveralls (0.8.13)
-      json (~> 1.8)
-      simplecov (~> 0.11.0)
-      term-ansicolor (~> 1.3)
-      thor (~> 0.19.1)
-      tins (~> 1.6.0)
+    coveralls (0.7.2)
+      multi_json (~> 1.3)
+      rest-client (= 1.6.7)
+      simplecov (>= 0.7)
+      term-ansicolor (= 1.2.2)
+      thor (= 0.18.1)
     deep_merge (1.0.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
@@ -24,12 +24,18 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     json (1.8.3)
+    mime-types (3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0521)
+    multi_json (1.12.1)
     multi_xml (0.5.5)
     parser (2.3.1.2)
       ast (~> 2.2)
     powerpack (0.1.1)
     rainbow (2.1.0)
     rake (11.2.2)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -50,15 +56,15 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
-    simplecov (0.11.2)
+    simplecov (0.12.0)
       docile (~> 1.1.0)
-      json (~> 1.8)
+      json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    term-ansicolor (1.3.2)
-      tins (~> 1.0)
-    thor (0.19.1)
-    tins (1.6.0)
+    term-ansicolor (1.2.2)
+      tins (~> 0.8)
+    thor (0.18.1)
+    tins (0.13.2)
     unicode-display_width (1.1.0)
 
 PLATFORMS
@@ -72,7 +78,7 @@ DEPENDENCIES
   rake
   rspec (~> 3.0)
   rubocop
-  simplecov
+  simplecov (>= 0.12.0)
 
 BUNDLED WITH
    1.11.2
