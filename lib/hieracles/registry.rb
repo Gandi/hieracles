@@ -72,9 +72,9 @@ module Hieracles
 
     def modules_counted(config, env = 'production', reload = false)
       reload_nodes if reload
-      extract_path = Regexp.new(".*#{config.classpath.sub(/%s/,'([^/]*)')}")
       Dir.glob(File.join(config.modulepath, '*')).sort.reduce({}) do |acc, mod|
-
+        mod = File.basename(mod)
+        acc[mod] = farms_modules(config, env).select { |k, v| v.include? mod }.length
         acc
       end
     end

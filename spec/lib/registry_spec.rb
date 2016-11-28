@@ -57,7 +57,8 @@ describe Hieracles::Registry do
     		'fake_module2',
     		'fake_module3',
     		'faux_module1',
-    		'faux_module2'
+        'faux_module2',
+    		'unused_module'
   	] }
     let(:config) { Hieracles::Config.new options }
     it { expect(Hieracles::Registry.modules config).to eq expected }
@@ -104,6 +105,20 @@ describe Hieracles::Registry do
     it { expect(Hieracles::Registry.farms_counted config).to eq expected }
   end
 
+  describe '.modules_counted' do
+    let(:expected) { 
+      {
+        'fake_module' => 2,
+        'fake_module2' => 2,
+        'fake_module3' => 1,
+        'faux_module1' => 1,
+        'faux_module2' => 1,
+        'unused_module' => 0
+      }
+    }
+    let(:config) { Hieracles::Config.new options }
+    it { expect(Hieracles::Registry.modules_counted config).to eq expected }
+  end
 
   describe '.find_item' do
     let(:config) { Hieracles::Config.new options }
