@@ -6,7 +6,7 @@ describe Hieracles::Config do
       let(:options) { { config: 'spec/files/config.yml' } }
       let(:expected) do
         {
-          classpath: File.expand_path('spec/files/farm_modules/%s.pp'),
+          classpath: File.expand_path('spec/files/farm_modules/%s/manifests/init.pp'),
           modulepath: File.expand_path('spec/files/modules'),
           hierafile: File.expand_path('spec/files/hiera.yaml')
         }
@@ -31,7 +31,7 @@ describe Hieracles::Config do
       end
       let(:expected) do
         {
-          classpath: File.expand_path('spec/files/farm_modules/%s.pp'),
+          classpath: File.expand_path('spec/files/farm_modules/%s/manifests/init.pp'),
           modulepath: File.expand_path('spec/files/modules'),
           hierafile: File.expand_path('spec/files/hiera.yaml')
         }

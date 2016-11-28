@@ -19,6 +19,27 @@ describe Hieracles::Registry do
     it { expect(Hieracles::Registry.farms config).to eq expected }
   end
 
+  describe '.farm_modules' do
+    let(:config) { Hieracles::Config.new options }
+    let(:expected) { {
+        'dev' => [
+          "fake_module",
+          "fake_module2",
+          "fake_module3"
+        ],
+        'dev2' => [
+          "fake_module",
+          "fake_module2",
+          "fake_module4"
+        ],
+        'dev4' => [
+          "faux_module1",
+          "faux_module2"
+        ]
+    } }
+    it { expect(Hieracles::Registry.farms_modules config).to eq expected }
+  end
+
   describe '.nodes' do
     let(:expected) { [
     		'server.example.com',
@@ -83,5 +104,19 @@ describe Hieracles::Registry do
     it { expect(Hieracles::Registry.farms_counted config).to eq expected }
   end
 
+
+  describe '.find_item' do
+    let(:config) { Hieracles::Config.new options }
+    let(:expected) { 
+      [
+        'fake_module',
+        'fake_module2',
+        'fake_module3'
+      ]
+    }
+    let(:file) { format(config.classpath, 'dev') }
+    let(:regex) { Regexp.new('\s*include\s*([-_a-z0-9]*)') }
+    it { expect(Hieracles::Registry.find_item file, regex).to eq expected }
+  end
 
 end
