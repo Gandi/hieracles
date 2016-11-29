@@ -26,27 +26,23 @@ config = Hieracles::Config.new opt.options
 module Hieracles
   class Commands
 
+    attr_reader :available
+
     def initialize(config)
       @config = config
+      @available = %w(info files params paths modules allparams facts)
     end
-    
-    def info(arg, extra)
+
+    def run(command, arg, extra)
       if arg[/\./] # poor way to detect if it is a fqdn
         if Hieracles::Registry.nodes(@config).include? arg
-          puts call_node(:info, arg, extra)
+          puts call_node(command.to_sym, arg, extra)
         else
-          puts "node not found"
+          puts "node '#{arg}' not found"
         end
       else
         # not a node
-      end
-    end
-
-    def params(arg, extra)
-      if arg[/\./]
-        if Hieracles::Registry.nodes(@config).include? arg
-          puts call_node(:params, arg, extra)
-        end
+        puts "'#{arg}' is not a FQDN."
       end
     end
 
@@ -62,8 +58,8 @@ end
 
 commands = Hieracles::Commands.new config
 
-if commands.respond_to? command
-  commands.send command, arg, extra
+if commands.available.include? command
+  commands.run command, arg, extra
 else
   puts 'Command not found.'
 end
