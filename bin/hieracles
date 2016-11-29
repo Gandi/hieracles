@@ -4,6 +4,7 @@ $LOAD_PATH << File.expand_path("../../lib", __FILE__)
 
 require 'hieracles'
 require 'hieracles/options/hieracles'
+require 'hieracles/commands'
 
 opt = Hieracles::Options::Hieracles.new(ARGV)
 
@@ -22,44 +23,12 @@ if !command || command == 'help'
 end
 
 config = Hieracles::Config.new opt.options
-
-module Hieracles
-  class Commands
-
-    attr_reader :available
-
-    def initialize(config)
-      @config = config
-      @available = %w(info files params paths modules allparams facts)
-    end
-
-    def run(command, arg, extra)
-      if arg[/\./] # poor way to detect if it is a fqdn
-        if Hieracles::Registry.nodes(@config).include? arg
-          puts call_node(command.to_sym, arg, extra)
-        else
-          puts "node '#{arg}' not found"
-        end
-      else
-        # not a node
-        puts "'#{arg}' is not a FQDN."
-      end
-    end
-
-    def call_node(callable, fqdn, extra)
-      node = Hieracles::Node.new fqdn, @config
-      formatter = Object.const_get("Hieracles::Formats::#{@config.format}")
-      dispatch = formatter.new node
-      dispatch.send callable, extra
-    end
-
-  end
-end
-
 commands = Hieracles::Commands.new config
 
 if commands.available.include? command
   commands.run command, arg, extra
+elsif commands.respond_to? command
+  commands.send command, arg, extra
 else
   puts 'Command not found.'
 end
