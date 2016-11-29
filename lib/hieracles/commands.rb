@@ -34,7 +34,7 @@ module Hieracles
         arg = []
       end
       dispatch = @formatter.new nil
-      farms = Hieracles::Registry.farms_counted(@config, 'local', true)
+      farms = Hieracles::Registry.farms_nodes(@config, 'local', true)
       puts dispatch.build_list(farms, nil, arg)
     end
 
@@ -45,7 +45,7 @@ module Hieracles
         arg = []
       end
       dispatch = @formatter.new nil
-      modules = Hieracles::Registry.modules_counted(@config, 'local', true)
+      modules = Hieracles::Registry.modules_nodes(@config, 'local', true)
       puts dispatch.build_list(modules, nil, arg)
     end
 
