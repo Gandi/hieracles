@@ -1,0 +1,69 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << File.expand_path("../../lib", __FILE__)
+
+require 'hieracles'
+require 'hieracles/options/hieracles'
+
+opt = Hieracles::Options::Hieracles.new(ARGV)
+
+if opt.options.has_key? :version
+  puts Hieracles.version
+  exit(0)
+end
+
+command = opt.payload.shift
+arg = opt.payload.shift
+extra = opt.payload
+
+if !command || command == 'help'
+  puts Hieracles::Options::Hieracles.usage
+  exit(1)
+end
+
+config = Hieracles::Config.new opt.options
+
+module Hieracles
+  class Commands
+
+    def initialize(config)
+      @config = config
+    end
+    
+    def info(arg, extra)
+      if arg[/\./] # poor way to detect if it is a fqdn
+        if Hieracles::Registry.nodes(@config).include? arg
+          puts call_node(:info, arg, extra)
+        else
+          puts "node not found"
+        end
+      else
+        # not a node
+      end
+    end
+
+    def params(arg, extra)
+      if arg[/\./]
+        if Hieracles::Registry.nodes(@config).include? arg
+          puts call_node(:params, arg, extra)
+        end
+      end
+    end
+
+    def call_node(callable, fqdn, extra)
+      node = Hieracles::Node.new fqdn, @config
+      formatter = Object.const_get("Hieracles::Formats::#{@config.format}")
+      dispatch = formatter.new node
+      dispatch.send callable, extra
+    end
+
+  end
+end
+
+commands = Hieracles::Commands.new config
+
+if commands.respond_to? command
+  commands.send command, arg, extra
+else
+  puts 'Command not found.'
+end

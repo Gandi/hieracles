@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
 
   spec.files         = Dir.glob("{bin,lib}/**/*") + 
                        %w(CHANGELOG.md Gemfile LICENSE README.md hc.1 ppdb.1)
-  spec.executables   = ['hc','ppdb']
+  spec.executables   = ['hieracles', 'hc', 'ppdb']
   spec.test_files    = Dir.glob("spec/**/*")
   spec.require_paths = ["lib"]
 
