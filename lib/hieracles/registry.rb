@@ -70,7 +70,7 @@ module Hieracles
       end
     end
 
-    def farms_nodes(config, env = 'production', reload = false)
+    def farms_nodes(config, env = 'production', reload = false, filter = nil)
       reload_nodes if reload
       extract_path = Regexp.new(".*#{config.classpath.sub(/%s/,'([^/]*)')}")
       Dir.glob(format(config.classpath, '*')).sort.reduce({}) do |a, f|
@@ -94,6 +94,18 @@ module Hieracles
       Dir.glob(File.join(config.modulepath, '*')).sort.reduce({}) do |acc, mod|
         mod = File.basename(mod)
         acc[mod] = farms_modules(config, env).select { |k, v| v.include? mod }.keys
+        acc
+      end
+    end
+
+    def modules_nodes(config, env = 'production', reload = false, filter = nil)
+      reload_nodes if reload
+      Dir.glob(File.join(config.modulepath, '*')).sort.reduce({}) do |acc, mod|
+        if filter and Regexp.new(filter[0]).match(mod)
+          mod = File.basename(mod)
+          farms = farms_modules(config, env).select { |k, v| v.include? mod }
+          acc[mod] = farms.map { |f| farms_nodes(config, env, reload).values }
+        end
         acc
       end
     end

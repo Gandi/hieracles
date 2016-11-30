@@ -45,7 +45,7 @@ module Hieracles
         arg = []
       end
       dispatch = @formatter.new nil
-      modules = Hieracles::Registry.modules_nodes(@config, 'local', true)
+      modules = Hieracles::Registry.modules_nodes(@config, 'local', true, arg)
       puts dispatch.build_list(modules, nil, arg)
     end
 
