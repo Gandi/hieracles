@@ -92,6 +92,14 @@ module Hieracles
         added output, key, '', params
       end
 
+      def build_list(hash, notifications, filter)
+        if filter[0]
+          hash.select { |k, e| Regexp.new(filter[0]).match k }.to_yaml
+        else
+          hash.to_yaml
+        end
+      end
+
       private
 
       def added(output, key, leaf, params)

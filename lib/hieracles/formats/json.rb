@@ -34,10 +34,15 @@ module Hieracles
       end
 
       def build_list(hash, notifications, filter)
-        {
-          'notifications' => notifications,
-          'payload' => hash
-        }.to_json
+        if filter[0]
+          { 'notifications' => notifications,
+            'payload' => hash.select { |k, e| Regexp.new(filter[0]).match k }
+          }.to_json
+        else
+          { 'notifications' => notifications,
+            'payload' => hash
+          }.to_json
+        end
       end
 
     private

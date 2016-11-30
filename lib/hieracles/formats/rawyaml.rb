@@ -30,6 +30,14 @@ module Hieracles
       def allparams(args)
         @node.params_tree(false).to_yaml
       end
+      
+      def build_list(hash, notifications, filter)
+        if filter[0]
+          hash.select { |k, e| Regexp.new(filter[0]).match k }.to_yaml
+        else
+          hash.to_yaml
+        end
+      end
 
     end
   end

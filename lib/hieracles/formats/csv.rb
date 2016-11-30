@@ -48,6 +48,16 @@ module Hieracles
         make_csv [key, value]
       end
 
+      def build_list(hash, notifications, filter)
+        if filter[0]
+          hash.select! { |k, e| Regexp.new(filter[0]).match k }
+        end
+        hash.reduce([]) do |a, (k, v)|
+          a << make_csv([k, v.join(',')])
+          a
+        end.join()
+      end
+
     private
 
       def build_line(whatfile, key, value, overriden = '0')
