@@ -3,6 +3,7 @@ Hieracles Changelog
 
 ### 0.4.0 - wip
 - add a new command `hieracles` for preparing version 1.0.0
+- refactoring of main lib to be less node-centric
 
 ### 0.3.6 - 2016-04-27
 - avoid abusive caching for all farms information
