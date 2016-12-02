@@ -73,41 +73,38 @@ module Hieracles
         @node.paths.join("\n") + "\n"
       end
 
-      def build_head(without_common)
-        output = "[-] (merged)\n"
+      def show_params(without_common, args)
+        filter = args[0]
         @node.files(without_common).each_with_index do |f, i|
           output << format("#{COLORS[i]}\n", "[#{i}] #{f}")
           @colors[f] = i
         end
-        "#{output}\n"
-      end
-
-      def build_params_line(key, value, filter)
-        output = ''
-        if !filter || Regexp.new(filter).match(key)
-          output << build_line_item(key, value)
+        @node.params(without_common).each do |key, v|
+          if !filter || Regexp.new(filter).match(key)
+            if v[:overriden]
+              output << format(
+                "%s #{COLORS[7]} %s\n", "[-]",
+                key,
+                sanitize(value[:value])
+                )
+              value[:found_in].each do |val|
+                output << format(
+                  "    #{COLORS[8]}\n",
+                  "[#{filecolor_index}] #{key} #{val[:value]}"
+                  )
+              end
+            else
+              filecolor_index = @colors[value[:file]]
+              filecolor = COLORS[filecolor_index]
+              output << format(
+                "#{filecolor} #{COLORS[7]} %s\n", "[#{filecolor_index}]",
+                key,
+                sanitize(value[:value])
+                )
+            end
+          end
         end
         output
-      end
-
-      def build_line_item(key, value)
-        if value[:overriden]
-          format("%s #{COLORS[7]} %s\n", "[-]", key, sanitize(value[:value]) ) +
-          build_overriden(key, value[:found_in])
-        else
-          filecolor_index = @colors[value[:file]]
-          filecolor = COLORS[filecolor_index]
-          format("#{filecolor} #{COLORS[7]} %s\n", "[#{filecolor_index}]", key, sanitize(value[:value]) )
-        end
-      end
-
-      def build_overriden(key, found_in)
-        back = ''
-        found_in.each do |v|
-          filecolor_index = @colors[v[:file]]
-          back << format("    #{COLORS[8]}\n", "[#{filecolor_index}] #{key} #{v[:value]}")
-        end
-        back
       end
 
       def build_modules_line(key, value)
