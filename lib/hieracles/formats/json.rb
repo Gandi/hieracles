@@ -58,8 +58,10 @@ module Hieracles
       end
 
       def filter(what, args)
-        if args[0]
+        if args and args[0]
           what.select! { |k, v| Regexp.new(args[0]).match(k.to_s) }
+        else
+          what
         end
       end
 
