@@ -5,11 +5,13 @@ module Hieracles
     # format intended to be used for an api server
     class Json < Hieracles::Format
 
-      def info(_)
+      def info(args)
+        filter(@node.info, args)
         @node.info.merge(alerts).to_json
       end
 
-      def facts(_)
+      def facts(args)
+        filter(@node.facts, args)
         @node.facts.merge(alerts).to_json
       end
 
@@ -54,6 +56,13 @@ module Hieracles
           {}
         end
       end
+
+      def filter(what, args)
+        if args[0]
+          what.select! { |k, v| Regexp.new(args[0]).match(k.to_s) }
+        end
+      end
+
     end
   end
 end
