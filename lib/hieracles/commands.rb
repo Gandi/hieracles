@@ -33,9 +33,9 @@ module Hieracles
       else
         arg = []
       end
-      dispatch = @formatter.new nil
+      formatter = @formatter.new nil
       farms = Hieracles::Registry.farms_nodes(@config, 'local', true)
-      puts dispatch.build_list(farms, nil, arg)
+      puts formatter.build_list(farms, nil, arg)
     end
 
     def modules(arg, extra)
@@ -44,15 +44,15 @@ module Hieracles
       else
         arg = []
       end
-      dispatch = @formatter.new nil
+      formatter = @formatter.new nil
       modules = Hieracles::Registry.modules_nodes(@config, 'local', true, arg)
-      puts dispatch.build_list(modules, nil, arg)
+      puts formatter.build_list(modules, nil, arg)
     end
 
     def call_node(command, fqdn, extra)
       node = Hieracles::Node.new fqdn, @config
-      dispatch = @formatter.new node
-      dispatch.send command, extra
+      formatter = @formatter.new node
+      formatter.send command, extra
     end
 
   end
