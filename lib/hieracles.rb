@@ -12,6 +12,7 @@ require 'hieracles/formats/yaml'
 require 'hieracles/formats/plain'
 require 'hieracles/formats/console'
 require 'hieracles/formats/rawyaml'
+require 'hieracles/outputs/console'
 require 'hieracles/puppetdb'
 
 # https://github.com/Gandi/hieracles
