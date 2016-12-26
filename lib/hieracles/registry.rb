@@ -48,11 +48,11 @@ module Hieracles
       end
     end
 
-    def nodes_modules(config, env = 'production')
+    def nodes_modules(config, env = 'production', filter = nil)
       @_nodes_modules ||= {}
       @_nodes_modules[env] ||= Dir.glob(File.join(config.encpath, '*.yaml')).sort.reduce({}) do |a, f|
         YAML.load_file(f)['classes'].each do |cl|
-
+          
         end
         fqdn = File.basename(f, '.yaml')
         a[fqdn] = YAML.load_file(f)['parameters']
@@ -104,7 +104,8 @@ module Hieracles
         if filter and Regexp.new(filter[0]).match(mod)
           mod = File.basename(mod)
           farms = farms_modules(config, env).select { |k, v| v.include? mod }
-          acc[mod] = farms.map { |f| farms_nodes(config, env, reload).values }
+          # acc[mod] = farms.map { |f| farms_nodes(config, env, reload, f).values }
+          acc[mod] = farms
         end
         acc
       end
