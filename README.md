@@ -249,6 +249,10 @@ Todo
 - adapt to other ENCs
 - adapt to PuppetDB storage
 
+Other hiera tools
+-------------------
+
+- https://github.com/binford2k/hiera_explain
 
 Authors
 -----------
