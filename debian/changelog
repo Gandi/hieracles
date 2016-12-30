@@ -1,3 +1,12 @@
+ruby-hieracles (0.4.0.0) unstable; urgency=medium
+
+  * upstream 0.4.0
+    - prepare a new command `hieracles` for preparing version 1.0.0
+    - refactoring of main lib to be less node-centric
+    - make farms list not to use cache by default
+
+ -- mose <mose@gandi.net>  Fri, 30 Dec 2016 13:00:00 +0800
+
 ruby-hieracles (0.3.6.0) unstable; urgency=medium
 
   * upstream 0.3.6

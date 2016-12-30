@@ -28,7 +28,8 @@ module Hieracles
       @_farms_modules = {}
     end
 
-    def nodes_parameters(config, env = 'production')
+    def nodes_parameters(config, env = 'production', reload = true)
+      reload_nodes if reload
       @_nodes_parameters ||= {}
       @_nodes_parameters[env] ||= Dir.glob(File.join(config.encpath, '*.yaml')).sort.reduce({}) do |a, f|
         fqdn = File.basename(f, '.yaml')
@@ -52,7 +53,7 @@ module Hieracles
       @_nodes_modules ||= {}
       @_nodes_modules[env] ||= Dir.glob(File.join(config.encpath, '*.yaml')).sort.reduce({}) do |a, f|
         YAML.load_file(f)['classes'].each do |cl|
-          
+
         end
         fqdn = File.basename(f, '.yaml')
         a[fqdn] = YAML.load_file(f)['parameters']
