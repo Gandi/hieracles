@@ -75,31 +75,32 @@ module Hieracles
 
       def show_params(without_common, args)
         filter = args[0]
+        output = "[-] (merged)\n"
         @node.files(without_common).each_with_index do |f, i|
           output << format("#{COLORS[i]}\n", "[#{i}] #{f}")
           @colors[f] = i
         end
         @node.params(without_common).each do |key, v|
           if !filter || Regexp.new(filter).match(key)
+            filecolor_index = @colors[v[:file]]
             if v[:overriden]
               output << format(
                 "%s #{COLORS[7]} %s\n", "[-]",
                 key,
-                sanitize(value[:value])
+                sanitize(v[:value])
                 )
-              value[:found_in].each do |val|
+              v[:found_in].each do |val|
                 output << format(
                   "    #{COLORS[8]}\n",
                   "[#{filecolor_index}] #{key} #{val[:value]}"
                   )
               end
             else
-              filecolor_index = @colors[value[:file]]
               filecolor = COLORS[filecolor_index]
               output << format(
                 "#{filecolor} #{COLORS[7]} %s\n", "[#{filecolor_index}]",
                 key,
-                sanitize(value[:value])
+                sanitize(v[:value])
                 )
             end
           end

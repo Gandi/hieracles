@@ -1,6 +1,9 @@
 Hieracles Changelog
 =======================
 
+### 0.4.1 - 2017-01-05
+- fix broken hc command
+
 ### 0.4.0 - 2016-12-30
 - prepare a new command `hieracles` for preparing version 1.0.0
 - refactoring of main lib to be less node-centric

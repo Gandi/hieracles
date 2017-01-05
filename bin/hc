@@ -12,8 +12,6 @@ if opt.options.has_key? :version
   exit(0)
 end
 
-action = opt.payload.shift
-
 fqdn = opt.payload[0]
 command = opt.payload[1]
 args = opt.payload[2..-1]
