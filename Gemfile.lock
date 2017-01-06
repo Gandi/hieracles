@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hieracles (0.4.0)
+    hieracles (0.4.1)
       awesome_print
       deep_merge
       httparty
