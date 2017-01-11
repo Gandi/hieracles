@@ -3,7 +3,7 @@ ruby-hieracles (0.4.1.0) unstable; urgency=medium
   * upstream 0.4.1
     - fix broken hc command
 
- -- mose <mose@gandi.net>  Tue, 10 Dec 18:00:00 +0800
+ -- mose <mose@gandi.net>  Tue, 10 Jan 2017 18:00:00 +0800
 
 ruby-hieracles (0.4.0.0) unstable; urgency=medium
 
