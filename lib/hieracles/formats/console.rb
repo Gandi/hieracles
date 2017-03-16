@@ -80,6 +80,7 @@ module Hieracles
           output << format("#{COLORS[i]}\n", "[#{i}] #{f}")
           @colors[f] = i
         end
+        output << "\n"
         @node.params(without_common).each do |key, v|
           if !filter || Regexp.new(filter).match(key)
             filecolor_index = @colors[v[:file]]
@@ -90,6 +91,7 @@ module Hieracles
                 sanitize(v[:value])
                 )
               v[:found_in].each do |val|
+                filecolor_index = @colors[val[:file]]
                 output << format(
                   "    #{COLORS[8]}\n",
                   "[#{filecolor_index}] #{key} #{val[:value]}"

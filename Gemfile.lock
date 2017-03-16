@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hieracles (0.4.1)
+    hieracles (0.4.2)
       awesome_print
       deep_merge
       httparty
@@ -74,4 +74,4 @@ DEPENDENCIES
   simplecov (>= 0.12.0)
 
 BUNDLED WITH
-   1.11.2
+   1.14.3

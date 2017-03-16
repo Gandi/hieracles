@@ -1,6 +1,9 @@
 Hieracles Changelog
 =======================
 
+### 0.4.2 - 2017-03-17
+- fix formatting for console on params
+
 ### 0.4.1 - 2017-01-05
 - fix broken hc command
 
