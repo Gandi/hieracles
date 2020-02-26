@@ -76,6 +76,10 @@ module Hieracles
         added output, key, leaf, params
       end
 
+      def add_integer(output, key, leaf, params, indent)
+        added output, key, leaf, params
+      end
+
       def add_float(output, key, leaf, params, indent)
         added output, key, leaf, params
       end
