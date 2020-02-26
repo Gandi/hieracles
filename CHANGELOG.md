@@ -1,6 +1,9 @@
 Hieracles Changelog
 =======================
 
+### 0.4.3 - 2020-02-26
+- dependencies update
+
 ### 0.4.2 - 2017-03-17
 - fix formatting for console on params
 
