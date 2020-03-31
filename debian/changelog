@@ -1,3 +1,10 @@
+ruby-hieracles (0.4.3.0) unstable; urgency=medium
+
+  * upstream 0.4.3
+    - fix formatting console colors
+
+ -- sm0x <sm0x@gandi.net>  Tue, 31 Mar 2020 11:25:37 +0200
+
 ruby-hieracles (0.4.2.0) unstable; urgency=medium
 
   * upstream 0.4.2
