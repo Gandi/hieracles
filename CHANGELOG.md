@@ -1,6 +1,9 @@
 Hieracles Changelog
 =======================
 
+### 0.4.3 - 2020-03-31
+- fix formatting for console colors
+
 ### 0.4.2 - 2017-03-17
 - fix formatting for console on params
 
