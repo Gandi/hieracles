@@ -77,7 +77,7 @@ module Hieracles
         filter = args[0]
         output = "[-] (merged)\n"
         @node.files(without_common).each_with_index do |f, i|
-          output << format("#{COLORS[i]}\n", "[#{i}] #{f}")
+          output << format("#{COLORS[i % COLORS.length]}\n", "[#{i}] #{f}")
           @colors[f] = i
         end
         output << "\n"
@@ -98,7 +98,7 @@ module Hieracles
                   )
               end
             else
-              filecolor = COLORS[filecolor_index]
+              filecolor = COLORS[filecolor_index % COLORS.length]
               output << format(
                 "#{filecolor} #{COLORS[7]} %s\n", "[#{filecolor_index}]",
                 key,
