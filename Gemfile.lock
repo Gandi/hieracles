@@ -22,7 +22,7 @@ GEM
     docile (1.1.5)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
-    json (2.0.2)
+    json (2.3.1)
     multi_xml (0.5.5)
     parser (2.3.2.0)
       ast (~> 2.2)
