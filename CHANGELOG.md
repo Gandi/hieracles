@@ -1,6 +1,13 @@
 Hieracles Changelog
 =======================
 
+### 0.4.4 - 2023-01-06
+- fix lib/hieracles/node.rb params function to load YAML properly
+  when moving to ruby3.2.0 / psych4 and the alias parsing behaviour
+  change.
+- fix deprecated exists? method for File:Class in favor to exist?
+  (exists? is deprecated)
+
 ### 0.4.3 - 2020-03-31
 - fix formatting for console colors
 
