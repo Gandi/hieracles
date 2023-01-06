@@ -83,9 +83,9 @@ module Hieracles
     end
 
     def resolve_path(path)
-      if File.exists?(File.expand_path(path))
+      if File.exist?(File.expand_path(path))
         File.expand_path(path)
-      elsif File.exists?(File.expand_path(File.join(@basepath, path)))
+      elsif File.exist?(File.expand_path(File.join(@basepath, path)))
         File.expand_path(File.join(@basepath, path))
       else
         raise IOError, "File #{path} not found."

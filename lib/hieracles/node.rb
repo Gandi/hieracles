@@ -52,7 +52,14 @@ module Hieracles
     def params(without_common = true)
       params = {}
       files(without_common).each do |f|
-        data = YAML.load_file(File.join(@config.basepath, f))
+
+        # Patch to work on ruby3.2.0
+        begin
+          data = YAML.load_file(File.join(@config.basepath, f), aliases: true)
+        rescue ArgumentError
+          data = YAML.load_file(File.join(@config.basepath, f))
+        end
+
         if data
           s = to_shallow_hash(data)
           s.each do |k,v|
