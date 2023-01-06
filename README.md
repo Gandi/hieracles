@@ -237,6 +237,14 @@ shar `find rubygem-hieracles` > rubygem-hieracles.shar
 - on https://bugs.freebsd.org submit the new version
 
 
+GEM packaging
+-------------
+
+- edit the CHANGELOG.md file (bump version/add the necessary comments)
+- `gem build hieracles.gemspec`
+- `gem install [--user-install] ./hieracles-X.Y.Z.gem`
+
+
 Todo
 --------------
 - add json format (done)
